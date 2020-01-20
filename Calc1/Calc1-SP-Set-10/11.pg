@@ -1,0 +1,93 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/29/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-10.11')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle g'(x)=\frac1{x^2+\ln x}\cdot\left(2x+\frac1x\right) \) $BR$BR",
+"\(\quad\displaystyle g'(x)=\frac{x^2+\ln x}{\ln(x^2+\ln x)} \) $BR$BR",
+"\(\quad\displaystyle g'(x)=\frac1{x^2+\ln x}\cdot\frac1{2x}\cdot\frac1x \) $BR$BR",
+"\(\quad\displaystyle g'(x)=\frac1{x^2+\ln x}\cdot\frac1{2x+\frac1x} \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Find \(g'(x)\) if \(\displaystyle g(x)=\ln(x^2+\ln x)\).",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+g'(x)&=\frac1{x^2+\ln x}\frac{d}{dx}\left(x^2+\ln x\right)
+\\&=\frac1{x^2+\ln x}\left(2x+\frac1x\right)
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

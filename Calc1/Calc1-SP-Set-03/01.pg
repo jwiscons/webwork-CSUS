@@ -1,0 +1,69 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.01')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to4}\ \frac{x-4}{\sqrt x-2}}\).
+", 
+"\(
+4
+\)"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+-2
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We have
+\[
+\lim_{x\to4}\ \frac{x-4}{\sqrt x-2}=\lim_{x\to4}\ \frac{(\sqrt x-2)(\sqrt x+2)}{\sqrt x-2}=\lim_{x\to4}\ \sqrt x+2=\sqrt4+2=4.
+\]
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

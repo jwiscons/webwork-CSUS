@@ -1,0 +1,115 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-15.02')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-15-02pic.png", width=>200, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A Norman window looks like a rectangle with a semicircle sitting on top of it.  If the perimeter of a window that is shaped like this is \(10\) meters, what should the approximate width of the window be if it is going to let in the most possible light?
+$BCENTER
+$fig[0]
+$ECENTER
+", 
+"\(
+2.8
+\) m
+$BR
+$BR
+"
+);
+$mc->extra(
+"\(
+2.3
+\) m
+$BR
+$BR
+",
+"\(
+2.7
+\) m
+$BR
+$BR
+",
+"\(
+3.1
+\) m
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+If we label the base to have length \(b\) and the height of the rectangle to be \(h\), then notice that the semicircle sitting on top has diameter \(b\) (and hence radius \(\frac b2\)).
+$BR
+$BR
+We want to allow as much light as possible in, so we want to maximize the area of the window.  We have the area of the rectangle plus the area of the semicircle. Thus,
+\[
+A=bh + \frac12\left(\pi\left(\frac b2\right)^2\right)=bh+\frac{\pi b^2}{8}.
+\]
+The perimeter must be \(10\) meters, so this will allow us to reduce the function above to one variable. We have
+\begin{align*}
+10&=b+2h+\frac12(\pi b)\\
+10&=b+2h+\frac{\pi b}2\\
+2h&=10-b-\frac{\pi b}2\\
+h&=\frac{10-b-\frac{\pi b}2}2\\
+h&=5-\frac b2-\frac{\pi b}4.
+\end{align*}
+We can now use this to get the area in terms of just one variable. We find
+\[
+A=b\left(5-\frac b2-\frac{\pi b}4\right)+\frac{\pi b^2}8=5b-\frac{b^2}2-\frac{\pi b^2}4+\frac{\pi b^2}8=5b-\frac{b^2}2-\frac{\pi b^2}8.
+\]
+We now want to maximize this function.  Notice that if \(b\) is really small or \(b\) is really big the area is very small, so if there is a critical number it must give the maximum area.  Let's proceed to finding the critical numbers. We find
+\begin{align*}
+A&=5b-\frac{b^2}2-\frac{\pi b^2}8\\
+A'&=5-b-\frac{\pi b}4\\
+0&=5-b-\frac{\pi b}4\\
+5&=b+\frac{\pi b}4\\
+5&=b\left(1+\frac{\pi}4\right)\\
+b&=\frac5{1+\frac{\pi}4}\\
+b&\approx2.8.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

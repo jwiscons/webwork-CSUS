@@ -1,0 +1,86 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-14.01')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = non_zero_random(1,3,1);
+$b = non_zero_random(4,5,1);
+
+$f = Compute("x^2 + (-$a - $b)x + $a*$b");
+$g = Compute("x^2 + (-$a + $b)x + $a*(-$b)");
+
+$df = $f->D('x');
+$dg = $g->D('x');
+
+$ans1 = $df->eval(x=>$a) / $dg->eval(x=>$a);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Compute the following limit. If the limit is [`\infty`], enter "inf"; if the limit is [`-\infty`], enter "-inf".
+
+[``\lim_{x\to[$a]} \frac{[$f->reduce()]}{[$g->reduce()]}``]
+ 
+The limit is [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We could use L'Hospital's Rule on this one, but it's actually easier to just factor and cancel.
+
+>> [``\begin{aligned}
+\lim_{x\to[$a]}  \frac{[$f->reduce()]}{[$g->reduce()]}&=\lim_{x\to[$a]} \frac{(x-[$a])(x-[$b])}{(x-[$a])(x+[$b])}
+\\&=\lim_{x\to[$a]}\frac{x-[$b]}{x+[$b]}
+\\&=\frac{[$a]-[$b]}{[$a]+[$b]}
+\\&=\frac{[$df->eval(x=>$a)]}{[$dg->eval(x=>$a)]}
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

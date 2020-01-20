@@ -1,0 +1,77 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-16.19')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = non_zero_random(-50,50,1);
+$b = non_zero_random(-50,50,1);
+$c = non_zero_random(1,50,1);
+
+$ans = Compute("$a + $b - $c");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Assume that [``\int_{-2}^1f(x)\ dx=[$a]``], [``\int_1^4f(x)\ dx=[$b]``], and [``\int_3^4f(x)\ dx=[$c]``], and use these to evaluate the following integral.
+ 
+[``\int_{-2}^3f(x)\ dx=``] [____________]{$ans}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>>[``\begin{aligned}
+\int_{-2}^3f(x)\ dx & = \int_{-2}^4f(x)\ dx - \int_3^4f(x)\ dx\\
+& = \left(\int_{-2}^1f(x)\ dx + \int_1^4f(x)\ dx \right) - \int_3^4f(x)\ dx\\
+& = [$a] + [$b]-[$c]\\
+&=[$ans]
+\end{aligned}``]<<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

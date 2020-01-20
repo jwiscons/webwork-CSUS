@@ -1,0 +1,114 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-12.03')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle 58.24 \) $BR$BR",
+"\(\quad\displaystyle 58.\overline{4} \) $BR$BR",
+"\(\quad\displaystyle 58.\overline{8} \) $BR$BR",
+"\(\quad\displaystyle 59.06 \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Use linear approximation to estimate \((1.97)^6\).",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We want to look at the function [`f(x)=x^6`].  We want a number near 1.97 for which the value of the function at that number is "nice".  Let's use 2, since 1.97 is near 2 and [`2^6=64`].
+
+We first need to find the equation of the tangent line to the graph of [`f(x)`] at [`x=2`]. 
+
+>> [``\begin{aligned}
+f'(x)&=6x^5\\
+m&=f'(2)=6\cdot2^5
+\\&=192
+\end{aligned}``] <<
+
+Since [`f(2)=2^6=64`], the point [`(2,64)`] is on the tangent line, so we can now find the equation of the line.
+
+>> [``\begin{aligned}
+y-64&=192(x-2)\\
+y&=192x-320
+\end{aligned}``] <<
+
+Thus, using the tangent line to approximate [`f(x)`] when [`x=1.97`], we find that 
+
+>> [``\begin{aligned}
+(1.97)^6&=f(1.97)
+\\&\approx\text{the value of }1.97\text{ on the tangent line }
+\\&=192(1.97)-320
+\\&=58.24
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

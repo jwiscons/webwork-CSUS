@@ -1,0 +1,69 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.17')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to-2^+}\frac{x^2+3x}{x+2}}\).
+", 
+"\(
+-\infty
+\)"
+);
+$mc->extra(
+"\(
+2
+\)",
+"\(
+0
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluating at \(-2\) we get \(\frac{-2}0\), which is not defined.  Since this is of the form nonzero/zero, there is a vertical asymptote for this function at \(x=-2\), and this one-sided limit will either be \(\infty\) or \(-\infty\).  
+$BR
+$BR
+We want to think about \(x\) close to \(-2\) on the right.  In this case the denominator, \(x+2\), will be positive.  Looking at a number very close to \(-2\), say \(-1.9\), we see that the numerator is \((-1.9)^2+3(-1.9)=-2.09\).  So close to \(2\) the numerator is negative.  Therefore close to \(-2\), but on the right, the function is \(\frac{\text{negative}}{\text{positive}}\).  Therefore the value of the function near \(-2\) (on the right) is negative.  We already know the limit is \(\infty\) or \(-\infty\), so we have found that the limit is \(-\infty\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

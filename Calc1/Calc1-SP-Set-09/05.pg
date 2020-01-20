@@ -1,0 +1,80 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.05')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+h(x)=\frac1{\sin^2(x+\cos x)}
+}\). Find \(h'(x)\).
+", 
+"\(
+h'(x)=-2(\sin(x+\cos x))^{-3}\cos(x+\cos x)(1-\sin x)
+\\
+\)"
+);
+$mc->extra(
+"\(
+h'(x)=2(\sin(x+\cos x))^{-3}\sin(x+\cos x)(1-\sin x)
+\\
+\)",
+"\(
+h'(x)=2(\sin(x+\cos x))^{-3}(1-\sin x)
+\\
+\)",
+"\(
+h'(x)=-2(\sin(x+\cos x))^{-3}\cos(x+\cos x)(\cos x)(1-\sin x)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that 
+\[
+h(x)=\frac1{\sin^2(x+\cos x)}=\left[\sin(x+\cos x)\right]^{-2}.
+\]
+Thus,
+\begin{align*}
+h'(x)&=-2\left[\sin(x+\cos x)\right]^{-3}\frac d{dx}(\sin(x+\cos x))
+\\&=-2\left[\sin(x+\cos x)\right]^{-3}\cos(x+\cos x)(1-\sin x)
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

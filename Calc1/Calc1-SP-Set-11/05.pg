@@ -1,0 +1,79 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.05')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Use logarithmic differentiation to find \(\dfrac{dr}{dx}\), where \(r(x)=(\sin x)^{3x}\).
+", 
+"\(
+r'(x)=(\sin x)^{3x}(3\ln(\sin x)+3x\cot x)
+\\
+\)"
+);
+$mc->extra(
+"\(
+r'(x)=(\sin x)^{3x}(3\ln(\sin x)+3\tan x)
+\\
+\)",
+"\(
+r'(x)=(\sin x)^{3x}\left(\frac{3\ln(\sin x)}x+3\tan x\right)
+\\
+\)",
+"\(
+r'(x)=(\sin x)^{3x}(3\ln(\sin x)-3\cot x)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We have
+\begin{align*}
+y&=(\sin x)^{3x}\\
+\ln y&=\ln(\sin x)^{3x}\\
+\ln y&=3x\ln(\sin x)\\
+\frac1y\cdot\frac{dy}{dx}&=3x\frac1{\sin x}\cdot\cos x+(\ln(\sin x))(3)\\
+\frac1y\cdot\frac{dy}{dx}&=3x\cot x+3\ln(\sin x)\\
+\frac{dy}{dx}&=y(3x\cot x+3\ln(\sin x))\\
+\frac{dy}{dx}&=(\sin x)^{3x}(3x\cot x+3\ln(\sin x))
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

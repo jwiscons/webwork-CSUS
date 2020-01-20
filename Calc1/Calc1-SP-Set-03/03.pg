@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.03')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to3}\ \frac{\frac x{x-2}-3}{x-3}}\).
+", 
+"\(
+-2
+\)"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+4
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Let's first clear out the \(x-2\) and then try to factor. We find
+\begin{align*}
+\lim_{x\to3}\ \frac{\frac x{x-2}-3}{x-3}&=\lim_{x\to3}\ \frac{\frac x{x-2}-3}{x-3}\cdot\frac{x-2}{x-2}
+\\&=\lim_{x\to3}\ \frac{x-3(x-2)}{(x-3)(x-2)}
+\\&=\lim_{x\to3}\ \frac{-2x+6}{(x-3)(x-2)}
+\\&=\lim_{x\to3}\ \frac{-2(x-3)}{(x-3)(x-2)}
+\\&=\lim_{x\to3}\ \frac{-2}{x-2}
+\\&=\frac{-2}{3-2}
+\\&=-2.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-16.14')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$refreshCachedImages=1;
+$fig[0]=image("Calc1-SP-Set-16-14pic.png", width=>400, tex_size=>1000);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the value of the integral by interpreting it as the area of a region.
+ 
+[``\int_0^23x-1\ dx =``] [____________]{Compute("4")}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Graphing [`y=3x-1`] we see that the line crosses the [`x`]-axis at [`x=\frac13`].  To compute this integral we need to find the area of the blue region minus the area of the red region.
+
+>>[@ $fig[0] @]*<<
+
+Since the line crosses the [`x`]-axis at [`x=\frac13`], then we know that the red triangle has base [`\frac13`].  It has height 1, so the area of the red triangle is [`\frac12\cdot\frac13\cdot1=\frac16`].
+
+The blue triangle has base [`\frac53`] and height 5, so the area of the blue triangle is [`\frac12\cdot\frac53\cdot5=\frac{25}6`].
+
+Therefore [``\int_0^23x-1\ dx=\frac{25}6-\frac16=4``].
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

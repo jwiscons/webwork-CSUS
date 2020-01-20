@@ -1,0 +1,96 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-04.05')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad \dfrac15 \) $BR$BR",
+"\(\quad \dfrac{3}{2} \) $BR$BR",
+"\(\quad \displaystyle  \infty \) $BR$BR",
+"\(\quad \displaystyle  -\infty \) $BR$BR" 
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Compute \(\displaystyle \lim_{x\to-\infty}\frac{x^2+3}{5x^2+3x-2}\).",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We have
+
+[``\begin{align*}
+\lim_{x\to-\infty}\frac{x^2+3}{5x^2+3x-2}
+&=\lim_{x\to-\infty}\frac{x^2+3}{5x^2+3x-2}\cdot\frac{\frac1{x^2}}{\frac1{x^2}}
+\\&=\lim_{x\to-\infty}\frac{1+\frac3{x^2}}{5+\frac3x-\frac2{x^2}}
+\\&=\frac{1+0}{5+0-0}
+\\&=\frac15.
+\end{align*}``]
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+COMMENT('MathObject version.');
+ENDDOCUMENT();

@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.04')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to0}\ \frac{e^x}x}\).
+", 
+"
+Does not exist
+"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+-\infty
+\)",
+"
+\infty
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluate at \(0\), we get \(\frac10\), so we know the one-sided limits will be \(\pm\infty\).
+$BR
+$BR
+Near \(0\), the numerator will be near \(1\), so positive.
+$BR
+$BR
+Near \(0\), but on the left, the denominator will be negative, and near \(0\), but on the right, the denominator will be positive.
+$BR
+$BR
+Therefore near \(0\) on the left we have positive over negative, which is negative.  And near \(0\) on the right we have positive over positive, which is positive.  From this we can conclude the left hand limit is \(-\infty\), but the right hand limit is \(\infty\).  Since the one-sided limits are not equal, the limit does not exist.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

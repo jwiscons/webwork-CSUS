@@ -1,0 +1,93 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.15')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find an equation for the tangent line to \(g(x)=\sin(\cos(\pi x))\) at \(x=\frac12\).
+", 
+"\(
+y=-\pi x+\dfrac{\pi}2
+\\
+\)"
+);
+$mc->extra(
+"\(
+y=\pi x-\dfrac{\pi}2
+\\
+\)",
+"\(
+y=\dfrac12
+\\
+\)",
+"\(
+y=\pi x+\dfrac{3\pi}2
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We want to find the equation of the tangent line, so we need the slope and a point on the line.  
+
+$BR
+To find the slope we need the derivative. We find
+\begin{align*}
+g'(x)&=\cos(\cos(\pi x))\frac d{dx}(\cos(\pi x))
+\\&=\cos(\cos(\pi x))(-\sin(\pi x))(\pi)
+\\&=-\pi\cos(\cos(\pi x))\sin(\pi x).
+\end{align*}
+Thus, the slope is
+\[
+m=f'\left(\frac12\right)=-\pi\cos\left(\cos\left(\pi\cdot\frac12\right)\right)\sin\left(\pi\cdot\frac12\right)=-\pi(\cos0)(1)=-\pi(1)=-\pi.
+\]
+
+$BR
+To find a point on the line, we know the line touches the graph of \(g(x)\) at \(x=\frac12\).  Therefore \(y=g(\frac12)=\sin\left(\cos\left(\pi\cdot\frac12\right)\right)=\sin(0)=0\).  Thus a point on the line is \((\frac12,0)\).
+
+$BR
+Now we can find the equation of the line.
+
+\begin{align*}
+y-0&=-\pi\left(x-\frac12\right)\\
+y&=-\pi x+\frac{\pi}2
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

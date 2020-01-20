@@ -1,0 +1,72 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-16.18')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = non_zero_random(-50,50,1);
+$b = non_zero_random(-50,50,1);
+$c = non_zero_random(1,50,1);
+
+$ans = Compute("$b - $c");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Assume that [``\int_{-2}^1f(x)\ dx=[$a]``], [``\int_1^4f(x)\ dx=[$b]``], and [``\int_3^4f(x)\ dx=[$c]``], and use these to evaluate the following integral.
+ 
+[``\int_1^3f(x)\ dx =``] [____________]{$ans}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>>[``\int_1^3f(x)\ dx=\int_1^4f(x)\ dx - \int_3^4f(x)\ dx=[$b]-[$c]=[$ans]``]<<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

@@ -1,0 +1,85 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+## DBsubject('Calculus I')
+## DBchapter(Techniques of integration)
+## DBsection(Substitution (without trigonometric functions))
+## Date('10/20/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('Sub-01')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"parserFormulaUpToConstant.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+Context("Numeric");
+Context()->variables->set(x=>{limits=>[-1,1]});
+
+$a = random(2,4,2);
+$b = random(3,6,1);
+$c = random(2,5,1);
+$d = Compute("$b+1");
+
+$ans = FormulaUpToConstant("$a/(3*$d)*(x^3+$c)^($d)+C");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Evaluate the indefinite integral.
+ 
+[``\int [$a] x^2(x^3+[$c])^{[$b]}\ dx=``] [____________]{$ans}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We use the substitution [`u = x^3+[$c]`]. Taking the derivative, we find [`du = 3x^2\ dx`], and solving for [`dx`], we find that [``dx = \frac{1}{3x^2}\ du``]. Thus, 
+
+>>[``\begin{aligned}
+\int [$a] x^2(x^3+[$c])^{[$b]}\ dx &= \int [$a] x^2u^{[$b]} \cdot \frac{1}{3x^2}\ du \\
+&= \int \frac{[$a]}{3} u^{[$b]}\ dx \\
+&= \frac{[$a]}{3\cdot [$d]} u^{[$d]} + C
+\end{aligned}``]<<
+
+Substituting back in for [`u`], we find that 
+
+>> [``\int [$a] x^2(x^3+[$c])^{[$b]}\ dx= \frac{[$a]}{[@ 3 * $d @]} (x^3+[$c])^{[$d]} + C``] <<
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

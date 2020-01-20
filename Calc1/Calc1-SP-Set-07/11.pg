@@ -1,0 +1,108 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/16/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-07.11')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle (0,4) \) $BR$BR",
+"\(\quad\displaystyle (0,-2) \) $BR$BR",
+"\(\quad\displaystyle (0,0) \) $BR$BR",
+"\(\quad\displaystyle (0,8) \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Where on the graph of \(f(x)=\left(e^x+1\right)^2\) is the tangent line parallel to \(y=4x-2\)?",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+If the tangent line is parallel to [`y=4x-2`], then we know the slope of the tangent line is 4.  We need to find where the derivative is equal to 4.  Let's first rewrite [`f(x)`] so that we can use the product rule:
+>> [``f(x)=(e^x+1)(e^x+1)``] <<
+
+Then,
+>> [``f'(x)=(e^x+1)(e^x)+(e^x+1)e^x=e^x(e^x+1+e^x+1)=e^x(2e^x+2)``] <<
+
+We must now determine when this derivative is equal to 4.
+
+>> [``\begin{aligned}
+e^x(2e^x+2)&=4\\
+2(e{x})^2+2e^x&=4\\
+2(e^{x})^2+2e^x-4&=0\\
+(e^x)^2+e^x-2&=0\\
+(e^x+2)(e^x-1)&=0
+\end{aligned}``] <<
+
+That means we need to solve [`e^x+2=0`] and [`e^x-1=0`]. Solving [`e^x+2=0`], we find that  [`e^x=-2`], so as  [`e^x`] is never negative, this has no solution. Next, solving [`e^x-1=0`], we find that [`e^x=1`], which implies that [`x=0`].
+
+Thus, we see the tangent line will have slope 4 at [`x=0`].  To find the point, we compute [`y=f(0)=(e^0+1)^2=2^2=4`].  In conclusion, we found that the tangent line is parallel to [`y=4x-2`] at the point [`(0,4)`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

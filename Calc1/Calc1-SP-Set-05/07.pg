@@ -1,0 +1,92 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.07')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$f = Compute("x+1/x");
+$df = $f->D('x');
+
+$ans1 = $df->eval(x=>1);
+  
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Use the definition of the derivative to find [`g'(1)`] for [`\displaystyle g(x)=[$f]`].
+
+[`g'(1) = `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+g'(1)&=\lim_{h\to0}\frac{g(1+h)-g(1)}h
+\\&=\lim_{h\to0}\frac{1+h+\frac1{1+h}-(1+\frac11)}h
+\\&=\lim_{h\to0}\frac{h+\frac1{1+h}-1}h
+\\&=\lim_{h\to0}\frac{h+\frac1{1+h}-1}h\cdot\frac{1+h}{1+h}
+\\&=\lim_{h\to0}\frac{h+h^2+1-1-h}{h(1+h)}
+\\&=\lim_{h\to0}\frac{h^2}{h(1+h)}
+\\&=\lim_{h\to0}\frac{h}{1+h}
+\\&=\frac{0}{1+0}
+\\&=0
+\end{aligned}``] <<
+
+Therefore [`g'(1) = [$ans1]`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

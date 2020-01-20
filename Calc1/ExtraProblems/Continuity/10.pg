@@ -1,0 +1,98 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/09/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('MK-04.10')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = random(2,9,1);
+$b = random(2,9,1);
+$c = random(1,20,1);
+$mainTop = Compute("x^2 -($a+$b)*x+$a*$b");
+$mainTopFactors = Compute("(x-$a)(x-$b)");
+$mainBottomFactor = Compute("(x-$a)");
+
+$k=Compute("$a-$b");
+$ans1 = $k;
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the value of [`k`] in the function
+[``
+f(x)=\begin{cases} \dfrac{[$mainTop]}{[$mainBottomFactor]} &x\not =[$a] \\ k & x=[$a] \end{cases}
+``]
+[`\quad`] so that [`f(x)`] is continuous at [`x=[$a]`].
+
+
+The value of [`k`] is: [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Note that
+
+[``
+\lim_{x\to [$a]} \dfrac{[$mainTop]}{[$mainBottomFactor]}
+=\lim_{x\to [$a]} \dfrac{[$mainTopFactor]}{[$mainBottomFactor]}
+=\lim_{x\to [$a]} (x-[$b]) = [$a]-[$b]=[$ans1].
+``]
+
+Meanwhile, we have [`f([$a])=k`]. For [`f(x)`] to be continuous at [`x=[$a]`] we need [`\displaystyle \lim_{x\to [$a]} \dfrac{[$mainTop]}{[$mainBottomFactor]} = f([$a])`]. Thus, we need [`k=[$ans1]`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+COMMENT('MathObject version.');
+ENDDOCUMENT();

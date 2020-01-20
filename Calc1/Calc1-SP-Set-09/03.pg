@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.03')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+k(x)=\frac{x\cos x}{e^{2x+3}}
+}\). Find \(k'(x)\).
+", 
+"\(
+k'(x)=\dfrac{\cos x-x\sin x-2x\cos x}{e^{2x+3}}
+\\
+\)"
+);
+$mc->extra(
+"\(
+k'(x)=\dfrac{\cos x+x\sin x+2x\cos x}{e^{2x+3}}
+\\
+\)",
+"\(
+k'(x)=\dfrac{\cos x-x\sin x+2\cos x}{e^{2x+3}}
+\\
+\)",
+"\(
+k'(x)=\dfrac{\cos x+x\sin x-x\cos x}{e^{2x+3}}
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+k'(x)&=\frac{e^{2x+3}\frac d{dx}(x\cos x)-(x\cos x)\frac d{dx}(e^{2x+3})}{(e^{2x+3})^2}
+\\&=\frac{e^{2x+3}\left[x(-\sin x)+(\cos x)(1)\right]-x\cos x\left[e^{2x+3}(2)\right]}{(e^{2x+3})^2}
+\\&=\frac{e^{2x+3}\left[-x\sin x+\cos x-2x\cos x\right]}{(e^{2x+3})^2}
+\\&=\frac{\cos x-x\sin x-2x\cos x}{e^{2x+3}}.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

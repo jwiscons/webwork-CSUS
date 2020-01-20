@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.04')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find \(\dfrac{dk}{dx}\), where \(k(t)=\arctan\sqrt{1+t}\).
+", 
+"\(
+k'(t)=\dfrac1{4+2t}\cdot(1+t)^{-\dfrac12}
+\\
+\)"
+);
+$mc->extra(
+"\(
+k'(t)=\dfrac{1+t}{2+t}
+\\
+\)",
+"\(
+k'(t)=\dfrac{\sqrt{1+t}}{{2+t}}
+\\
+\)",
+"\(
+k'(t)=\dfrac{(1+t)^2}{2+t}
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+k'(t)&=\frac1{1+(\sqrt{1+t})^2}\cdot\frac d{dx}(\sqrt{1+t})
+\\&=\frac1{1+1+t}\cdot\frac12(1+t)^{-\frac12}
+\\&=\frac1{4+2t}\cdot(1+t)^{-\frac12}.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

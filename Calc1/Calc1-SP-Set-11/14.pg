@@ -1,0 +1,107 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.14')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-11-14-pic01.png", width=>300, height=>250, tex_size=>500);
+$fig[1]=image("Calc1-SP-Set-11-14-pic02.png", width=>300, height=>200, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A spotlight is pointing horizontally and rotating at the rate of \(2\) revolutions per minute.  The spotlight is \(100\) feet from a straight wall, so that the light shines on the wall and the area that is illuminated moves along the wall.  When that area that is illuminated is \(125\) feet away from the spotlight, how fast is it moving down the wall (in feet per second)?
+", 
+"
+\(32.72\) ft/sec
+$BR
+$BR
+"
+);
+$mc->extra(
+"
+\(24.32\) ft/sec
+$BR
+$BR
+",
+"
+\(29.15\) ft/sec
+$BR
+$BR
+",
+"
+\(38.66\) ft/sec
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+$BR
+$fig[0]
+$BR
+Let's draw a bird's eye view of the situation.  So looking from above we know the spotlight is 100 feet from the wall, and we will let $s$ be the distance from the spotlight to the wall.  In addition, we will let $\theta$ be the angle made by the spotlight beam and the line perpendicular to the wall thru the spotlight and $w$ be the distance between the spot light image on the wall and the perpendicular.
+$BR
+$BR
+We are given that the spotlight is rotating \(2\) revolutions per minute, which corresponds to \(4\pi\) radians per minute.  The problem asks us to find a rate that is in feet per second, so let's change this to a per second rate.  \(4\pi\) radians per minute gives us \(\frac{4\pi}{60}\) radians per second, which is \(\frac{pi}{15}\) radians per second.    Thus \(\frac{d\theta}{dt}=\frac{\pi}{15}\).  We want to find \(\frac{dw}{dt}\) when \(s=125\).
+$BR
+$BR
+Notice that we do not have any information about \(\frac{ds}{dt}\), so we do not want an equation involving \(s\).  Therefore we want an equation relating \(\theta\) and \(w\).  We can use right triangle trig.
+\begin{align*}
+\tan\theta&=\frac w{100}\\
+\frac d{dt}\left(\tan\theta\right)&=\frac d{dt}\left(\frac w{100}\right)\\
+(\sec^2\theta)\frac{d\theta}{dt}&=\frac1{100}\frac{dw}{dt}
+\end{align*}
+Now we need to plug in values for the instance we are interested in.  Let's draw a picture at that moment.
+$BR
+$fig[1]
+$BR
+We have
+\begin{align*}
+(\sec^2\theta)\frac{d\theta}{dt}&=\frac1{100}\frac{dw}{dt}\\
+\left(1.25\right)^2\left(\frac{\pi}{15}\right)&=\frac1{100}\frac{dw}{dt}\\
+\frac{dw}{dt}&=100(1.25)^2\left(\frac{\pi}{15}\right)\approx32.72.
+\end{align*}
+Using this triangle we see that \(\sec\theta=\frac{125}{100}=1.25\).
+$BR
+$BR
+The area of light on the wall is traveling at about \(32.72\) feet per second.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

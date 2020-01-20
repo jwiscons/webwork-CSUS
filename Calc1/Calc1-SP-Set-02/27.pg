@@ -1,0 +1,79 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.27')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to-1}\frac{x^2-x-2}{x^2+2x+1}}\).
+", 
+"
+Does not exist
+"
+);
+$mc->extra(
+"\(
+-\infty
+\)",
+"\(
+0
+\)",
+"\(
+\infty
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluating at \(-1\) we get \(\frac00\). Therefore, we need to cancel before computing the limit. We find
+\[
+\lim_{x\to-1}\frac{x^2-x-2}{x^2+2x+1}=\lim_{x\to-1}\frac{(x-2)(x+1)}{(x+1)^2}=\lim_{x\to-1}\frac{x-2}{x+1}.
+\]
+This is now of the form \(\frac{-1}0\), so we know there is a vertical asymptote.  Therefore the one-sided limits are \(\infty\) or \(-\infty\).
+$BR
+$BR
+Looking at values close to \(-1\) on the right we see that the numerator is negative and the denominator is positive, therefore we have \(\frac{\text{negative}}{\text{positive}}\) which is negative.  Thus \(\displaystyle{\lim_{x\to-1^+}\frac{x^2-x-2}{x^2+2x+1}=-\infty}\).
+$BR
+$BR
+Looking at values close to \(-1\) on the left we see that the numerator is negative and the denominator is negative, therefore we have \(\frac{\text{negative}}{\text{negative}}\) which is positive.  Thus \(\displaystyle{\lim_{x\to-1^-}\frac{x^2-x-2}{x^2+2x+1}=\infty}\).
+$BR
+$BR
+Since the two one-sided limits are not equal, the limit does not exist.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

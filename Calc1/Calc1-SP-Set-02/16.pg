@@ -1,0 +1,66 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.16')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to3^-}\frac{(x+1)(x-4)}{(x+2)(x-3)}}\).
+", 
+"\(
+\infty
+\)"
+);
+$mc->extra(
+"\(
+2
+\)",
+"\(
+-\infty
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluating at \(3\) we get \(\frac{-4}0\), which is not defined. Therefore, we need to examine this more closely to determine the one-sided limit.  Because at \(x=3\) the function is undefined, and of the form \(\displaystyle{\frac{\text{non-zero}}0}\), there is a vertical asymptote for \(y=f(x)\) at \(x=3\).  So we know that as \(x\) approaches\(2\) on one side, the limit will either be \(\infty\) or \(-\infty\).  To determine which it is, consider the value of the function for \(x\) close to \(3\), but to the left of \(3\).  Close to \(3\), the numerator will be close to \((3+1)(3-4)=-4\), so the numerator will be negative.  Close to \(3\), on the left, the \(x+2\) in the denominator will be positive and the \(x-3\) will be negative because we are looking to the left of \(3\).  Therefore the denominator is positive times negative, which is negative.  Thus the function near \(3\) on the left is negative over negative, so the values of the function are positive near \(3\) on the left.  We already knew the limit was \(\infty\) or \(-\infty\), so now that we know the values are positive we have that \(\displaystyle{\lim_{x\to3^-}\frac{(x+1)(x-4)}{(x+2)(x-3)}=\infty}\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

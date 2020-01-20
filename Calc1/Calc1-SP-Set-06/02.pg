@@ -1,0 +1,96 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/08/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-06.02')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+    "contextFraction.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+$a = random(-20,20,1);
+$f = Compute("x^3+2x^2+x-$a");
+$df = $f->D('x');
+
+Context("Numeric");
+$ans1 = List(-1/3,-1);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+At what values of [`x`] does the graph of [``[$f]``] have a horizontal tangent line? Please seperate your answers with commas.
+
+Horizontal tangent lines when [`x= `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+The slope of a horizontal tangent line is 0, so we need to determine when the derivative is equal to zero.  Let's first find the derivative:
+
+>> [``f'(x)=3x^2+4x+1``] <<
+
+We want to know when this equals 0.
+
+>> [``\begin{aligned}
+3x^2+4x+1&=0\\
+(3x+1)(x+1)&=0\\
+x&=-\frac13, -1
+\end{aligned}``] <<
+
+Therefore the tangent line is horizontal at [``x=-\frac13``] and [`x=-1`].
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

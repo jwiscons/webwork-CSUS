@@ -1,0 +1,99 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('11/28/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-18.01')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle \frac16(x^4+2)^6+C \) $BR$BR",
+"\(\quad\displaystyle \frac16x^4(x^4+2)^6+C \) $BR$BR",
+"\(\quad\displaystyle \frac23(x^4+2)^6+C \) $BR$BR",
+"\(\quad\displaystyle x^4\left(\frac15x^5+2x\right)^5+C \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Compute \[\int4x^3(x^4+2)^5\ dx\]",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We want to find an expression for [`u`], remembering that we want the derivative of [`u`] to show up in the integral as well.  Notice that if we let [`u=x^4+2`], then [`\frac{du}{dx}=4x^3`] which appears in the integral.
+
+>> [``
+\begin{aligned}
+\int4x^3(x^4+2)^5\ dx&=\int u^5\ du=\frac16u^6+C=\frac16(x^4+2)^6+C\\
+\begin{array}{rl}u&=x^4+5\\
+du&=4x^3\ dx
+\end{array}&\\
+\end{aligned}
+``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

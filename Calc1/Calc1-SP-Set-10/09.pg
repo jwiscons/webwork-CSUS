@@ -1,0 +1,89 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/29/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-10.09')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$ans1 = Compute("2/3*x+14/3");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find an equation for the line that passes through [`(-1,4)`] and is parallel to the line that is tangent to the graph of  [``xy+\ln y=(x-2)(y+2)``] at [`(3,1)`].
+
+An equation is [`y= `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We first want to the find the slope of the tangent line at [`(3,1)`].
+
+>> [``\begin{aligned}
+\frac d{dx}\left(xy+\ln y\right)&=\frac d{dx}\big((x-2)(y+2)\big)\\
+x\frac{dy}{dx}+y+\frac1y\frac{dy}{dx}&=(x-2)\frac{dy}{dx}+(y+2)
+\end{aligned}``] <<
+
+Evaluating at [`(3,1)`] we get:
+
+>> [``\begin{aligned}
+3\frac{dy}{dx}+1+\frac11\frac{dy}{dx}&=(3-2)\frac{dy}{dx}+(1+2)\\
+4\frac{dy}{dx}+1&=\frac{dy}{dx}+3\\
+3\frac{dy}{dx}&=2\\
+\frac{dy}{dx}&=\frac23
+\end{aligned}``] <<
+
+Therefore we want the slope equal to [`\frac23`].  A point on the line is given to be [`(-1,4)`], so we can now find the equation of the line.
+
+>> [``\begin{aligned}
+y-4&=\frac23(x+1)\\
+y&=\frac23x+\frac{14}3
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

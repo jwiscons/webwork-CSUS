@@ -1,0 +1,139 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-13.02')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$fig[0]=image("Calc1-SP-Set-13-02pic.png", width=>200, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find the intervals on which the function \(k(x)=\dfrac{2x+3}{x^2+4}\) is increasing.
+", 
+"\(
+(-4,1)
+\\
+\)"
+);
+$mc->extra(
+"\(
+(-\infty,-4)\) and \((0,1)
+\\
+\)",
+"\(
+(-\infty,-4)\) and \((1,\infty)
+\\
+\)",
+"\(
+(-4,0)\) and \((1,\infty)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+
+$mc2 = new_multiple_choice();
+$mc2->qa(
+"
+Find all local maxima and minima of \(k(x)=\dfrac{2x+3}{x^2+4}\).
+", 
+"
+min at \((-4,-\frac14)\); max at \((1,1)
+\\
+\)"
+);
+$mc2->extra(
+"
+min at \((-2,-\frac18)\); max at \((1,1)
+\\
+\)",
+"
+min at \((2,\frac78)\); max at \((4,2)
+\\
+\)",
+"
+min at \((4,2)\); max at \((-1,\frac{11}4)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc2->print_q() \}
+$BR
+\{ $mc2->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc2->correct_ans() ) );
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+First note that \(k(x)\) is continuous since \(x^2+4\) will never equal \(0\).  Let's now take the derivative so that we can find the critical numbers. We find
+\begin{align*}
+k'(x)&=\frac{(x^2+4)(2)-(2x+3)(2x)}{(x^2+4)^2}.
+\end{align*}
+The derivative is defined everywhere, so we need only find when the derivative is \(0\). We have
+\begin{align*}
+0&=\frac{(x^2+4)(2)-(2x+3)(2x)}{(x^2+4)^2}\\
+0&=(x^2+4)(2)-(2x+3)(2x)\\
+0&=2x^2+8-4x^2-6x\\
+0&=-2x^2-6x+8\\
+0&=-2(x+4)(x-1)\\
+x&=-4,1.
+\end{align*}
+Now that we have found the critical numbers, we know that those are the only places where the derivative can change sign.  Thus we can divide the \(x\)-axis into three intervals.  On each of these intervals the derivative is either always positive or always negative.  Therefore we can choose test points to determine positive or negative.  Let's use test points \(-5\), \(0\), and \(2\). We find
+\begin{align*}
+&k'(-5)<0\\
+&k'(0)>0\\
+&k'(2)<0.\\
+\end{align*}
+$BCENTER
+$fig[0]
+$ECENTER
+Therefore the derivative is negative on the intervals \((-\infty,-4)\) and \((1,\infty)\), and the derivative is positive on the interval \((-4,1)\).
+$BR
+$BR
+Hence \(k(x)\) is decreasing on the intervals \((-\infty,-4)\) and \((1,\infty)\), and \(k(x)\) is increasing on the interval \((-4,1)\).
+$BR
+$BR
+From this information we can determine the local max and mins.  At \(x=-4\), \(k(x)\) is changing from decreasing to increasing, so there is a local min there.  At \(x=1\), \(k(x)\) is changing from increasing to decreasing, so there is a local max there.  We can find the \(y\)-values of each of these points by plugging into \(k(x)\).
+Thus, the correct answers are \{ $mc->correct_ans() \} and \{ $mc2->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

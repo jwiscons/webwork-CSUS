@@ -1,0 +1,80 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('11/28/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-18.06')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+$ans1 = Compute("1/2*(e^2-e)");
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Evaluate the following integral. (Your answer should be a number.)
+ 
+[``\int_0^1xe^{x^2+1}\ dx =``] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``
+\begin{aligned}
+&\int_0^1xe^{x^2+1}\\
+&\qquad\begin{array}{rl}
+u&=x^2+1 & \quad x=1 \rightarrow u = u=1^2+1=2  \\
+du&=2xdx & \quad x=0 \rightarrow u = u=(0)^2+1=1 \\
+\frac12du&=xdx
+\end{array}\\&
+\\&=\int_1^2\frac12e^u\ du
+\\&=\frac12e^2-\frac12e^1
+\\&=\frac12(e^2-e)
+\end{aligned}
+``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

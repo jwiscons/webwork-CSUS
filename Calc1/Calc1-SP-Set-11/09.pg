@@ -1,0 +1,87 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.09')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+At a quarry, sand is being added to the top of a pile of sand at a rate of \(20\) ft\(^3\) per minute.  The pile of sand stays in the shape of a cone, with the diameter of the base always equal to the height of the pile.  When the pile reaches a height of \(8\) feet, how fast is the height of the pile growing? 
+$BR
+$BR
+(Note: The volume of a cone with radius \(r\) and height \(h\) is \(\frac13\pi r^2h\).
+", 
+"
+\(\dfrac5{4\pi}\) ft/min
+$BR
+$BR
+"
+);
+$mc->extra(
+"
+\(\dfrac3{5\pi}\) ft/min
+$BR
+$BR
+",
+"
+\(\dfrac7{3\pi}\) ft/min
+$BR
+$BR
+",
+"
+\(\dfrac9{2\pi}\) ft/min
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+The diameter of base is equal to the height, so \(h=2r\), which means \(r=\frac h2\).  We want to find \(\frac{dr}{dt}\) when \(\frac{dV}{dt}=20\) and \(h=8\).  When \(h=8\) and \(h=2r\), then \(r=4\). We find
+\begin{align*}
+V&=\frac13\pi r^2h\\
+V&=\frac13\pi\left(\frac h2\right) ^2\cdot h\\
+V&=\frac1{12}\pi h^3\\
+\frac{dV}{dt}&=\frac1{12}\pi(3h^2)\frac{dh}{dt}\\
+20&=\frac1{12}\pi(3(8)^2)\frac{dh}{dr}\\
+20&=16\pi\frac{dh}{dt}\\
+\frac{dh}{dt}&=\frac{20}{16\pi}=\frac5{4\pi}.
+\end{align*}
+The pile's height is increasing at a rate of \(\frac5{4\pi}\) ft/min.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

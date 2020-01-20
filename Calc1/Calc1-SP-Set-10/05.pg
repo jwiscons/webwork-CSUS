@@ -1,0 +1,85 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/29/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-10.05')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$ans1 = Compute("3/5");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the _slope_ of the tangent line at [`(1,3)`] on the curve [`xy+\sqrt{x+y}=x^4+4`]. 
+
+The slope is [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+To find the slope we need to evaluate [`\frac{dy}{dx}`] at the point [`(1,3)`].
+
+>> [``\begin{aligned}
+\frac d{dx}(xy+\sqrt{x+y})&=\frac d{dx}(x^4+4)\\
+x\frac{dy}{dx}+y(1)+\frac12(x+y)^{-\frac12}\left(1+\frac{dy}{dx}\right)&=4x^3
+\end{aligned}``] <<
+
+We want to find [`\frac{dy}{dx}`] at the point [`(1,3)`], so we will plug in for [`x`] and [`y`] above.
+
+>> [``\begin{aligned}
+(1)\frac{dy}{dx}+(3)(1)+\frac12(1+3)^{-\frac12}\left(1+\frac{dy}{dx}\right)&=4(1)^3\\
+\frac {dy}{dx}+3+\frac14+\frac14\frac{dy}{dx}&=4\\
+\frac54\frac{dy}{dx}&=\frac34\\
+\frac{dy}{dx}&=\frac35
+\end{aligned}``] <<
+
+Therefore the derivative at the point [`(1,3)`] is [`\frac35`], and so the slope of the tangent line at that point is [`\frac35`].
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

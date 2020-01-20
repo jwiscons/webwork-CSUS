@@ -1,0 +1,115 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-12.01')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle 2.0025 \) $BR$BR",
+"\(\quad\displaystyle 2.00249 \) $BR$BR",
+"\(\quad\displaystyle 2.00255 \) $BR$BR",
+"\(\quad\displaystyle 2.0026 \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Use linear approximation to estimate \(\sqrt[3]{8.03}\).",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We want to look at the function [`f(x)=\sqrt[3]{x}`].  We want a number near 8.03 for which the cube root of that number is "nice".  Let's use 8, since 8.03 is near 8 and [`\sqrt[3]8=2`].
+
+We first need to find the equation of the tangent line to the graph of [`f(x)`] at [`x=8`]. 
+
+>> [``\begin{aligned}
+f'(x)&=\frac13x^{-\frac23}\\
+m&=f'(8)=\frac13\cdot8^{-\frac23}
+\\&=\frac13\left(\frac14\right)
+\\&=\frac1{12}
+\end{aligned}``] <<
+
+Since [`f(8)=\sqrt[3]8=2`], the point [`(8,2)`] is on the tangent line, so we can now find the equation of the line.
+
+>> [``\begin{aligned}
+y-2&=\frac1{12}(x-8)\\
+y&=\frac1{12}x+\frac{4}3
+\end{aligned}``] <<
+
+Thus, using the tangent line to approximate [`f(x)`] when [`x=8.03`], we find that 
+
+>> [``\begin{aligned}
+\sqrt[3]{8.03}&=f(8.03)
+\\&\approx\text{the value of }8.03\text{ on the tangent line }
+\\&=\frac1{12}(8.03)+\frac{4}3
+\\&=2.0025
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

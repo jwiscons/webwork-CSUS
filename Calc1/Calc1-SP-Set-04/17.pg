@@ -1,0 +1,100 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-04.17')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad \displaystyle h(x)=\frac{1-x^2}{1+x^2} \) $BR$BR",
+"\(\quad \displaystyle f(x)=\frac{1+x^2}{1-x^2} \) $BR$BR",
+"\(\quad \displaystyle g(x)=\frac{2+x^2}{1+x^2} \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Which of the following functions has no vertical asymptote and horizontal asymptote \(y=-1\) ?",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We do not want a vertical asymptote, so we want to make sure that we will never end up with nonzero over [`0`].  The denominator of [`f(x)`] would be [`0`] at [`x=1`] and [`x=-1`], and the numerator would be nonzero at [`1`] and [`-1`], so [`f(x)`] would have vertical asymptotes.
+
+For [`g(x)`] and [`h(x)`] the denominator can never be [`0`], so neither of these functions will have a vertical asymptote.
+
+For these two functions we want to see if they have horizontal asymptote [`y=-1`].  In other words, we need to check to see if the limit as [`x`] approaches [`\infty`] or [`-\infty`] is [`-1`].  Using our knowledge and hard work from the previous problems we know that
+
+[``\lim_{x\to\infty}\frac{2+x^2}{1+x^2}=1\qquad\text{ and }\qquad\lim_{x\to\infty}\frac{1-x^2}{1+x^2}=-1.``]
+
+Additionally we know
+
+[``\lim_{x\to-\infty}\frac{2+x^2}{1+x^2}=1\qquad\text{ and }\qquad\lim_{x\to-\infty}\frac{1-x^2}{1+x^2}=-1.``]
+
+
+Therefore [`h(x)`] has a horizontal asymptote at [`y=-1`] and [`g(x)`] does not have a horizontal asymptote at [`y=-1`].
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+COMMENT('MathObject version.');
+ENDDOCUMENT();

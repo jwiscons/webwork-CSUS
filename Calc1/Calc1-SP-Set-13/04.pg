@@ -1,0 +1,145 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-13.05')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$fig[0]=image("Calc1-SP-Set-13-03pic.png", width=>200, height=>300, tex_size=>500);
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find the intervals in \(0<x<2\pi\) on which the function \(h(x)=\cos^2x+2\sin x\) is increasing.
+", 
+"\(
+(0,\frac{\pi}2)\) and \((\frac{3\pi}2,2\pi)
+\\
+\)"
+);
+$mc->extra(
+"\(
+(\frac{\pi}2,\frac{3\pi}2)
+\\
+\)",
+"\(
+(\frac{\pi}2,\pi)\) and \((\frac{3\pi}2,2\pi)
+\\
+\)",
+"\(
+(\pi,\frac{3\pi}2)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+
+$mc2 = new_multiple_choice();
+$mc2->qa(
+"
+Find all local maxima and minima of \(h(x)=\cos^2x+2\sin x\) on the interval \(0<x<2\pi\).
+", 
+"
+min at \((\frac{3\pi}2,-2)\); max at \((\frac{\pi}2,2)
+\\
+\)"
+);
+$mc2->extra(
+"
+min at \((\pi,1)\); max at \((\frac{\pi}2,2)
+\\
+\)",
+"
+min at \((\frac{3\pi}2,-2)\); max at \((\pi,1)
+\\
+\)",
+"
+mins at \((\frac{3\pi}2,-2)\) and at \((\frac{\pi}2,2)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc2->print_q() \}
+$BR
+\{ $mc2->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc2->correct_ans() ) );
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+First note that \(h(x)\) is continuous.  Let's now take the derivative so that we can find the critical numbers. We have
+\begin{align*}
+h'(x)&=2(\cos x)(-\sin x)+2\cos x.
+\end{align*}
+The derivative, like the original function is not defined at \(x=2\).  We need to find when the derivative is \(0\). We find
+\begin{align*}
+0&=2(\cos x)(-\sin x)+2\cos x\\
+0&=2\cos x(-\sin x+1).
+\end{align*}
+Also
+\begin{align*}
+\cos x&=0\\
+x&=\frac{\pi}2, \frac{3\pi}2
+\end{align*}
+and
+\begin{align*}
+-\sin x+1&=0\\
+\sin x&=1\\
+x&=\frac{\pi}2, \frac{3\pi}2.
+\end{align*}
+Notice we only took the solutions that are in the interval from \(0\) to \(2\pi\).  We now know that the only places where the derivative can change sign are at \(x=\frac{pi}2\), or \(x=\frac{3\pi}2\).  Thus we can divide the \(x\)-axis from\(0\) to \(2\pi\) into three intervals.  On each of these intervals the derivative is either always positive or always negative.  Therefore we can choose test points to determine positive or negative.  Let's use test points \(0\), \(\frac{\pi}4\), \(\pi\), and \(\frac{7\pi}4\). We see
+\begin{align*}
+&h'\left(\frac{\pi}4\right)>0\\
+&h'\left(\frac{7\pi}4\right)<0\\
+&h'\left(\pi\right)>0.
+\end{align*}
+$BCENTER
+$fig[0]
+$ECENTER
+Therefore the derivative is negative on the interval \((\frac{\pi}2,\frac{3\pi}2)\), and the derivative is positive on the intervals \((0,\frac{\pi}2)\) and \((\frac{3\pi}2,2\pi)\).
+$BR
+$BR
+Hence \(h(x)\) is decreasing on the interval \((\frac{\pi}2,\frac{3\pi}2)\), and \(g(x)\) is increasing on the intervals \((0,\frac{\pi}2)\) and \((\frac{3\pi}2,2\pi)\).
+$BR
+$BR
+From this information we can determine the local max and mins.  Since \(h(x)\) is defined at \(\frac{pi}2\) and \(\frac{3\pi}2\), those are possible spots where there could be a max or min.  At \(x=\frac{3\pi}2\), \(h(x)\) is changing from decreasing to increasing, so there is a local min there.  At \(x=\frac{\pi}2\), \(h(x)\) is changing from increasing to decreasing, so there is a local max there.  We can find the \(y\)-values of each of these points by plugging into \(h(x)\).
+Thus, the correct answers are \{ $mc->correct_ans() \} and \{ $mc2->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

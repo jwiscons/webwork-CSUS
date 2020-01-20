@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.23')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to2}\ \frac{x+3}{x-2}}\).
+", 
+"
+Does not exist
+"
+);
+$mc->extra(
+"\(
+-\infty
+\)",
+"\(
+5
+\)",
+"
+\(\infty\)
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluate at \(2\), we get \(\frac50\).  Since the function is nonzero/zero near \(2\), then there is an asymptote at \(x=2\), so the one-sided limits will be \(\infty\) or \(-\infty\).
+$BR
+$BR
+Looking at values of \(x\) near \(2\) on the right, the numerator will be positive and the denominator will be positive, so near \(2\) on the right, the values of the function are positive.  Therefore \(\displaystyle{\lim_{x\to2^+}\frac{x+3}{x-2}=\infty}\).
+$BR
+$BR
+Looking at values of \(x\) near \(2\) on the left, the numerator will be positive and the denominator will be negative, so near \(2\) on the left, the values of the function are negative.  Therefore \(\displaystyle{\lim_{x\to2^-}\frac{x+3}{x-2}=-\infty}\).
+$BR
+$BR
+Since the two one-sided limits are not equal, then the limit does not exist.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

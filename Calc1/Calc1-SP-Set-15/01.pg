@@ -1,0 +1,120 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-15.01')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-15-01pic.png", width=>200, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A cardboard box (this one has no top) will have a square base and needs to enclose \(40,000\) cm\(^3\).  What should the height of the box be, if it is going to use the least cardboard?
+", 
+"\(
+21.5443
+\) cm
+$BR
+$BR
+"
+);
+$mc->extra(
+"\(
+47.6141
+\) cm
+$BR
+$BR
+",
+"\(
+42.6867
+\) cm
+$BR
+$BR
+",
+"\(
+33.7239
+\) cm
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+$BCENTER
+$fig[0]
+$ECENTER
+We want to use the least amount of cardboard.  In other words we want to minimize the surface area.  We have the bottom and the four sides, so we get
+\[
+A=s^2+4sh.
+\]
+We know the volume must be \(40,000\), so we can use that to get rid of one variables in the function above. We find
+\begin{align*}
+s^2h&=40000\\
+h&=\frac{40000}{s^2}.
+\end{align*}
+Therefore we can now write the surface area in terms of just \(s\). We find
+\[
+A=s^2+4s\left(\frac{40000}{s^2}\right)=s^2+\frac{160000}s.
+\]
+Notice that \(s\) can be as small or as big as we want.  Thus we want to minimize \(A\) on the interval \((0,\infty)\).  Moreover, notice that
+\[
+\lim_{s\to0^+}s^2+\frac{160000}s=\infty\hspace{1cm}\text{ and}\hspace{1cm}\lim_{s\to\infty}s^2+\frac{160000}s=\infty .
+\]
+Therefore the function \(A\) has no maximum, so if we find a critical number then that must give the minimum.
+$BR
+$BR
+Let's proceed to finding that critical number. We see
+\begin{align*}
+A&=s^2+\frac{160000}s\\
+A'&=2s-\frac{160000}{s^2}\\
+0&=2s-\frac{160000}{s^2}\\
+2s&=\frac{160000}{s^2}\\
+2s^3&=160000\\
+s^3&=80000\\
+s&=\sqrt[3]{80000}.
+\end{align*}
+As discussed above this value of \(s\) must give you the minimum area.  We can now find the corresponding height, which is
+\[
+h=\frac{40000}{\left(\sqrt[3]{80000}\right)^2}=21.5443.
+\]
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

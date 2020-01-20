@@ -1,0 +1,122 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/08/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-06.08')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+    "contextFraction.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad\displaystyle y=\frac14x+\frac34 \) $BR$BR",
+"\(\quad\displaystyle y= \frac14x+\frac14 \) $BR$BR",
+"\(\quad\displaystyle y=\frac14x+\frac54 \) $BR$BR",
+"\(\quad\displaystyle y=\frac14x-\frac54 \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"One of the tangent lines to the graph of \(\displaystyle g(x)=\frac1{x^2}\) is parallel to the line \(4y=x+3\). Find an equation of that tangent line.",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+The line [`4y=x+3`], can be rewritten as [`y=\frac14x+\frac34`], so we see that the slope of the line is [`\frac14`].  Since the derivative finds the slope, we want to know when the derivative is [`\frac14`].
+
+To find the derivative, let's first rewrite the function so that we can use the power rule. Observe that
+
+>> [``g(x)=\frac1{x^2}=x^{-2}.``] <<
+
+Then
+
+>> [``g'(x)=-2x^{-3}.``] <<
+
+We want to know when this is [`\frac14`].
+
+>> [``\begin{aligned}
+-2x^{-3}&=\frac14\\
+-\frac2{x^3}&=\frac14\\
+-8&=x^3\\
+x&=-2
+\end{aligned}``] <<
+
+We have found that the slope of the tangent line is [`\frac14`] when [`x=-2`].  To find the equation of the tangent line we need a point on the line.  We know the line touches [`g(x)`] at [`x=-2`].  Plugging -2 into [`g(x)`] will give us the [`y`]-coordinate, namely [`y=g(-2)=\frac1{(-2)^2}=\frac14`].  Therefore a point on the line is [`(-2,\frac14)`].  Now we can find the equation of the line.
+
+>> [``\begin{aligned}
+y-\frac14&=\frac14(x--2)\\
+y&=\frac14x+\frac34
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

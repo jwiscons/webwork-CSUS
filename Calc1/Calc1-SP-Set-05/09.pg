@@ -1,0 +1,115 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.09')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad\displaystyle y=\frac{1}{4}x+\frac{3}{4} \) $BR$BR",
+"\(\quad\displaystyle y=-2x+\frac{1}{4} \) $BR$BR",
+"\(\quad\displaystyle y=-2x-\frac{3}{8} \) $BR$BR",
+"\(\quad\displaystyle  y= \frac{1}{4}x-\frac{1}{8} \) $BR$BR" 
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Find an equation of the tangent line to the graph of \(\displaystyle f(x) = \frac{1}{x^2}\) at \((-2,\frac{1}{4})\).",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We first need to find the slope.  We do this by computing [`f'(-2)`].  Note that the point on the graph is given, so we know [`f(-2)=\frac14`].
+
+>> [``\begin{aligned}
+f'(-2)&=\lim_{h\to0}\frac{f(-2+h)-f(-2)}h
+\\&=\lim_{h\to0}\frac{\frac1{(-2+h)^2}-\frac1{(-2)^2}}h
+\\&=\lim_{h\to0}\frac{\frac1{(-2+h)^2}-\frac1{(-2)^2}}h\cdot\frac{4(-2+h)^2}{4(-2+h)^2}
+\\&=\lim_{h\to0}\frac{4-(-2+h)^2}{4h(-2+h)^2}
+\\&=\lim_{h\to0}\frac{4-(4-4h+h^2)}{4h(-2+h)^2}
+\\&=\lim_{h\to0}\frac{4h-h^2}{4h(-2+h)^2}
+\\&=\lim_{h\to0}\frac{h(4-h)}{4h(-2+h)^2}
+\\&=\lim_{h\to0}\frac{4-h}{4(-2+h)^2}
+\\&=\frac{4-0}{4(-2+0)^2}
+\\&=\frac14
+\end{aligned}``] <<
+
+Therefore the slope of the tangent line is [`\frac14`].  We know the point [`(-2,\frac{1}{4})`] is on the line, so we can now find the equation of the line.
+
+>> [``\begin{aligned}
+y-\frac14&=\frac14(x-(-2))\\
+y-\frac14&=\frac14x+\frac12\\
+y&=\frac14x+\frac34
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

@@ -1,0 +1,121 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-15.07')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"contextCurrency.pl",
+);
+
+Context("Currency");
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-15-07pic.png", width=>200, height=>300, tex_size=>500);
+
+$m1 = Compute('$1');
+$m2 = Compute('$0.50');
+$m3 = Compute('$20');
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A crate with a square base is being built.  The materials for the base of the crate costs $m1 per square foot.  The material for the sides and the top of the crate cost $m2 per square foot.  If there is $m3 available to spend on the crate, what is the greatest volume of crate that can be built?
+", 
+"\(
+14.05
+\) ft\(^3\)
+$BR
+$BR
+"
+);
+$mc->extra(
+"\(
+11.27 
+\) ft\(^3\)
+$BR
+$BR
+",
+"\(
+11.97
+\) ft\(^3\)
+$BR
+$BR
+",
+"\(
+13.15
+\) ft\(^3\)
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+$BCENTER
+$fig[0]
+$ECENTER
+We want the volume to be as big as possible.   According to our labels, we have \(V=s^2h\).
+$BR
+$BR
+We only have $m3 to spend, so we can write an equation  relating \(s\) and \(h\), so that we can express the volume in terms of one variable.  The base costs $m1 per square foot, so we can multiply the area of the base by $m1 to get the price of the base.  The rest of the material costs $m2 per square foot, so we can multiply the area of the remaining sides by $m2 to get the cost.  Therefore we have
+\begin{align*}
+20&=\text{ cost of the base} +\text{ cost of the sides} +\text{ cost of the top}\\
+20&=1\cdot s^2+4(.5sh)+.5s^2\\
+20&=1.5s^2+2sh\\
+2sh&=20-1.5s^2\\
+h&=\frac{20-1.5s^2}{2s}\\
+h&=\frac{10}s-0.75s.
+\end{align*}
+We can now plug this into to get the volume in terms of just one variable, namely,
+\[
+V=s^2\left(\frac{10}s-0.75s\right)=10s-0.75s^3.
+\]
+ We want to maximize the volume. Notice that as \(s\) gets really small, so does the volume.  Also, as \(s\) gets really big the expression for volume becomes negative.  Therefore if we find a critical number, it must give the maximum.  Let's proceed to find the critical number. We find
+\begin{align*}
+V&=10s-0.75s^3\\
+V&=10-2.25s^2\\
+0&=10-2.25s^2\\
+2.25s^2&=10\\
+s^2&=\frac{40}9\\
+s&=\frac{\sqrt{40}}3.
+\end{align*}
+Plugging this in we get
+\[
+V=10\cdot{\frac{\sqrt{40}}3}-0.75\cdot\left(\frac{\sqrt{40}}3\right)^3\approx14.05.
+\]
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

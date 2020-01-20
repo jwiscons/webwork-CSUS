@@ -1,0 +1,72 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-01.03')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+BEGIN_TEXT
+
+$BR
+$BR
+END_TEXT
+
+$mc3 = new_multiple_choice();
+$mc3->qa(
+"
+The point \(P=(4,3)\) lies on the graph of \(f(x)=1+\sqrt x\).  Find the slope of the secant line \(PQ\) if \(Q\) is the point \(Q=(x,1+\sqrt x)\), where \(x=3.99\).
+", 
+"\(
+0.250156\dots
+\)"
+);
+$mc3->extra(
+"\(
+0.249984\dots
+\)",
+"\(
+0.271033\dots
+\)",
+"\(
+0.281361\dots
+\)",
+);
+
+
+BEGIN_TEXT
+\{ $mc3->print_q() \}
+$BR
+\{ $mc3->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc3->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+When \(x=3.99\), the point \(Q\) is \(Q=(3.99,1+\sqrt{3.99})\), and so the line \(PQ\) has slope \({\dfrac{1+\sqrt{3.99}-3}{3.99-4}=0.2501564\dots}\).
+Thus, the correct answer is \{ $mc3->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

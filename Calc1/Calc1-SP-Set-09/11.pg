@@ -1,0 +1,80 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.11')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+v(x)=\sqrt{\csc x}+\sec\sqrt x
+}\). Find \(v'(x)\).
+", 
+"\(
+v'(x)=-\dfrac{\csc x\cot x}{2\sqrt{\csc x}}+\dfrac{\sec(\sqrt x)\tan(\sqrt x)}{2\sqrt x}
+\\
+\)"
+);
+$mc->extra(
+"\(
+v'(x)=\dfrac{\csc x\cot x}{2\sqrt{\sec x}}+\dfrac{\sec(\sqrt x)\tan(\sqrt x)}{2\sqrt x}
+\\
+\)",
+"\(
+v'(x)=\dfrac{\csc x\cot x}{2\sqrt{x}}+\dfrac{\sec(\sqrt x)\tan(\sqrt x)}{2\sqrt{\sec x}}
+\\
+\)",
+"\(
+v'(x)=\dfrac{\sec x\tan x}{2\sqrt{\csc x}}-\dfrac{\csc(\sqrt x)\cot(\sqrt x)}{2\sqrt x}
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that
+\[
+v(x)=(\csc x)^{\frac12}+\sec x^{\frac12}.
+\]
+Therefore,
+\begin{align*}
+v'(x)&=\frac12(\csc x)^{-\frac12}(-\csc x\cot x)+(\sec x^{\frac12}\tan x^{\frac12})\left(\frac12x^{-\frac12}\right)
+\\&=-\frac{\csc x\cot x}{2\sqrt{\csc x}}+\frac{\sec \sqrt x\tan\sqrt x}{2\sqrt x}.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

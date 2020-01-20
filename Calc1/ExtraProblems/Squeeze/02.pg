@@ -1,0 +1,70 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/09/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('MK-04.02')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to -\infty}\frac{\sin^2 (x)}{x+1}}\).
+", 
+"\(
+0
+\)"
+);
+$mc->extra(
+"\(
+1
+\)",
+"\(
+\infty
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that \(\sin^2 (x)\) is a bounded function, and this can be motivation to attempt the Squeeze Theorem. In particular, \(0\leq \sin^2 (x) \leq 1\). Therefore, we have \(\dfrac{0}{x+1}\leq \dfrac{\sin^2 (x)}{x+1} \leq \dfrac{1}{x+1}\). By the properties of limits we have
+\[
+\lim_{x\to \infty} 0 \leq \lim_{x\to \infty} \dfrac{\sin^2 (x)}{x+1} \leq \lim_{x\to \infty} \dfrac{1}{x+1}.
+\]
+Since \(\displaystyle  \lim_{x\to \infty} 0=0= \lim_{x\to \infty} \dfrac{1}{x+1} \), it must be that \( \displaystyle \lim_{x\to \infty} \dfrac{\sin^2 (x)}{x+1}=0\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

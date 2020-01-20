@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/09/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('MK-04.05')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find the interval or intervals for which \(g(x)=\dfrac{1}{1-x^2}\) is continuous on.
+", 
+"\(
+(-\infty,-1)\), \((-1,1)\), and \((1,\infty)
+\)"
+);
+$mc->extra(
+"\(
+(-1,1)
+\)",
+"\(
+(-\infty ,\infty)
+\)",
+"
+All \(x\) except \(x=1\)
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that the domain of the numerator (the function \(1\)) is all real numbers.
+
+$BR$BR
+Meanwhile, \(1-x^2\) is continuous for all \(x\) since it is a polynomial.
+
+$BR$BR
+We must exlcude the values where the denominator is \(0\). That is, when \(1-x^2=0\), or \(x=-1,1\).
+
+$BR$BR
+Therefore, the intervals where \(g(x)\) is continuous are \((-\infty,-1)\), \((-1,1)\), and \((1,\infty)\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

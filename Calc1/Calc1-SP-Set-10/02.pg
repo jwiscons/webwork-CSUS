@@ -1,0 +1,97 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/29/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-10.02')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle \frac{dy}{dx}=\frac{\cos x-2xy}{x^2-\sin y} \) $BR$BR",
+"\(\quad\displaystyle \frac{dy}{dx}=\frac{\sin x-x^2y}{2x+\cos y} \) $BR$BR",
+"\(\quad\displaystyle \frac{dy}{dx}=\frac{\sin x-2xy}{x^2+\cos y} \) $BR$BR",
+"\(\quad\displaystyle \frac{dy}{dx}=\frac{\cos x-x^2y}{2x+\sin y} \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Use implicit differentiation to find an expression for \(\frac{dy}{dx}\) given that \[ x^2y+\cos y=\sin x \]",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+\frac d{dx}(x^2y+\cos y)&=\frac d{dx}(\sin x)\\
+x^2\frac{dy}{dx}+2xy-\sin y \frac{dy}{dx}&=\cos x\\
+x^2\frac{dy}{dx}-\sin y\frac{dy}{dx}&=\cos x-2xy\\
+\frac{dy}{dx}\left(x^2-\sin y\right)&=\cos x-2xy\\
+\frac{dy}{dx}&=\frac{\cos x-2xy}{x^2-\sin y}
+\end{aligned}``] <<
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

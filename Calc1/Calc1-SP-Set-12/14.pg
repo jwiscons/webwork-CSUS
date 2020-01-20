@@ -1,0 +1,102 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/07/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-12.14')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = non_zero_random(-11,11,1);
+
+$f = Compute("(sin(x))/(2^(1/2) + cos(x)) + $a");
+
+$ans1 = $f->eval(x=>3*pi/4);
+$ans2 = $f->eval(x=>5*pi/4);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the maximal and minimal values for the function [``s(x)=\frac{\sin x}{\sqrt2+\cos x} + [$a]``] on the interval [`[0,2\pi]`].
+ 
+_If no maximum or minimum exists, enter "none"._
+
+The maximal value is [____________]{$ans1}
+
+The minimal value is [____________]{$ans2}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We need to find the critical numbers.  We first find the derivative.
+
+>> [``s'(x)=\frac{(\sqrt2 +\cos x)\cos x-\sin x(-\sin x)}{(\sqrt2 +\cos x)^2}``] <<
+
+We first find where the derivative is zero.
+
+>> [``\begin{aligned}
+0&=\frac{(\sqrt2 +\cos x)\cos x-\sin x(-\sin x)}{(\sqrt2 +\cos x)^2}\\
+0&=\frac{\sqrt2\cos x+\cos^2+\sin^2x}{(\sqrt2+\cos x)^2}\\
+0&=\frac{\sqrt2\cos x+1}{(\sqrt2+\cos x)^2}\\
+0&=\sqrt2\cos x+1\\
+\cos x&=-\frac1{\sqrt2}\\
+\end{aligned}``] <<
+
+In the interval [`[0,2\pi]`], the solutions to the above equation are [`\frac{3\pi}4`] and [`\frac{5\pi}4`].
+
+The derivative is defined everywhere because the denominator is never 0. Therefore the critical numbers are [`\frac{3\pi}4`] and [`\frac{5\pi}4`]. We need to check the values of the function at the critical numbers and the end points. 
+
+>> [``\begin{aligned}
+&s\left(\frac{3\pi}4\right)=[@ $f->eval(x=>3*pi/4) @]\\
+&s\left(\frac{5\pi}4\right)=[@ $f->eval(x=>5*pi/4) @]\\
+&s(0)=[@ $f->eval(x=>0) @]\\
+&s(2\pi)=[@ $f->eval(x=>2*pi) @]\\
+\end{aligned}``] <<
+
+The maximal value is [`[$ans1]`]. The minimal value is [`[$ans2]`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

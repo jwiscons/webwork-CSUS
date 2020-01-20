@@ -1,0 +1,142 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-13.01')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-13-01pic.png", width=>200, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find the intervals on which the function \(g(x)=(x^2+x-2)^2\) is increasing.
+", 
+"\(
+(-2,-\frac12)\,\, \) and \(\,\,(1,\infty)
+\\
+\)"
+);
+$mc->extra(
+"\(
+(-\infty,-\frac12)\,\, \) and \(\,\, (1,\infty)
+\\
+\)",
+"\(
+(-\infty,-2)\,\, \) and \(\,\, (-\frac12,1)
+\\
+\)",
+"\(
+(-\infty,-2)\,\, \) and \(\,\, (1,\infty)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+
+
+
+
+$mc2 = new_multiple_choice();
+$mc2->qa(
+"
+Find all local maxima and minima of \(g(x)=(x^2+x-2)^2\).
+", 
+"
+min at \((-2,0)\) and \((1,0)\); max at \((-\frac12,\frac{81}{16})
+\\
+\)"
+);
+$mc2->extra(
+"
+min at \((-2,0)\); max at \((-\frac12,\frac{81}{16})
+\\
+\)",
+"
+min at \((1,0)\); max at \((\frac12,\frac{25}{16})
+\\
+\)",
+"
+min at \((1,0)\); max at \((-\frac12,\frac{81}{16})\) and \((\frac12,\frac{81}{16})
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc2->print_q() \}
+$BR
+\{ $mc2->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc2->correct_ans() ) );
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+First note that \(g(x)\) is continuous.  Let's now take the derivative so that we can find the critical numbers. We find
+\begin{align*}
+g'(x)&=2(x^2+x-2)(2x+1).
+\end{align*}
+The derivative is defined everywhere, so we need only find when the derivative is \(0\). We have
+\begin{align*}
+0&=2(x^2+x-2)(2x+1)\\
+0&=2(x+2)(x-1)(2x+1)\\
+x&=-2,1,-\frac12 .
+\end{align*}
+Now that we have found the critical numbers, we know that those are the only places where the derivative can change sign.  Thus we can divide the \(x\)-axis into four intervals.  On each of these intervals the derivative is either always positive or always negative.  Therefore we can choose test points to determine positive or negative.  Let's use test points \(-3,-1,0\), and \(2\). We find
+\begin{align*}
+&g'(-3)=-40\\
+&g'(-1)=4\\
+&g'(0)=-4\\
+&g'(2)=40\\
+\end{align*}
+$BCENTER
+$fig[0]
+$ECENTER
+Therefore the derivative is negative on the intervals \((-\infty,-2)\) and \((-\frac12,1)\), and the derivative is positive on the intervals \((-2,-\frac12)\) and \((1,\infty)\).
+$BR
+$BR
+Hence \(g(x)\) is decreasing on the intervals \((-\infty,-2)\) and \((-\frac12,1)\), and \(g(x)\) is increasing on the intervals \((-2,-\frac12)\) and \((1,\infty)\).
+$BR
+$BR
+From this information we can determine the local max and mins.  At \(x=-2\) and at \(x=1\), \(g(x)\) is changing from decreasing to increasing, so there are local mins there.  At \(x=-\frac12\), \(g(x)\) is changing from increasing to decreasing, so there is a local max there.  We can find the \(y\)-values of each of these points by plugging into \(g(x)\).
+Thus, the correct answers are \{ $mc->correct_ans() \} and \{ $mc2->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

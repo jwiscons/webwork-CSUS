@@ -1,0 +1,93 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.02')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+    "contextFraction.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$f = Compute("1/sqrt(x)");
+$df = $f->D('x');
+
+$u = list_random(4, 9, 16, 25);
+$sqrtu = Compute(sqrt($u));
+$ansdenom = Compute(2*($sqrtu)**(3));
+
+$ans1 = $df->eval(x=>$u);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the slope of the tangent line to the graph of [`\displaystyle f(x) = [$f]`] at [`x=[$u]`].
+
+The slope is: [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+\lim_{h\to0}\frac{f([$u]+h)-f([$u])}h
+&=\lim_{h\to0}\frac{\frac1{\sqrt{[$u]+h}}-\frac1{\sqrt{[$u]}}}h\\
+&=\lim_{h\to0}\frac{\frac1{\sqrt{[$u]+h}}-\frac1[$sqrtu]}h\cdot\frac{[$sqrtu]\sqrt{[$u]+h}}{[$sqrtu]\sqrt{[$u]+h}}\\
+&=\lim_{h\to0}\frac{[$sqrtu]-\sqrt{[$u]+h}}{[$sqrtu]h\sqrt{[$u]+h}}
+\\&=\lim_{h\to0}\frac{[$sqrtu]-\sqrt{[$u]+h}}{[$sqrtu]h\sqrt{[$u]+h}}\cdot\frac{[$sqrtu]+\sqrt{[$u]+h}}{[$sqrtu]+\sqrt{[$u]+h}}
+\\&=\lim_{h\to0}\frac{[$u]-([$u]+h)}{[$sqrtu]h\sqrt{[$u]+h}([$sqrtu]+\sqrt{[$u]+h})}
+\\&=\lim_{h\to0}\frac{-h}{[$sqrtu]h\sqrt{[$u]+h}([$sqrtu]+\sqrt{[$u]+h})}
+\\&=\lim_{h\to0}\frac{-1}{[$sqrtu]\sqrt{[$u]+h}([$sqrtu]+\sqrt{[$u]+h})}
+\\&=\frac{-1}{[$sqrtu]\sqrt{[$u]+0}\ ([$sqrtu]+\sqrt{[$u]+0})}=-\frac1{[$ansdenom]}
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

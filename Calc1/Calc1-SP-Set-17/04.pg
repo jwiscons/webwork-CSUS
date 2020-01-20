@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('10/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-17.04')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle \int_1^8 \frac4{\sqrt[3]x} \ dx\).
+", 
+"\(
+18
+\\
+\)"
+);
+$mc->extra(
+"\(
+4
+\\
+\)",
+"\(
+\dfrac{22}3
+\\
+\)",
+"\(
+\dfrac{29}3
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+\int_1^8 \frac4{\sqrt[3]x} \ dx&=\int_1^8 4x^{-\frac13} \ dx
+\\&=\left.\left(4\cdot\frac32x^{\frac23}\right)\right|_1^8
+\\&=\left.6x^{\frac23}\right|_1^8
+\\&=6(8)^{\frac23}-6(1)^{\frac23}
+\\&=6(4)-6
+\\&=18.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,83 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-14.02')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = non_zero_random(2,9,1);
+
+$f = Compute("e^{2x-2*$a}-1");
+$g = Compute("x-$a");
+
+$df = Compute("2*e^{2x-2*$a}");
+$dg = $g->D('x');
+
+$ans1 = $df->eval(x=>$a) / $dg->eval(x=>$a);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Compute the following limit.  If the limit is [`\infty`], enter "inf"; if the limit is [`-\infty`], enter "-inf".
+
+>>[``\lim_{x\to[$a]} \frac{[$f->reduce()]}{[$g->reduce()]}``]<<
+ 
+The limit is [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+\lim_{x\to[$a]}  \frac{[$f->reduce()]}{[$g->reduce()]} 
+&=\lim_{x\to[$a]} \frac{[$df->reduce()]}{[$dg->reduce()]} \quad\quad\text{(L'Hospital's Rule)}
+\\&=\frac{[$df->eval(x=>$a)]}{[$dg->eval(x=>$a)]}
+\\&=[$ans1]
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

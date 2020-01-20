@@ -1,0 +1,70 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.19')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to0^+}\frac{x(x+2)}{x^2(x+3)}}\).
+", 
+"\(
+\infty
+\)"
+);
+$mc->extra(
+"\(
+-\infty
+\)",
+"\(
+0
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluate at 0, we get \(\frac00\), so we want to cancel to compute the limit. We find
+\[
+\lim_{x\to0^+}\frac{x(x+2)}{x^2(x+3)}=\lim_{x\to0^+}\frac{x+2}{x(x+3)}.
+\]
+Now evaluating at \(0\), we get \(\frac20\), which is undefined.  This is of the form nonzero/zero, so there is an asymptote at \(0\), and so the one-sided limit will be \(\infty\) or \(-\infty\).  For \(x\) close to \(0\) (on the right) the numerator is positive.  In the denominator, for values close to \(0\) on the right, \(x\) will be positive, and \(x+3\) is positive, so the denominator is positive.  Therefore near \(0\) (on the right) we have \(\frac{\text{positive}}{\text{positive}}\) which is positive.  Thus \(\displaystyle{\lim_{x\to0^+}\frac{x(x+2)}{x^2(x+3)}=\infty}\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

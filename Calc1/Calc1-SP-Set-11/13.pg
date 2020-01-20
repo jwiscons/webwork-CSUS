@@ -1,0 +1,111 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.13')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-11-13-pic01.png", width=>300, height=>250, tex_size=>500);
+$fig[1]=image("Calc1-SP-Set-11-13-pic02.png", width=>300, height=>200, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A car is moving east down a straight road at a rate of \(60\) miles per hour.  It is approaching an intersection that is \(2\) miles away.  Meanwhile, a truck is driving north, away from that intersection at \(50\) miles per hour, and this truck is \(1.5\) miles from the intersection.  At what rate is the distance between the two vehicles changing at that point in time?
+", 
+"
+\(-18\) miles per hour 
+
+$BR
+$BR
+"
+);
+$mc->extra(
+"
+\(-24\) miles per hour
+$BR
+$BR
+",
+"
+\(15\) miles per hour
+$BR
+$BR
+",
+"
+\(25\) miles per hour
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+$BR
+$fig[0]
+$BR
+We have a picture drawn at some arbitrary moment in time.  We let \(a\) be the distance from the car to the intersection and let \(b\) be the distance from the truck to the intersection.  Lastly, let \(c\) represent the distance between the car and truck. 
+$BR
+$BR
+We know the car is traveling at \(60\) mi/h, so the distance \(a\) is \textbf{decreasing} at a rate of \(60\) mi/h.  Thus \(\frac{da}{dt}=-60\).  Since \(b\) is the distance the truck has traveled and the truck is traveling \(50\) mi/h, then \(\frac{db}{dt}=50\).  We want to find \(\frac{dc}{dt}\) when \(a=2\) and \(b=1.5\).
+$BR
+$BR
+Looking at what we know and what we want to find, we need an equation relating \(a,b\), and \(c\), so Pythagorean Theorem looks like a good choice. We have
+\begin{align*}
+a^2+b^2&=c^2\\
+2a\frac{da}{dt}+2b\frac{db}{dt}&=2c\frac{dc}{dt}\\
+a\frac{da}{dt}+b\frac{db}{dt}&=c\frac{dc}{dt}.
+\end{align*}
+Now we want to plug the values for the specific time we are interested in, so let's draw the picture that corresponds to that specific time. 
+$BR
+$fig[1]
+$BR
+We find
+\begin{align*}
+a\frac{da}{dt}+b\frac{db}{dt}&=c\frac{dc}{dt}\\
+2(-60)+1.5(50)&=2.5\frac{dc}{dt}\\
+-45&=2.5\frac{dc}{dt}\\
+\frac{dc}{dt}&=-\frac{45}{2.5}=-18.
+\end{align*}
+We want \(a=2\) and \(b=1.5\).  We can use Pythagorean Theorem to find \(c\). Thus,
+\begin{align*}
+2^2+1.5^2&=c^2\\
+c&=2.5.
+\end{align*}
+The distance between the vehicles is decreasing at a rate of \(18\) miles per hour.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

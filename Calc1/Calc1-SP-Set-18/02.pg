@@ -1,0 +1,86 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('11/28/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-18.02')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Evaluate the following integral. (Your answer should be a number.)
+ 
+[``\int_0^2\sqrt{4x+1}\ dx =``] [____________]{13/3}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Notice that if we let [`u=4x+1`], then the derivative is [`4`] which is just a constant that we can factor out. Don't forget that we need to change the limits on the integral if we change variables.  If we let [`u=4x+1`], then when [`x=0`], [`u=4(0)+1=1`], and when [`x=2`], [`u=4(2)+1=9`].
+
+>> [``
+\begin{aligned}
+&\int_0^2\sqrt{4x+1}\ dx\\
+&\qquad \begin{array}{rl}
+u&=4x+1\\
+du&=4dx\\
+\frac14du&=dx
+\end{array}&\\\\&=\int_1^9\frac14\sqrt u\ du\\
+&\\
+&=\int_1^9\frac14u^{\frac12}\ du
+\\&=\left.\frac14\left(\frac23u^{\frac32}\right)\right|_1^9\\
+&=\left.\frac16u^{\frac32}\right|_1^9
+\\&=\frac169^{\frac32}-\frac161^{\frac32}
+\\&=\frac{27}6-\frac16
+\\&=\frac{13}3
+\end{aligned}
+``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

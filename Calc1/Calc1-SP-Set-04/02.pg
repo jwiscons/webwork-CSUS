@@ -1,0 +1,96 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-04.02')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad \dfrac{1}{2}\) $BR$BR",
+"\(\quad -\dfrac{2}{7}\) $BR$BR",
+"\(\quad \displaystyle  -\infty \) $BR$BR",
+"\(\quad \displaystyle  \infty \) $BR$BR" 
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Compute \(\displaystyle \lim_{x\to\infty}\frac{2x^3-3x^2+2}{4x^3+x-7}\).",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We have
+
+[``\begin{align*}
+\lim_{x\to\infty}\frac{2x^3-3x^2+2}{4x^3+x-7}
+&=\lim_{x\to\infty}\frac{2x^3-3x^2+2}{4x^3+x-7}\cdot\frac{\frac1{x^3}}{\frac1{x^3}}
+\\&=\lim_{x\to\infty}\frac{2-\frac3x+\frac2{x^3}}{4+\frac1{x^2}-\frac7{x^3}}
+\\&=\frac{2-0+0}{4+0-0}
+\\&=\frac12.
+\end{align*}``]
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+COMMENT('MathObject version.');
+ENDDOCUMENT();

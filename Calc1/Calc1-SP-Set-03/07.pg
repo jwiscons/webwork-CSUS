@@ -1,0 +1,74 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.07')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to-3}\ \frac{\sqrt{x+7}-2}{x+3}}\).
+", 
+"\(
+\frac14
+\)"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+-\frac35
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Let's rationalize the numerator and see if we can factor. We have
+\begin{align*}
+\lim_{x\to-3}\ \frac{\sqrt{x+7}-2}{x+3}&=\lim_{x\to-3}\ \frac{\sqrt{x+7}-2}{x+3}\cdot\frac{\sqrt{x+7}+2}{\sqrt{x+7}+2}
+\\&=\lim_{x\to-3}\ \frac{x+7-4}{(x+3)(\sqrt{x+7}+2}
+\\&=\lim_{x\to-3}\ \frac{x+3}{(x+3)(\sqrt{x+7}+2}
+\\&=\lim_{x\to-3}\ \frac1{\sqrt{x+7}+2}
+\\&=\frac1{\sqrt{-3+7}+2}
+\\&=\frac14.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

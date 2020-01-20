@@ -1,0 +1,90 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/16/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-07.10')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = random(2,20,1);
+
+$f = Compute("$a * e^x* (x-1)");
+$df = $f->D('x');
+
+$yval = $f->eval(x=>1);
+$slope = $df->eval(x=>1);
+
+$ans1 = Compute("$slope*(x-1)+$yval");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find an equation for the _tangent line_ to the graph of [`k(x)=[$a]e^x(x-1)`] at [`x=1`].
+
+An equation is [`y= `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+To find the slope of the line we need to find [`k'(1)`].  We can use the product rule to compute [`k'(x)`].
+
+>> [`` k'(x)=[$a]e^x(1)+(x-1)[$a]e^x=[$a]e^x(1+x-1)=[$a]xe^x``] <<
+
+Thus, the slope of the tangent line is 
+
+>> [``\text{slope} =k'(1)=[$a]e^1=[$a]e``]<<
+
+We also need a point on the line.  The line touches the graph of [`k(x)`] at [`x=1`], so [`y=k(1)=[$a]e^1(1-1)=[$a]e(0)=[$yval]`].  Thus a point on the line is [`(1,[$yval])`].
+
+Now we can find the equation of the line.
+>> [``\begin{aligned}
+y-[$yval]&=[$a]e(x-1)\\
+y&=[$a]ex-[$a]e
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

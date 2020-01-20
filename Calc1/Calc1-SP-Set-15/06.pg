@@ -1,0 +1,113 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-15.06')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-15-06pic.png", width=>200, height=>300, tex_size=>500);
+
+$fig[1]=image("Calc1-SP-Set-15-06pic2.png", width=>200, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A cone is circumscribed about a cylinder of height \(8\) and radius \(3\).  What is the smallest volume such a cone could have?
+
+(Note: The volume of a cone with height \(h\) and radius \(r\) is \(\frac{\pi}3r^2h\).)
+$BCENTER
+$fig[0]
+$ECENTER
+", 
+"\(
+162\pi
+\)
+$BR
+$BR
+"
+);
+$mc->extra(
+"\(
+112\pi
+\)
+$BR
+$BR
+",
+"\(
+124\pi
+\) 
+$BR
+$BR
+",
+"\(
+136\pi
+\) 
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+If we let the radius of the cone be \(r\) and the height of the cone be \(h\), then the volume of the cone is \(V=\frac{\pi}3r^2h\).  We want to get the volume in terms of one variable.  Notice that we have the similar triangles shown at the right.  This gives us a relationship between \(r\) and \(h\). We find
+\begin{align*}
+\frac{r}h&=\frac{r-3}8\\
+h&=\frac{8r}{r-3}.
+\end{align*}
+$BCENTER
+$fig[1]
+$ECENTER
+Now we have
+\[
+V=\frac{\pi}3r^2\left(\frac{8r}{r-3}\right)=\frac{8\pi r^3}{3r-9}.
+\]
+Notice that \(r\) must be at least \(3\), so we want to maximize this function on the interval \((3,\infty)\).  Moreover, \(\displaystyle {\lim_{r\to3^+}\frac{8\pi r^3}{3r-9}=\infty}\) and \(\displaystyle {\lim_{r\to\infty}\frac{8\pi r^3}{3r-9}=\infty}\).  Thus if we find a critical number it must give a minimum volume.  Let's proceed to find the critical numbers. We find
+\begin{align*}
+V&=\frac{8\pi r^3}{3r-9}\\
+V'&=\frac{(3r-9)(24\pi r^2)-8\pi r^3(3)}{(3r-9)^2}\\
+0&=\frac{(3r-9)(24\pi r^2)-8\pi r^3(3)}{(3r-9)^2}\\
+0&=(3r-9)(24\pi r^2)-24\pi r^3\\
+0&=24\pi r^2(3r-9-r)\\
+0&=24\pi r^2(2r-9)\\
+r&=0,\frac92 .
+\end{align*}
+Since \(0\) isn't in the interval \((3,\infty)\), we have \(r=\frac92\) is the only critical number.  Therefore \(\displaystyle {V=\frac{8\pi \left(\frac92\right)^3}{3\left(\frac92\right)-9}=162\pi}\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,97 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/29/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-10.04')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle \frac{dy}{dx}=\frac{1-2ye^{2x}}{e^{2x}+e^y} \) $BR$BR",
+"\(\quad\displaystyle \frac{dy}{dx}=\frac{y-2xe^{2x}}{e^{2x}+e^y} \) $BR$BR",
+"\(\quad\displaystyle \frac{dy}{dx}=\frac{y-2e^{2x}}{e^{2x}+e^y} \) $BR$BR",
+"\(\quad\displaystyle \frac{dy}{dx}=\frac{1-xe^{2x}}{e^{2x}+e^y} \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Use implicit differentiation to find an expression for \(\frac{dy}{dx}\) given that \[ ye^{2x}+e^y=x \]",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+\frac d{dx}(ye^{2x}+e^y)&=\frac d{dx}(x)\\
+\frac d{dx}(ye^{2x})+e^y\frac{dy}{dx}&=1\\
+y(e^{2x}(2))+e^{2x}\frac{dy}{dx}+e^y\frac{dy}{dx}&=1\\
+\frac{dy}{dx}(e^{2x}+e^y)&=1-2ye^{2x}\\
+\frac{dy}{dx}&=\frac{1-2ye^{2x}}{e^{2x}+e^y}
+\end{aligned}``] <<
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

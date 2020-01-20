@@ -1,0 +1,98 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.08')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad\displaystyle k'(x) = -\frac{1}{2x\sqrt{x}} \) $BR$BR",
+"\(\quad\displaystyle k'(x) = -\sqrt{x} \) $BR$BR",
+"\(\quad\displaystyle k'(x) = \frac{4\sqrt x}{x+1} \) $BR$BR",
+"\(\quad\displaystyle  k'(x) = \frac{1}{1+\sqrt{x}}\) $BR$BR" 
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Use the definition of the derivative to find \(k'(x)\), the derivative of \(\displaystyle k(x)=\frac{1}{\sqrt{x}}\).",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+k'(x)&=\lim_{h\to0}\frac{k(x+h)-k(x)}h
+\\&=\lim_{h\to0}\frac{\frac1{\sqrt{x+h}}-\frac1{\sqrt x}}h
+\\&=\lim_{h\to0}\frac{\frac1{\sqrt{x+h}}-\frac1{\sqrt x}}h\cdot\frac{(\sqrt{x+h})(\sqrt x)}{(\sqrt{x+h})(\sqrt x)}
+\\&=\lim_{h\to0}\frac{\sqrt x-\sqrt{x+h}}{h(\sqrt{x+h})(\sqrt x)}
+\\&=\lim_{h\to0}\frac{\sqrt x-\sqrt{x+h}}{h(\sqrt{x+h})(\sqrt x)}\cdot\frac{\sqrt x+\sqrt{x+h}}{\sqrt x+\sqrt{x+h}}
+\\&=\lim_{h\to0}\frac{x-(x+h)}{h(\sqrt{x+h})(\sqrt x)(\sqrt x+\sqrt{x+h})}
+\\&=\lim_{h\to0}\frac{-h}{h(\sqrt{x+h})(\sqrt x)(\sqrt x+\sqrt{x+h})}
+\\&=\lim_{h\to0}\frac{-1}{(\sqrt{x+h})(\sqrt x)(\sqrt x+\sqrt{x+h})}
+\\&=\frac{-1}{(\sqrt{x+0})(\sqrt x)(\sqrt x+\sqrt{x+0})}
+\\&=-\frac1{2x\sqrt x}
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

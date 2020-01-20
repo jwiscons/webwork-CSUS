@@ -1,0 +1,97 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.05')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad\displaystyle f'(x) = -\frac{1}{(x+2)^2} \) $BR$BR",
+"\(\quad\displaystyle f'(x) =\frac {x}{x+2} \) $BR$BR",
+"\(\quad\displaystyle f'(x) = -\frac{x+2}{x} \) $BR$BR",
+"\(\quad\displaystyle  f'(x) = -\frac{1}{x+2}\) $BR$BR" 
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Use the definition of the derivative to find the derivative of \(\displaystyle f(x)=\frac{1}{x+2}\).",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+f'(x)&=\lim_{h\to0}\frac{f(x+h)-f(x)}h
+\\&=\lim_{h\to0}\frac{\frac1{(x+h)+2}-\frac1{x+2}}h
+\\&=\lim_{h\to0}\frac{\frac1{x+h+2}-\frac1{x+2}}h\cdot\frac{(x+h+2)(x+2)}{(x+h+2)(x+2)}
+\\&=\lim_{h\to0}\frac{(x+2)-(x+h+2)}{h(x+h+2)(x+2)}
+\\&=\lim_{h\to0}\frac{-h}{h(x+h+2)(x+2)}
+\\&=\lim_{h\to0}\frac{-1}{(x+h+2)(x+2)}
+\\&=\frac{-1}{(x+0+2)(x+2)}
+\\&=-\frac1{(x+2)^2}
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

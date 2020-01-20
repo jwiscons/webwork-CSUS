@@ -1,0 +1,103 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.06')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$c = random(1,10,1);
+$f = Compute("x^3-$c");
+$df = $f->D('x');
+
+$u = random(1,5,1);
+
+$ans1 = $df->eval(x=>$u);
+
+
+Context()->variables->add(h => 'Real');
+$fu = $f->substitute(x => "$u");
+$fuh = $f->substitute(x => "$u + h");
+$fuhsimple = Compute("[$u^3] + [3*$u^2]*h + [3*$u]*h^2 + h^3 - $c");
+$dqnumerator = Compute("[3*$u^2]*h + [3*$u]*h^2 + h^3");
+$dqsimple = Compute("[3*$u^2] + [3*$u]*h + h^2");
+$hcoeff = Compute("[3*$u]");
+
+   
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Use the definition of the derivative to find the derivative of [`f(x) = [$f]`] at [`x=[$u]`].
+
+[`f'([$u]) = `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+f'([$u])&=\lim_{h\to0}\frac{f([$u]+h)-f([$u])}h
+\\&=\lim_{h\to0}\frac{([$u]+h)^3-[$c]-([$u]^3-[$c])}h
+\\&=\lim_{h\to0}\frac{[$fuhsimple]-[$f->eval(x=>$u)]}h
+\\&=\lim_{h\to0}\frac{[$dqnumerator]}h
+\\&=\lim_{h\to0} [$dqsimple]
+\\&= [$dqsimple->eval(h=>0)] + [$hcoeff](0) + (0)^2
+\\&= [$dqsimple->eval(h=>0)]
+\end{aligned}``] <<
+
+Therefore [`f'([$u]) = [$ans1]`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

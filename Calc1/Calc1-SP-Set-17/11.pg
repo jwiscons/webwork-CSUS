@@ -1,0 +1,79 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('10/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-17.11')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle \int_2^4 \frac{w^2+3w^3}{w} \ dw \).
+", 
+"\(
+62
+\\
+\)"
+);
+$mc->extra(
+"\(
+0
+\\
+\)",
+"\(
+12
+\\
+\)",
+"\(
+121
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+\int_2^4 \frac{w^2+3w^3}{w} \ dx&=\int_2^4(w^2+3w^3)w^{-1}\ dw
+\\&=\int_2^4(w+3w^2)\ dw
+\\&=\left.\left(\frac12w^2+3\cdot\frac13w^3\right)\right|_2^4
+\\&=\left.\left(\frac12w^2+w^3\right)\right|_2^4
+\\&=\left(\frac12\cdot4^2+4^3\right)-\left(\frac12\cdot2^2+2^3\right)
+\\&=72-10
+\\&=62.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

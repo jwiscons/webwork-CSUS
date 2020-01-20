@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.01')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find \(\dfrac{df}{dx}\), where \(f(x)=x\arctan(2x)\).
+", 
+"\(
+f'(x)=\arctan(2x)+\dfrac{2x}{1+4x^2}
+\\
+\)"
+);
+$mc->extra(
+"\(
+f'(x)=\arctan(2x)+\dfrac{x}{2+8x^2}
+\\
+\)",
+"\(
+f'(x)=\arctan(2x)+\dfrac{x}{1+2x^2}
+\\
+\)",
+"\(
+f'(x)=\arctan(2x)+\dfrac{x^2}{1+4x^2}
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+f'(x)&=\left(\frac{d}{dx}x\right)\arctan(2x)+ x\left(\frac d{dx}\left(\arctan(2x)\right)\right)
+\\&=2\arctan(2x) + x\left(\frac1{1+(2x)^2}\right)(2)
+\\&=\arctan(2x)+\frac{2x}{1+4x^2}.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

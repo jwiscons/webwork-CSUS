@@ -1,0 +1,98 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-12.07')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = non_zero_random(-11,11,1);
+
+$f = Compute("x^4-4*x^3+4*x^2+$a");
+
+$ans1 = $f->eval(x=>-2);
+$ans2 = $f->eval(x=>0);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the maximal and minimal values for the function [`f(x)=x^4-4x^3+4x^2+[$a]`] on the interval [`[-2,3]`].
+
+The maximal value is [____________]{$ans1}
+
+The minimal value is [____________]{$ans2}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We need to find the critical numbers.  We first find the derivative.
+
+>> [``f'(x) =4x^3-12x^2+8x``] <<
+
+The derivative is defined everywhere, so we need only find where the derivative is zero.
+
+>> [``\begin{aligned}
+0&=4x^3-12x^2+8x\\
+0&=4x(x^2-3x+2)\\
+0&=4x(x-2)(x-1)\\
+x&=0,2,1
+\end{aligned}``] <<
+
+All the critical points are in the interval, so now we need to check the values of the function at the critical numbers and the end points.
+
+>> [``\begin{aligned}
+&f(0)=[@ $f->eval(x=>0)  @]\\
+&f(1)=[@ $f->eval(x=>1)  @]\\
+&f(2)=[@ $f->eval(x=>2)  @]\\
+&f(-2)=[@ $f->eval(x=>-2)  @]\\
+&f(3)=[@ $f->eval(x=>3)  @]
+\end{aligned}``] <<
+
+The maximal value is [`[$ans1]`]. The minimal value is [`[$ans2]`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

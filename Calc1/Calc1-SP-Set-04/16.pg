@@ -1,0 +1,98 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-04.16')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad \displaystyle g(x)=\frac{4x+1}{2x+2} \) $BR$BR",
+"\(\quad \displaystyle f(x)=\frac{2x^3+1}{x-2} \) $BR$BR",
+"\(\quad \displaystyle h(x)=\frac{2x^3+1}{x+1} \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Which of the following functions has a vertical asymptote at \(x=-1\) and horizontal asymptote \(y=2\) ?",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Evaluate at [`-1`].  Only [`g(x)`] and [`h(x)`] end up with a zero in the denominator.  We need to make sure the numerator is nonzero in order to have a vertical asymptote.  When plugging in [`-1`] the numerator in both [`g(x)`] and [`h(x)`] are nonzero.  Therefore both [`g(x)`] and [`h(x)`] have a vertical asymptote at [`x=-1`].
+
+Now we need to check whether or not they have horizontal asymptote [`y=2`].  In other words, we need to check to see if the limit as [`x`] approaches [`\infty`] or [`-\infty`] is [`2`].  Using our knowledge and hard work from the previous problems we know that
+
+[``\lim_{x\to\infty}\frac{4x+1}{2x+2}=2\qquad\text{ and }\qquad\lim_{x\to\infty}\frac{2x^3+1}{x+1}=\infty.``]
+
+Additionally we know
+
+[``\lim_{x\to-\infty}\frac{4x+1}{2x+2}=2\qquad\text{ and }\qquad\lim_{x\to-\infty}\frac{2x^3+1}{x+1}=\infty.``]
+
+
+Therefore [`g(x)`] has horizontal asymptote [`y=2`] and [`h(x)`] does not have horizontal asymptote [`y=2`].
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+COMMENT('MathObject version.');
+ENDDOCUMENT();

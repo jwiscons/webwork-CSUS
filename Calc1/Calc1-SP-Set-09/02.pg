@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.02')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+r(x)=(x^3-7)^5
+}\). Find \(r'(x)\).
+", 
+"\(
+r'(x)=15x^2(x^3-7)^4
+\\
+\)"
+);
+$mc->extra(
+"\(
+r'(x)=5x^3(x^3-7)^4
+\\
+\)",
+"\(
+r'(x)=5x(x^3-7)^4
+\\
+\)",
+"\(
+r'(x)=(15x^2-7)(x^3-7)^4
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\[
+r'(x)=5(x^3-7)^4(3x^2)=15x^2(x^3-7)^4.
+\]
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

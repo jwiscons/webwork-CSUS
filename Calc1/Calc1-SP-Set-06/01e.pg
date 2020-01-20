@@ -1,0 +1,109 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/08/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-06.01e')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad\displaystyle \alpha(x)=15x^2+2x^{-\frac12} \) $BR$BR",
+"\(\quad\displaystyle \beta(x)=15x^2+2x^{\frac52} \) $BR$BR",
+"\(\quad\displaystyle \chi(x)=15x^{\frac12}-\frac12x^{-\frac32} \) $BR$BR",
+"\(\quad\displaystyle \delta(x)=15x^4+3x^{\frac12} \) $BR$BR",
+"\(\quad\displaystyle \epsilon(x)=6x^2-4x+2 \) $BR$BR",
+"\(\quad\displaystyle \phi(x)=4x^3-12x \) $BR$BR",
+"\(\quad\displaystyle \gamma(x)=6x^2-3 \) $BR$BR",
+"\(\quad\displaystyle \eta(x)=9x^2-2x+6 \) $BR$BR",
+"\(\quad\displaystyle \kappa(x)=\sqrt7\ x+\frac{x^2}{\sqrt5} \) $BR$BR",
+"\(\quad\displaystyle \lambda(x)=\frac{\sqrt7}2x^{-\frac12}+\frac1{\sqrt5} \) $BR$BR",
+"\(\quad\displaystyle \mu(x)=\frac32x^{\frac12}+x^{-\frac32} \) $BR$BR",
+"\(\quad\displaystyle \nu(x)=\frac34x^{-2}+\frac1x \) $BR$BR",
+"\(\quad\displaystyle \theta(x)=2x-x^{-2} \) $BR$BR",
+"\(\quad\displaystyle \sigma(x)=16x^3+20x^4+6x^5 \) $BR$BR",
+"\(\quad\displaystyle \eta(x)=\frac1{12}x^{-\frac23} \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Find the derivative of \(\displaystyle k(x)=\frac{2x^4-3x^2+x}x\).",
+$answers[6]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3],$answers[4],$answers[5],
+$answers[0],$answers[7],$answers[8],$answers[9],$answers[10],
+$answers[11],$answers[12],$answers[13],$answers[14]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Let's simplify this first so that we can easily use the power rule. 
+
+>> [`` k(x)=\frac{2x^4}x-\frac{3x^2}x+\frac xx=2x^3-3x+1``] <<
+
+Then,
+
+>> [`` k'(x)=2(3x^2)-3+0=\boxed{6x^2-3}``] <<
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

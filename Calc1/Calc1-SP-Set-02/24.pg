@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.24')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to0}\frac{x-4}{x^2+3x}}\).
+", 
+"
+Does not exist
+"
+);
+$mc->extra(
+"\(
+-\infty
+\)",
+"\(
+0
+\)",
+"
+\(\infty\)
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluate at \(0\), we get \(\frac{-4}0\) which is undefined.  Since the function is nonzero/zero near \(0\), then there is an asymptote at \(x=0\), so the one-sided limits will be \(\infty\) or \(-\infty\).
+$BR
+$BR
+Looking at values near \(0\) on the right, (like \(.1\) say), the numerator is negative and the denominator is positive.  So we have \(\frac{\text{negative}}{\text{positive}}\) which is negative.  Thus \(\displaystyle{\lim_{x\to0^+}\frac{x-4}{x^2+3x}=-\infty}\).
+$BR
+$BR
+Looking at values near \(0\) on the left, (like \(-.1\) say), the numerator is negative and the denominator is negative.  So we have \(\frac{\text{negative}}{\text{negative}}\), which is positive.  Thus \(\displaystyle{\lim_{x\to0^-}\frac{x-4}{x^2+3x}=\infty}\).
+$BR
+$BR
+Since the one-sided limits are not equal, the limit does not exist.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

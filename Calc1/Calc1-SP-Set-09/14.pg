@@ -1,0 +1,81 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.14')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+m(x)=\csc^2(\csc x)
+}\). Find \(m'(x)\).
+", 
+"\(
+m'(x)=2\csc^2(\csc x)\cot(\csc x)\csc x\cot x
+\\
+\)"
+);
+$mc->extra(
+"\(
+m'(x)=2\csc^2(\csc x)\csc x\cot x
+\\
+\)",
+"\(
+m'(x)=2\csc^2(\csc x)\cot(\csc x)
+\\
+\)",
+"\(
+m'(x)=-2\csc(\csc x)\cot(\csc x)\csc x\cot x
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that
+\[
+m(x)=\csc^2(\csc x)=\left(\csc(\csc x)\right)^2.
+\]
+Therefore,
+\begin{align*}
+m'(x)&=2(\csc(\csc x))\frac d{dx}(\csc(\csc x))
+\\&=2\csc(\csc x)(-\csc(\csc x)\cot(\csc x))(-\csc x\cot x)
+\\&=2\csc^2(\csc x)\cot(\csc x)\csc x\cot x.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

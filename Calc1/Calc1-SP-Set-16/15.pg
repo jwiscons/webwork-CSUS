@@ -1,0 +1,77 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-16.15')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$refreshCachedImages=1;
+$fig[0]=image("Calc1-SP-Set-16-15pic.png", width=>400, tex_size=>1000);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the value of the integral by interpreting it as the area of a region.
+ 
+[``\int_{-1}^4|x-2|\ dx =``] [____________]{13/2}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Graphing [`y=|x-2|`] we see that we need to find the area of the blue region below.
+
+>>[@ $fig[0] @]*<<
+
+The triangle on the left has base 4 and height 3, so the area of that triangle is [`\frac12\cdot3\cdot3=\frac92`].
+The triangle on the right has base 2 and height 2, so the area of that triangle is [`\frac12\cdot2\cdot2=2`].
+
+Therefore [``\int_{-1}^4|x-2|\ dx=\frac92+2=\frac{13}2``].
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

@@ -1,0 +1,70 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.05')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to2}\ \frac{x^3-8}{x^2+5x-14}}\).
+", 
+"\(
+\dfrac43
+\)"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+-2
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We have
+\begin{align*}
+\lim_{x\to2}\ \frac{x^3-8}{x^2+5x-14}&=\lim_{x\to2}\ \frac{(x-2)(x^2+2x+4)}{(x+7)(x-2)}\\&=\lim_{x\to2}\ \frac{x^2+2x+4}{x+7}\\&=\frac{2^2+2(2)+4}{2+7}\\&=\frac{12}9
+\\&=\frac43.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

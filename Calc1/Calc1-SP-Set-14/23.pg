@@ -1,0 +1,82 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-14.23')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Compute the following limit.  If the limit is [`\infty`], enter "inf"; if the limit is [`-\infty`], enter "-inf".
+
+>>[``\lim_{x\to0^+}\left(\frac1x\right)^{\tan x}``]<<
+ 
+The limit is [____________]{1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+y&=\left(\frac1x\right)^{\tan x}\\
+\ln y&=\ln \left(\frac1x\right)^{\tan x}\\
+\ln y&=\tan x\ln \frac1x\\
+\lim_{x\to0^+}\ln y&=\lim_{x\to0^+}\tan x\ln x^{-1}\\
+\lim_{x\to0^+}\ln y&=\lim_{x\to0^+}(\tan x)(-\ln x)\\
+\lim_{x\to0^+}\ln y&=\lim_{x\to0^+}\frac{-\ln x}{\cot x}\\
+\lim_{x\to0^+}\ln y&\stackrel{(L'H)}{=}\lim_{x\to0^+}\frac{-\frac1x}{-\csc^2x}\\
+\lim_{x\to0^+}\ln y&=\lim_{x\to0^+}\frac{\sin^2x}x\\
+\lim_{x\to0^+}\ln y&=\lim_{x\to0^+}\frac{2\sin x\cos x}1\\
+\lim_{x\to0^+}\ln y&=0\\
+\lim_{x\to0^+}y&=e^0\\
+\lim_{x\to0^+}y&=1\\
+\lim_{x\to0^+}\left(\frac1x\right)^{\tan x}&=1
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

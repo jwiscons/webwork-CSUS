@@ -1,0 +1,88 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/29/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-10.08')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$ans1 = Compute("5x-12");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find an equation for the _tangent line_ to the graph of [``\sin(x-y)+2y-x^2+3=0``] at [`(3,3)`].
+
+An equation is [`y= `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We have a point on the line, namely [`(3,3)`].  We need to find the slope.
+
+>> [``\begin{aligned}
+\frac d{dx}\left(\sin(x-y)+2y-x^2+3\right)&=\frac{d}{dx}(0)\\
+\cos(x-y)\left(1-\frac{dy}{dx}\right)+2\frac{dy}{dx}-2x&=0
+\end{aligned}``] <<
+
+We now want to evaluate [`\frac{dy}{dx}`] at [`(3,3)`], so we will plug in for [`x`] and [`y`] above.
+
+>> [``\begin{aligned}
+\cos(3-3)\left(1-\frac{dy}{dx}\right)+2\frac{dy}{dx}-2(3)&=0\\
+1-\frac{dy}{dx}+2\frac{dy}{dx}-6&=0\\
+\frac{dy}{dx}&=5
+\end{aligned}``] <<
+
+We have found that the slope of the tangent line at [`(3,3)`] is 5, so we can now write an equation of the tangent line.
+
+>> [``\begin{aligned}
+y-3&=5(x-3)\\
+y&=5x-12
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

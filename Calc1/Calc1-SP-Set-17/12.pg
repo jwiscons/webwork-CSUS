@@ -1,0 +1,76 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('10/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-17.12')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle \int_{-\frac{\pi}4}^{\frac{\pi}4}\sec\theta\tan\theta \ d\theta \).
+", 
+"\(
+0
+\\
+\)"
+);
+$mc->extra(
+"\(
+2\sqrt3
+\\
+\)",
+"\(
+2\pi
+\\
+\)",
+"\(
+6\sqrt3
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Recall that the derivative of \(\sec x\) is \(\sec x\tan x\). We find
+\begin{align*}
+\int_{-\frac{\pi}4}^{\frac{\pi}4}\sec\theta\tan\theta \ d\theta&=\sec\theta\Big|_{-\frac{\pi}4}^{\frac{\pi}4}
+\\&=\sec\left(\frac{\pi}4\right)-\sec\left(-\frac{\pi}4\right)
+\\&=\sqrt2\sqrt2
+\\&=0.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

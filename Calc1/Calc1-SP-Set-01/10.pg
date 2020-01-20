@@ -1,0 +1,62 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-01.10')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc4 = new_multiple_choice();
+$mc4->qa(
+"
+A ball thrown upward with a velocity of \(96\) feet per second in a vacuum will have a height of \(h(t)=96t-16t^2\) feet after \(t\) seconds. Use your answers to Problems 7, 8, and 9 to offer a guess for the instantaneous velocity of the ball at \(t=2\).
+", 
+"\(
+32 \text{ ft/sec}
+\)"
+);
+$mc4->extra(
+"\(
+30 \text{ ft/sec}
+\)",
+"\(
+36 \text{ ft/sec}
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc4->print_q() \}
+$BR
+\{ $mc4->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc4->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Since the values in parts (i), (ii), and (iii) are approaching \(32\) ft/sec, we guess this value. Thus, the correct answer is \{ $mc4->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,101 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-12.10')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = non_zero_random(-11,11,1);
+
+$f = Compute("x/((x-1)^2)+$a");
+
+$ans1 = "none";
+$ans2 = $f->eval(x=>-1);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the maximal and minimal values for the function [``r(x)= \frac{x}{(x-1)^2} + [$a] ``] on the interval [`[-2,1)`].
+ 
+_If no maximum or minimum exists, enter "none"._
+
+The maximal value is [____________]{$ans1}
+
+The minimal value is [____________]{$ans2}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We need to find the critical numbers.  We first find the derivative.
+
+>> [``r'(x) =\frac{(x-1)^2-2x(x-1)}{(x-1)^4}``] <<
+
+We first find where the derivative is zero.
+
+>> [``\begin{aligned}
+0&=\frac{(x-1)^2-2x(x-1)}{(x-1)^4}\\
+0&=\frac{(x-1)\big(x-1-2x\big)}{(x-1)^4}\\
+0&=\frac{-x-1}{(x-1)^3}\\
+0&=-x-1\\
+x&=-1
+\end{aligned}``] <<
+
+We see that the derivative is undefined when [`(x-1)^3=0`], so the derivative is undefined at [`x=1`].
+
+Therefore the critical numbers are [`-1`] and [`1`], but only [`-1`] is in the interval. We need to check the values of the function at the critical numbers in the interval and the end points.  Since the interval is not closed, we need to also check the limit as [`x`] goes to 1.
+
+>> [``\begin{aligned}
+&r(-1)=-\frac14 + [$a]\\
+&r(-2)=-\frac29 + [$a]\\
+&\lim_{x\to1}\frac{x}{(x-1)^2} + [$a]=\infty
+\end{aligned}``] <<
+
+There is no maximal value. The minimal value is [`[@-1/4 + $a@]`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

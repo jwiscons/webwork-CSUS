@@ -1,0 +1,114 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-15.03')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-15-03pic.png", width=>200, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A poster is planned that will have a total area of \(600\) in\(^2\), and that will have margins of \(3\) inches on the top and bottom, and \(2\) inches on the sides.  What is the largest printed area (the area not in the margins) that this poster could have?
+", 
+"\(
+384 
+\) in\(^2\)
+$BR
+$BR
+"
+);
+$mc->extra(
+"\(
+292 
+\) in\(^2\)
+$BR
+$BR
+",
+"\(
+428 
+\) in\(^2\)
+$BR
+$BR
+",
+"\(
+456 
+\) in\(^2\)
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+$BCENTER
+$fig[0]
+$ECENTER
+We want to the printed area to be as big as possible.  According to our labels, the width of the printed area is \(b-4\) and the height of the printed area is \(h-6\).  Therefore we get that the printed area is
+\[
+A=(b-4)(h-6).
+\]
+We know that the total area is \(600\), so we can use this to get down to one variable. We find
+\begin{align*}
+600&=bh\\
+b&=\frac{600}h.
+\end{align*}
+Substituting this into the area formula we get
+\[
+A=\left(\frac{600}h-4\right)(h-6).
+\]
+We want to maximize the area.  Notice that if \(h\) is really small the area will be small, and if \(h\) is really big the area will be really small (since \(b\) will be small).  Thus if we find a critical number it must give us the maximum value.
+$BR
+$BR
+Let's proceed to finding the critical numbers. We find
+\begin{align*}
+A&=\left(\frac{600}h-4\right)(h-6)\\
+A&=600-4h-\frac{3600}h-24\\
+A'&=-4+\frac{3600}{h^2}\\
+0&=-4+\frac{3600}{h^2}\\
+4&=\frac{3600}{h^2}\\
+4h^2&=3600\\
+h^2&=900\\
+h&=30.
+\end{align*}
+We have found the necessary height, and we can find \(b=\frac{600}{30}=20\).  Thus the printed area will be \(24\) in  by \(16\) in , and thus we get area \(384\) in\(^2\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

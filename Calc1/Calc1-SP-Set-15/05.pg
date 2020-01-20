@@ -1,0 +1,113 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-15.05')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-15-05pic.png", width=>200, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A right triangle is circumscribed around a \(3\) by \(4\) rectangle, as shown.  What is the smallest area such a triangle could have?
+$BCENTER
+$fig[0]
+$ECENTER
+", 
+"\(
+24
+\)
+$BR
+$BR
+"
+);
+$mc->extra(
+"\(
+28
+\)
+$BR
+$BR
+",
+"\(
+30 
+\) 
+$BR
+$BR
+",
+"\(
+32
+\) 
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+The base of the triangle is \(b+4\) and the height is \(h+3\).  We want to make the area as small as possible.  Therefore we have
+\[
+A=\frac12(b+4)(h+3)
+\]
+to work with.
+$BR
+$BR
+We want to get this area as a function of one variable, so we want to find a relationship between \(h\) and \(b\).  Notice that the two smaller triangles in the picture are similar, so we have
+\begin{align*}
+\frac b3&=\frac4h\\
+bh&=12\\
+h&=\frac{12}b.
+\end{align*}
+Plugging this into the area function, we get
+\[
+A=\frac12(b+4)\left(\frac{12}b+3\right)=6+\frac{24}b+\frac32b+12.
+\]
+Notice that \(\displaystyle{\lim_{b\to0^+}6+\frac{24}b+\frac32b+12=\infty}\) and \(\displaystyle {\lim_{b\to\infty}6+\frac{24}b+\frac32b+12=\infty}\).  Thus if we find a critical number, it must give us the minimum.  Let's proceed to finding the critical numbers. We find
+\begin{align*}
+A&=6+\frac{24}b+\frac32b+12\\
+A'&=-\frac{24}{b^2}+\frac32\\
+0&=-\frac{24}{b^2}+\frac32\\
+\frac{24}{b^2}&=\frac32\\
+b^2&=16\\
+b&=4.
+\end{align*}
+Since \(b=4\), then \(h=\frac{12}{4}=3\).  Thus the triangle has base \(8\) and height \(6\), so the area is \(A=\frac12\cdot8\cdot6=24\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

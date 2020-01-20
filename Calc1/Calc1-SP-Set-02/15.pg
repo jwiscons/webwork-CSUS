@@ -1,0 +1,66 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.15')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to2^-}\frac{(x-1)(x+2)}{(x-2)(x+3)}}\).
+", 
+"\(
+-\infty
+\)"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+\infty
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluate at \(2\), we get \(\frac40\) which is not defined, so we need to examine this more closely to determine the one-sided limit.  Because at \(x=2\) the function \(\displaystyle{f(x)=\frac{(x-1)(x+2)}{(x-2)(x+3)}}\) is undefined, and of the form \(\displaystyle{\frac{\text{non-zero}}0}\), there is a vertical asymptote for \(y=f(x)\) at \(x=2\).  So we know that as \(x\) approaches \(2\) on one side, the limit will either be \(\infty\) or \(-\infty\).  To determine which it is, consider the value of the function for \(x\) close to \(2\), but to the left of \(2\) (since this is the limit as \(x\) approaches \(2\) from the left).  Close to \(2\), the numerator will be close to \((2-1)(2+2)=4\), so the numerator will be positive.  Close to \(2\), the \(x-2\) in the denominator will be a small negative number, and the \(x+3\) in the denominator will be close to \(5\), which is positive.  So the denominator will be a negative number times a positive number, thus negative.  Putting it together, the numerator will be positive and the denominator will be negative, and positive divided by negative is negative.  Therefore the limit will be negative, and we already knew it was either \(\infty\) or \(-\infty\), so it must be \(-\infty\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,104 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/08/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-06.03')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+    "contextFraction.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$f = Compute("x^2/4-sqrt(x)");
+$df = $f->D('x');
+
+$u = list_random(4, 9, 16, 25);
+
+$yval = $f->eval(x=>$u);
+$slope = $df->eval(x=>$u);
+$ans1 = Compute("$slope*(x-$u)+$yval");
+
+Context("Fraction");
+$slopefrac = Compute("1/2*$u - 1/(2sqrt($u))");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find an equation of the tangent line to the graph of [``f(x)=\frac{x^2}4-\sqrt x``] at [`x=[$u]`].
+
+An equation is [`y= `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We need to first find the slope.  In order to do this, we need to find the derivative and evaluate it at [`x=[$u]`].
+
+
+>> [``f(x)=\frac{x^2}4-\sqrt x=\frac14x^2-x^{\frac12}``] <<
+
+>> [``f'(x)=\frac24x-\frac12x^{-\frac12}=\frac12x-\frac12x^{-\frac12}``] <<
+
+>> [``\text{slope}=f'([$u])=\frac12([$u])-\frac12[$u]^{-\frac12}=[@ 1/2*$u @]-\frac12\left(\frac{1}{[@ sqrt($u) @]}\right)=[$slopefrac]``] <<
+
+We now know the slope.  The only other thing we need is a point on the line.  We know the line touches the graph of [`f(x)`] at [`x=[$u]`].  Plugging into [`f(x)`], we get the [`y`]-coordinate, namely [``y=f([$u])=\frac{[$u]^2}4-\sqrt{[$u]}=[$yval]``].  Thus a point on the line is [`([$u],[$yval])`].
+
+Finally we can find the equation of the line.
+
+>> [``\begin{aligned}
+y-[$yval]&=[$slopefrac](x-[$u])\\
+y&=[$slopefrac]x- [@ $slopefrac * $u@]+[$yval]\\
+y&=[$slopefrac]x+[@ - $slopefrac * $u + $yval @]
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

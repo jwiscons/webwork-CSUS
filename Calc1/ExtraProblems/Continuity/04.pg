@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/09/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('MK-04.04')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find the interval or intervals for which \(f(x)=\dfrac{\sqrt{x-3}}{x-7}\) is continuous on.
+", 
+"\(
+(3,7)\) and \((7,\infty)
+\)"
+);
+$mc->extra(
+"\(
+[3,7)
+\)",
+"\(
+(-\infty ,\infty)
+\)",
+"
+All \(x\) except \(x=7\)
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that the domain of \(\sqrt{x-3}\) is all \(x\geq 3\). We must exclude the endpoint when considering the interval where it is continuous (since the left-hand and right-hand limit be exist and be equal at this point and there is no left-handed limit). Therefore, we have that \(\sqrt{x-3}\) is continuous for all \(x-3>0\).
+
+$BR$BR
+Meanwhile, \(x-7\) is continuous for all \(x\) since it is a polynomial.
+
+$BR$BR
+We must exlcude the values where the denominator is \(0\). That is, when \(x-7=0\), or \(x=7\).
+
+$BR$BR
+Therefore, the intervals where \(f(x)\) is continuous are \((3,7)\) and \( (7,\infty)\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

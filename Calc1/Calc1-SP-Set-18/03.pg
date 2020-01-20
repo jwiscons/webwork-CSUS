@@ -1,0 +1,104 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('11/28/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-18.03')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle -\frac13\cos(x^3)+C \) $BR$BR",
+"\(\quad\displaystyle -\frac13x^3\cos(x^3)+C \) $BR$BR",
+"\(\quad\displaystyle \frac13x^3\sin\left(\frac14x^4\right)+C \) $BR$BR",
+"\(\quad\displaystyle \cos(x^3)+C \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Compute \[\int x^2\sin(x^3)\ dx\]",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+If we let [`u=x^3`], then the derivative is [`3x^2`], which only differs from [`x^2`] by a constant.
+
+>> [``
+\begin{aligned}
+&\int x^2\sin(x^3)\ dx
+\\&\qquad\begin{array}{rl}
+u&=x^3\\
+du&=3x^2dx\\
+\frac13du&=x^2dx
+\end{array}\\
+\\&=\int \frac13\sin u\ du
+\\&=-\frac13\cos u+C
+\\&=-\frac13\cos(x^3)+C
+\end{aligned}
+``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

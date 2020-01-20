@@ -1,0 +1,81 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.12')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+q(x)=\cot^2(1-x^2)
+}\). Find \(q'(x)\).
+", 
+"\(
+q'(x)=4x\cot(1-x^2)(\csc^2(1-x^2))
+\\
+\)"
+);
+$mc->extra(
+"\(
+q'(x)=-2x\cot(1-x^2)(\csc^2(1-x^2))
+\\
+\)",
+"\(
+q'(x)=-2x^2\cot(1-x^2)(\csc^2(1-x^2))
+\\
+\)",
+"\(
+q'(x)=4x\csc(1-x^2)(\cot^2(1-x^2))
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that
+\[
+q(x)=\cot^2(1-x^2)=\left(\cot(1-x^2)\right)^2.
+\]
+Therefore,
+\begin{align*}
+q'(x)&=2\left(\cot(1-x^2)\right)\frac d{dx}(\cot(1-x^2))
+\\&=2\cot(1-x^2)(-\csc^2(1-x^2))(-2x)
+\\&=4x\cot(1-x^2)\csc^2(1-x^2).
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

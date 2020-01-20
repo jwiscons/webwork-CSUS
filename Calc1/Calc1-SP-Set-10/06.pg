@@ -1,0 +1,89 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/29/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-10.06')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$ans1 = Compute("2*x-6");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find an equation for the _tangent line_ to the graph of [``\sqrt y+\sqrt{x+y}=x``] at [`(5,4)`].
+
+An equation is [`y= `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We have a point on the line, namely [`(5,4)`].  We need to find the slope.
+
+>> [``\begin{aligned}
+\frac d{dx}(\sqrt y+\sqrt{x+y})&=\frac d{dx}(x)\\
+\frac12y^{-\frac12}\frac{dy}{dx}+\frac12(x+y)^{-\frac12}\left(1+\frac{dy}{dx}\right)&=1
+\end{aligned}``] <<
+
+We now want to evaluate [`\frac{dy}{dx}`] at [`(5,4)`], so we will plug in for [`x`] and [`y`] above.
+
+>> [``\begin{aligned}
+\frac12(4)^{-\frac12}\frac{dy}{dx}+\frac12(5+4)^{-\frac12}\left(1+\frac{dy}{dx}\right)&=1\\
+\frac14\frac{dy}{dx}+\frac16+\frac16\frac{dy}{dx}&=1\\
+\frac5{12}\frac{dy}{dx}&=\frac56\\
+\frac{dy}{dx}&=2
+\end{aligned}``] <<
+
+We have found that the derivative evaluated at [`(5,4)`] is 2, so the slope of the tangent line there is 2.  We also have the point [`(5,4)`], so we can get the equation of the line.
+
+>> [``\begin{aligned}
+y-4&=2(x-5)\\
+y&=2x-6
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

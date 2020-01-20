@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.09')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+f(x)=x\tan(1+e^{2x})
+}\). Find \(f'(x)\).
+", 
+"\(
+f'(x)=\tan(1+e^{2x})+2x\sec^2(1+e^{2x})e^{2x}
+\\
+\)"
+);
+$mc->extra(
+"\(
+f'(x)=x\tan(1+e^{2x})+\sec^2(1+e^{2x})e^{2x}
+\\
+\)",
+"\(
+f'(x)=\tan(1+e^{2x})+\sec^2(1+e^{2x})e^{2x}
+\\
+\)",
+"\(
+f'(x)=\tan(1+e^{2x})+2x\sec^2(1+e^{2x})
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+f'(x)&=x\frac d{dx}\tan(1+e^{2x})+\tan(1+e^{2x})(1)
+\\&=x\left(\sec^2(1+e^{2x})\frac d{dx}(1+e^{2x})\right)+\tan(1+e^{2x})
+\\&=x\sec^2(1+e^{2x})(e^{2x})(2)+\tan(1+e^{2x})
+\\&=2x\sec^2(1+e^{2x})e^{2x}+\tan(1+e^{2x}).
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

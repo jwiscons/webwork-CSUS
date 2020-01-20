@@ -1,0 +1,80 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-16.11')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+$refreshCachedImages=1;
+$fig[0]=image("Calc1-SP-Set-16-11pic.png", width=>400, tex_size=>1000);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+By _interpreting the integral as area_ and using the facts that 
+* [``\int_0^1x^2\ dx=\frac13``]
+* [``\int_0^4\sqrt x\ dx=\frac{16}3``]
+
+evaluate the following integral.
+ 
+[``\int_{-1}^1x^2\ dx =``] [____________]{2/3}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+To find [``\int_{-1}^1x^2\ dx``], we need to find the area of the red region shown below.
+
+>>[@ $fig[0] @]*<<
+
+The graph of [`y=x^2`] is symmetric over the [`y`]-axis, so the red region on the left is equal to the red region on the right.  Recall that we are given that [``\int_0^1x^2\ dx=\frac13``].  Therefore we have the following. 
+
+>>[``\int_{-1}^1x^2\ dx=2\int_0^1x^2\ dx=2\left(\frac13\right)=\frac23``]<<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

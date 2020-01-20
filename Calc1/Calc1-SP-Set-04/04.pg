@@ -1,0 +1,97 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-04.04')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad 0 \) $BR$BR",
+"\(\quad -3\) $BR$BR",
+"\(\quad \displaystyle  \infty \) $BR$BR",
+"\(\quad \displaystyle  -\infty \) $BR$BR" 
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Compute \(\displaystyle \lim_{x\to\infty}\frac{3x^3+4x-1}{x^5+2x^2-x+5}\).",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We have
+
+[``\begin{align*}
+\lim_{x\to\infty}\frac{3x^3+4x-1}{x^5+2x^2-x+5}
+&=\lim_{x\to\infty}\frac{3x^3+4x-1}{x^5+2x^2-x+5}\cdot\frac{\frac1{x^3}}{\frac1{x^3}}
+\\&=\lim_{x\to\infty}\frac{3+\frac4{x^2}-\frac1{x^3}}{x^2+\frac2x-\frac1{x^2}+\frac5{x^3}}
+\\&=\lim_{x\to\infty}\frac{3+0-0}{x^2+0-0+0}
+\\&=\lim_{x\to\infty}\frac3{x^2}
+\\&=0.
+\end{align*}``]
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+COMMENT('MathObject version.');
+ENDDOCUMENT();

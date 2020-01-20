@@ -1,0 +1,104 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-15.04')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-15-04pic.png", width=>200, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A rectangle has its base on the \(x\)-axis and its upper vertices lie on the parabola \(y=12-x^2\).  What is the largest area such a rectangle can have?
+", 
+"\(
+32
+\)
+$BR
+$BR
+"
+);
+$mc->extra(
+"\(
+28
+\)
+$BR
+$BR
+",
+"\(
+31.4
+\) 
+$BR
+$BR
+",
+"\(
+34.6
+\) 
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+$BCENTER
+$fig[0]
+$ECENTER
+We will let \(x\) and \(y\) have the usual meaning on a graph.  Then the rectangle has base of length \(2x\) and height \(y\), but of course \(y=12-x^2\).  Thus the dimensions of the rectangle are \(2x\) by \(12-x^2\).  Therefore we have
+\[
+A=2x(12-x^2).
+\]
+Notice that if \(x\) is really small the area of the rectangle is really small, and if \(x\) is close the parabola, then \(y\) is small so the area of the rectangle will also be small.  Therefore if we find a critical number, it must give the maximum area.
+$BR
+$BR
+Let's proceed to find the critical numbers. We find
+\begin{align*}
+A&=2x(12-x^2)\\
+A&=24x-2x^3\\
+A'&=24-6x^2\\
+0&=24-6x^2\\
+6x^2&=24\\
+x^2&=4\\
+x&=2.
+\end{align*}
+Therefore \(x=2\) and hence \(y=12-2^2=8\), so the dimensions of the rectangle are \(4\) by \(8\).  Therefore, the maximum area is \(32\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

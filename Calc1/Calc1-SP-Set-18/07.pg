@@ -1,0 +1,83 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('11/28/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-18.07')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+$ans1 = Compute("2/3");
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Evaluate the following integral. (Your answer should be a number.)
+ 
+[``\int_0^{\frac{\pi}2}(\sin x)\sqrt{\cos x}\ dx =``] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``
+\begin{aligned}
+&\int_0^{\frac{\pi}2}(\sin x)\sqrt{\cos x}\ dx
+\\&\qquad\begin{array}{rl}
+u&=\cos x & \quad x=\frac{\pi}2 \rightarrow u = \cos\frac{\pi}2=0 \\
+du&=-\sin x dx & \quad x=0 \rightarrow u = \cos 0=1\\
+-du&=\sin x dx
+\end{array}\\&
+\\&=\int_1^0-\sqrt u\ du
+\\&=\int_1^0-u^{\frac12}\ du
+\\&=\left.-\frac23u^{\frac32}\right|_1^0
+\\&=-\frac23\cdot0^{\frac32}--\frac23\cdot1^{\frac32}
+\\&=0+\frac23
+\\&=\frac23
+\end{aligned}
+``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

@@ -1,0 +1,72 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.07')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to3^-}\frac{x^2-9}{x^2-3}}\).
+", 
+"\(
+0
+\)"
+);
+$mc->extra(
+"\(
+3
+\)",
+"\(
+-3
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluate at \(3\): \(\displaystyle{\frac{3^2-9}{3^2-3}=\frac06=0}\).
+$BR
+$BR
+Since the function \(\displaystyle{f(x)=\frac{x^2-9}{x^2-3}}\) is a basic function (a polynomial divided by a polynomial, in this case), and \(f(3)\) is defined (e.g., evaluating \(f(3)\) does not require dividing by zero), that is the value of the limit as \(x\) approaches \(3\).  Therefore we have \(\displaystyle{\lim_{x\to3^-}\frac{x^2-9}{x^2-3}=0}\).
+$BR
+$BR
+For this two-sided limit to exist, it requires that both one-sided limits exist and be equal to each other.  So the one-sided limit must also be \(0\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

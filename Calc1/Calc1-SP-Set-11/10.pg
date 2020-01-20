@@ -1,0 +1,100 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.10')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-11-10-pic.png", width=>400, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A man in a boat has a fish on the line.  The fish is swimming along the bottom of the lake, which is \(40\) feet deep, and it is swimming away from the boat.  When the fish is \(75\) feet from the boat, the line is leaving the reel at the rate of \(3\) feet per second.  How fast is the fish swimming?
+", 
+"
+\(3.55\) ft/sec
+$BR
+$BR
+"
+);
+$mc->extra(
+"
+\(2.44\) ft/sec
+$BR
+$BR
+",
+"
+\(2.71\) ft/sec
+$BR
+$BR
+",
+"
+\(3.25\) ft/sec
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We let \(f\) represent how far the fish has swum from directly under the boat and \(l\) be the length of the fishing line out. 
+$BR
+$fig[0]
+$BR
+We want to find \(\frac{df}{dt}\) when \(l=75\) and \(\frac{dl}{dt}=3\). We find
+\begin{align*}
+40^2+f^2&=l^2\\
+1600+f^2&=l^2\\
+2f\frac{df}{dt}&=2l\frac{dl}{dt}\\
+f\frac{df}{dt}&=l\frac{dl}{dt}.
+\end{align*}
+We know \(l\), but we still need to find \(f\) to continue.  We find \(f\) at the right. This is
+\begin{align*}40^2+f^2&=75^2\\1600+f^2&=5625\\
+f^2&=4025\\
+f&=\sqrt{4025}.
+\end{align*}
+Thus,
+\begin{align*}
+f\frac{df}{dt}&=l\frac{dl}{dt}\\
+\sqrt{4025}\cdot\frac{df}{dt}&=75\cdot3\\
+\frac{df}{dt}&=\frac{225}{\sqrt{4025}}\approx3.55 .
+\end{align*}
+Therefore the fish is swimming approximately \(3.55\) ft/sec.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

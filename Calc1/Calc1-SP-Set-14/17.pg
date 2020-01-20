@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-14.17')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Compute the following limit.  If the limit is [`\infty`], enter "inf"; if the limit is [`-\infty`], enter "-inf".
+
+>>[``\lim_{x\to0^+} \left(\frac1x-\frac1{\ln(1+x)}\right)``]<<
+ 
+The limit is [____________]{-1/2}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+\lim_{x\to0^+}\left(\frac1x-\frac1{\ln(1+x)}\right)
+&=\lim_{x\to0^+}\frac{\ln(1+x)-x}{x\ln(1+x)}
+\\&\stackrel{(L'H)}{=}\lim_{x\to0^+}\frac{\frac1{1+x}-1}{x\cdot\frac1{1+x}+\ln(1+x)}
+\\&=\lim_{x\to0^+}\frac{\frac1{1+x}-1}{x\cdot\frac1{1+x}+\ln(1+x)}\cdot\frac{1+x}{1+x}
+\\&=\lim_{x\to0^+}\frac{1-(1+x)}{x+(1+x)\ln(1+x)}
+\\&=\lim_{x\to0^+}\frac{-x}{x+(1+x)\ln(1+x)}
+\\&\stackrel{(L'H)}{=}\lim_{x\to0^+}\frac{-1}{1+(1+x)\frac1{1+x}+\ln(1+x)}
+\\&=\frac{-1}{1+(1+0)\cdot\frac1{1+0}+\ln(1+0)}
+\\&=\frac{-1}{2}
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

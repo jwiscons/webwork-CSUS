@@ -1,0 +1,66 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/09/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('MK-04.06')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find the interval or intervals for which \(h(x)=\ln \left(x^2-4\right)\) is continuous on.
+", 
+"\(
+(-\infty,-2)\) and \((2,\infty)
+\)"
+);
+$mc->extra(
+"\(
+(-\infty,-2)\), \((-2,2)\), and \((2,\infty)
+\)",
+"\(
+(-\infty ,\infty)
+\)",
+"
+\((2,\infty)\)
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that the domain of \(\ln \left(x^2-4\right)\) is all \(x^2-4> 0\), or \(x^2>4\). Note that this is all \(x\) such that \(x<-2\) and \(x>2\), which can be expressed as \((-\infty,-2)\cup (2,\infty)\). There are no endpoints to omit here. Therefore, we have that \(\ln \left(x^2-4\right)\) is continuous on \((-\infty,-2)\) and \((2,\infty)\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

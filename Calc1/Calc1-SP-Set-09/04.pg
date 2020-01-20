@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.04')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+m(x)=\sqrt{\sin(e^x)}
+}\). Find \(m'(x)\).
+", 
+"\(
+m'(x)=\frac12\left(\sin(e^x)\right)^{-\frac12}\cos(e^x)e^x
+\\
+\)"
+);
+$mc->extra(
+"\(
+m'(x)=\frac12\left(\sin(e^x)\right)^{-\frac12}\sin(e^x)
+\\
+\)",
+"\(
+m'(x)=-\frac12\left(\sin(e^x)\right)^{-\frac12}\cos(e^x)\sin(e^x)
+\\
+\)",
+"\(
+m'(x)=\frac12\left(\sin(e^x)\right)^{-\frac12}\sin(x)e^x
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that \(m(x)=(\sin(e^x))^{\frac12}\) so that
+\[
+m'(x)=\frac12(\sin(e^x))^{-\frac12}\frac d{dx}(\sin(e^x))=\frac12(\sin(e^x))^{-\frac12}\cos(e^x)e^x.
+\]
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

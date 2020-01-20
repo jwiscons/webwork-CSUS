@@ -1,0 +1,74 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.02')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find \(\dfrac{dg}{dx}\), where \(g(x)=\arcsin\sqrt x\).
+", 
+"\(
+g'(x)=\dfrac1{2\sqrt x\sqrt{1-x}}
+\\
+\)"
+);
+$mc->extra(
+"\(
+g'(x)=\dfrac{1}{2x\sqrt{1-x^2}}
+\\
+\)",
+"\(
+g'(x)=\dfrac{\sqrt x}{2\sqrt{1-x^2}}
+\\
+\)",
+"\(
+g'(x)=\dfrac{\sqrt x}{2\sqrt{1-x}}
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+g'(x)&=\frac1{1-(\sqrt x)^2}\cdot\frac12x^{-\frac12}
+\\&=\frac1{2\sqrt x\sqrt{1-x}}.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

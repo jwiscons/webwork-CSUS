@@ -1,0 +1,69 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.12')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to-1}\frac{x^2-3x-4}{x^2+x}}\).
+", 
+"\(
+5
+\)"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+-4
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluating at \(-1\), we get \(\frac00\). Therefore, we want to cancel so that we can compute the limit. We find
+\[
+\lim_{x\to-1}\frac{x^2-3x-4}{x^2+x}=\lim_{x\to-1}\frac{(x-4)(x+1)}{x(x+1)}=\lim_{x\to-1}\frac{x-4}{x}=\frac{-1-4}{-1}=5.
+\]
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

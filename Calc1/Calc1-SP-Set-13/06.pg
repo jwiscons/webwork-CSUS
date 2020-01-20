@@ -1,0 +1,219 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-13.06')
+
+########################################################################
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$fig[0]=image("Calc1-SP-Set-13-06pic.png", width=>200, height=>300, tex_size=>500);
+$fig[1]=image("Calc1-SP-Set-13-06pic2.png", width=>200, height=>300, tex_size=>500);
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Let \(m(x)=x^4-2x^3\). Find the intervals on which the function \(m\) is increasing.
+",
+"\(
+(\frac32,\infty)
+\\
+\)"
+);
+$mc->extra(
+"\(
+(-\infty,0)\) and \((\frac32,\infty)
+\\
+\)",
+"\(
+(0,\frac23))
+\\
+\)",
+"\(
+(-\infty,\frac23)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+$mc2 = new_multiple_choice();
+$mc2->qa(
+"
+Find the local maxima and minima of \(m\).
+",
+"
+min at \((\frac32,-\frac{27}{16})\); no local max
+$BR
+$BR
+"
+);
+$mc2->extra(
+"
+min at \((0,0)\); max at \((\frac32,-\frac{27}{16})
+\\
+\)",
+"
+min at \((0,0)\); no local max
+$BR
+$BR
+",
+"
+no local min; max at \((0,0)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc2->print_q() \}
+$BR
+\{ $mc2->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc2->correct_ans() ) );
+
+
+$mc3 = new_multiple_choice();
+$mc3->qa(
+"
+Find the intervals on which \(m\) is concave upward.
+",
+"\(
+(-\infty,0)\) and \((1,\infty)
+\\
+\)"
+);
+$mc3->extra(
+"\(
+(0,1)
+\\
+\)",
+"\(
+(0,2)
+\\
+\)",
+"\(
+(-\infty,0)\) and \((2,\infty)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc3->print_q() \}
+$BR
+\{ $mc3->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc3->correct_ans() ) );
+
+
+$mc4 = new_multiple_choice();
+$mc4->qa(
+"
+Find any inflection points of \(m\).
+",
+"\(
+(0,0)\) and \((1,-1)
+\\
+\)"
+);
+$mc4->extra(
+"\(
+(0,0)
+\\
+\)",
+"\(
+(2,0)
+\\
+\)",
+"\(
+(2,0)\) and \((1,-1)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc4->print_q() \}
+$BR
+\{ $mc4->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc4->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+First note that \(m(x)\) is continuous.  Let's look at the derivative. We have
+\begin{align*}
+m'(x)&=4x^3-6x^2.
+\end{align*}
+We have \(m'(x)\) is defined everywhere, so we need only find when it is zero. We have
+\begin{align*}
+0&=4x^3-6x^2\\
+0&=2x^2(2x-3)\\
+x&=0,\frac32.
+\end{align*}
+$BCENTER
+$fig[0]
+$ECENTER
+Thus \(m(x)\) is increasing on the interval \((\frac32,\infty)\), and \(m(x)\) is decreasing on the intervals \((-\infty,0)\) and \((0,\frac32)\).
+$BR
+$BR
+At \(x=\frac32\), the tangent line is horizontal and \(m(x)\) is changing from decreasing to increasing at \(x=\frac32\), thus there is a local minimum at \(x=\frac32\).  
+$BR
+$BR
+Now let's find the intervals of concavity and inflection points, so we need to look at the second derivative. We find
+\[
+m''(x)=12x^2-12x.
+\]
+We have \(m''(x)\) is defined everywhere, so let's find when it is zero. We have
+\begin{align*}
+0&=12x^2-12x\\
+0&=12x(x-1)\\
+x&=0,1.
+\end{align*}
+$BCENTER
+$fig[1]
+$ECENTER
+\begin{align*}
+&m''(-1)>0\\
+&m''\left(\frac12\right)<0\\
+&m''(2)>0.
+\end{align*}
+Therefore the graph of \(m(x)\) is concave up on the intervals \((-\infty,0)\) and \((1,\infty)\), and the graph of \(m(x)\) is concave down on the interval \((0,1)\).  Since the function is defined at \(x=0\) and \(x=1\) and the concavity changes there, then there are points of inflection at \(x=0\) and \(x=1\).
+Thus, the correct answers are \{ $mc->correct_ans() \}, \{ $mc2->correct_ans() \}, \{ $mc3->correct_ans() \} and \{ $mc4->correct_ans() \}, respectively.
+END_SOLUTION
+
+ENDDOCUMENT();

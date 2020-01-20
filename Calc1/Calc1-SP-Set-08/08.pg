@@ -1,0 +1,95 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/23/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-08.08')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle p'(x)=(e^x+xe^x)\frac{x+1}{x-1}-\frac{2(3+xe^x)}{(x-1)^2} \) $BR$BR",
+"\(\quad\displaystyle p'(x)=(e^x+xe^x)\frac{x+1}{x-1}-\frac{3-xe^x}{(x-1)^2} \) $BR$BR",
+"\(\quad\displaystyle p'(x)=(e^x+xe^x)\frac{x+e^x}{x-1}-\frac{2(3-xe^x)}{(x-1)^2} \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Differentiate \(\displaystyle p(x)=\left(3+xe^x\right)\frac{x+1}{x-1} \).",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+p'(x)&=(3+xe^x)\frac d{dx}\left(\frac{x+1}{x-1}\right)+\frac{x+1}{x-1}\left(\frac d{dx}(xe^x)\right)
+\\&=(3+xe^x)\left(\frac{(x-1)(1)-(x+1)(1)}{(x-1)^2}\right)+\frac{x+1}{x-1}(xe^x+e^x(1))
+\\&=(3+xe^x)\left(\frac{-2}{(x-1)^2}\right)+(e^x+xe^x)\frac{x+1}{x-1}
+\\&=-\frac{2(3+xe^x)}{(x-1)^2}++(e^x+xe^x)\frac{x+1}{x-1}
+\end{aligned}``] <<
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

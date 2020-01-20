@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.13')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to\frac12}\ \frac{4x^2-2}{2-\frac1x}}\).
+", 
+"
+Does not exist
+"
+);
+$mc->extra(
+"\(
+-2
+\)",
+"\(
+0
+\)",
+"\(
+2
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluating at \(\frac12\) we get \(\frac{-1}0\), therefore we know there is an asymptote at \(x=\frac12\).  Thus the one-sided limits must be \(\pm\infty\).
+$BR
+$BR
+Looking near \(\frac12\), but on the left, then \(2-\frac1x\) is negative.  Near \(\frac12\), again on the left, \(4x^2-2\) is negative.  Therefore we have \(\frac{(-)}{(-)}\) which is positive.  Thus \(\displaystyle{\lim_{x\to\frac12^-}\ \frac{4x^2-2}{2-\frac1x}=\infty}\).
+$BR
+$BR
+Looking near \(\frac12\), but on the right, then \(2-\frac1x\) is positive.  Near \(\frac12\), \(4x^2-2\) is negative.  Therefore we have \(\frac{(-)}{(+)}\) which is negative.  Thus \(\displaystyle{\lim_{x\to\frac12^+}\ \frac{4x^2-2}{2-\frac1x}=-\infty}\).
+$BR
+$BR
+Since the one-sided limits aren't equal, then the two-sided limit does not exist.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

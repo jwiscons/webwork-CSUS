@@ -1,0 +1,71 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-01.08')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc2 = new_multiple_choice();
+$mc2->qa(
+"
+A ball thrown upward with a velocity of \(96\) feet per second in a vacuum will have a height of \(h(t)=96t-16t^2\) feet after \(t\) seconds.  Find the average velocity of this ball during the interval of time between \(t=1.9\) and \(t=2\).
+", 
+"\(
+33.6 \text{ ft/sec}
+\)"
+);
+$mc2->extra(
+"\(
+28.2 \text{ ft/sec}
+\)",
+"\(
+36.4 \text{ ft/sec}
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc2->print_q() \}
+$BR
+\{ $mc2->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc2->correct_ans() ) );
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+At \(t=1.9\), the height of the object is \(h(1.9)=96(1.9)-16(1.9)^2=124.64\) ft.
+
+At \(t=2\), the height of the object is \(h(2)=96(2)-16(2)^2=128\) ft.
+
+Therefore during the brief period between \(t=1.9\) and \(t=2\), the ball travels a distance of \(128-124.64=3.36\) ft.  This occurs over the course of the one second between \(t=1.9\) and \(t=2\), so the ball has an average velocity of
+\[
+\frac{128\text{ ft} - 124.64\text{ ft}}{2\text{ sec}-1.9\text{ sec}}=\frac{3.36}{0.1} \text{ ft/sec}=33.6\text{ ft/sec}.
+\]
+Thus, the correct answer is \{ $mc2->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

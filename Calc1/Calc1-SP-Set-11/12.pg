@@ -1,0 +1,109 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.12')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-11-12-pic01.png", width=>300, height=>250, tex_size=>500);
+$fig[1]=image("Calc1-SP-Set-11-12-pic02.png", width=>300, height=>200, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A conical tank has radius \(4\) ft and height \(10\) ft.  Water is leaking out of the bottom of the tank at a rate of \(1\) cubic foot per minute.  When the water in the tank is \(6\) ft deep, at what rate is the depth of the water changing?
+$BR
+$fig[0]
+$BR
+(Note: The volume of a cone with radius \(r\) and height \(h\) is \(\dfrac13\pi r^2h\).)
+", 
+"
+\(-\dfrac{25}{144\pi}\) ft/min
+$BR
+$BR
+"
+);
+$mc->extra(
+"
+\(-\dfrac{12}{25\pi}\) ft/min
+$BR
+$BR
+",
+"
+\(-\dfrac{24}{125\pi}\) ft/min
+$BR
+$BR
+",
+"
+\(-\dfrac{12}{225\pi}\) ft/min
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Let's look at a cross-section of the water and the tank.  We will let \(h\) be the height of the water and \(r\) be the radius at the top of the water.  We want to find \(\frac{dh}{dt}\) when the tank is \(6\) feet deep, so \(h=6\).  We are given information about the change in volume, so if we let \(V\) represent volume, then we are given that \(\frac{dV}{dt}=-1\) when the water is \(6\) feet deep.  Therefore we would like an equation relating \(V\) and \(h\).
+$BR
+$BR
+The volume of a cone is \(\frac13\pi r^2h\), so we do not have just \(V\) and \(h\) in this equation.  However, using the picture at the left we can express \(r\) in terms of \(h\) using similar triangles. We find
+\begin{align*}
+\frac4{10}&=\frac rh\\
+r&=\frac25h.
+\end{align*}
+Now we can get an equation with just \(V\) and \(h\).
+$BR
+$fig[1]
+$BR
+We have
+\begin{align*}
+V&=\frac13\pi r^2h\\
+V&=\frac13\pi\left(\frac25h\right)^2h\\
+V&=\frac4{75}\pi h^3\\
+\frac d{dt}(V)&=\frac d{dt}\left(\frac4{75}\pi h^3\right)\\
+\frac{dV}{dt}&=\frac4{75}\pi(3h^2)\frac{dh}{dt}.
+\end{align*}
+Now we can plug in our known values. We find
+\begin{align*}
+\frac{dV}{dt}&=\frac4{75}\pi(3h^2)\frac{dh}{dt}\\
+-1&=\frac4{75}\pi(3\cdot6^2)\frac{dh}{dt}\\
+\frac{dh}{dt}&=-\frac{75}{432\pi}=-\frac{25}{144\pi}.
+\end{align*}
+Therefore the water depth is decreasing at a rate of \(\frac{25}{144\pi}\) ft/min when the water is \(6\) feet deep.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,110 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/08/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-06.06')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+    "contextFraction.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad\displaystyle (3,-2) \) $BR$BR",
+"\(\quad\displaystyle (-1,2) \) $BR$BR",
+"\(\quad\displaystyle (0,4) \) $BR$BR",
+"\(\quad\displaystyle (1,4) \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"At what point on the graph of \(f(x)=x-x^2+4\) is the tangent line perpendicular to the line \( y=\frac15x+1\)?",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+The slope of the line [`y=\frac15x+1`] is [`\frac15`].  A line perpendicular to this will have slope -5.  Therefore we want to figure out where the slope of the tangent line is -5.  Since the derivative finds the slope of the tangent line, we need to figure out when the derivative is -5. Observe that
+
+>> [``f'(x)=1-2x.``] <<
+
+We want to know when this is -5.
+
+>> [``\begin{aligned}
+1-2x&=-5\\
+-2x&=-6\\
+x&=3
+\end{aligned}``] <<
+
+Thus the tangent line will be perpendicular to the line  [`y=\frac15x+1`] when [`x=3`].  We know the line touches the graph of [`f(x)`] at [`x=3`], so plugging in [`x=3`] we can find the [`y`]-value, namely [`y=f(3)=3-3^2+4=3-9+4=-2`].  Thus the tangent line will be perpendicular to the line [`y=\frac15x+1`] at the point [`(3,-2)`]. 
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

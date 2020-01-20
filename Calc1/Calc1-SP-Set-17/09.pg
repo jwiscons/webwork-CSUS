@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('10/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-17.09')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle \int_{-1}^1(e^u+\pi) \ du \).
+", 
+"\(
+e-e^{-1}+2\pi
+\\
+\)"
+);
+$mc->extra(
+"\(
+0
+\\
+\)",
+"\(
+e+e^{-1}
+\\
+\)",
+"\(
+2\pi-2e
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Remember that \(\pi\) is just a constant.  We want a function is derivative is \(\pi\).  The derivative of \(\pi x\) is \(\pi\), so \(\pi x\) is an antiderivative of \(\pi\). We find
+\begin{align*}
+\int_{-1}^1(e^u+\pi) \ du&=\left(e^u+\pi u\right)\Big|_{-1}^1
+\\&=(e^1+\pi)-(e^{-1}-\pi)
+\\&=e-e^{-1}+2\pi.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,79 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.08')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Use logarithmic differentiation to find \(\dfrac{dm}{dx}\), where \(m(x)=(\cos x)\sqrt x(x+1)\ln x\).
+", 
+"\(
+m'(x)=(\cos x)\sqrt x(x+1)\ln x\left(-\tan x+\frac1{2x}+\frac1{x+1}+\frac1{x\ln x}\right)
+\\
+\)"
+);
+$mc->extra(
+"\(
+m'(x)=(\cos x)\sqrt x(x+1)\ln x\left(\tan x+\frac1{2x}+\frac1{x+1}+\frac{\ln x}x\right)
+\\
+\)",
+"\(
+m'(x)=(\cos x)\sqrt x(x+1)\ln x\left(-\cot x+\frac1{x^2}+\frac1{x+1}+\frac1{x\ln x}\right)
+\\
+\)",
+"\(
+m'(x)=(\cos x)\sqrt x(x+1)\ln x\left(\cot x+\frac1{x^2}+\frac1{x+1}+\frac1{x\ln x}\right)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We have
+\begin{align*}
+y&=(\cos x)\sqrt x(x+1)\ln x\\
+\ln y&=\ln\left((\cos x)\sqrt x(x+1)\ln x\right)\\
+\ln y&=\ln\cos x+\ln\sqrt x+\ln(x+1)+\ln(\ln x)\\
+\frac1y\cdot\frac{dy}{dx}&=\frac1{\cos x}\cdot(-\sin x)+\frac1{\sqrt x}\cdot\frac12x^{-\frac12}+\frac1{x+1}+\frac{1}{\ln x}\cdot\frac1x\\
+\frac1y\cdot\frac{dy}{dx}&=-\tan x+\frac1{2x}+\frac1{x+1}+\frac1{x\ln x}\\
+\frac{dy}{dx}&=y\left(-\tan x+\frac1{2x}+\frac1{x+1}+\frac1{x\ln x}\right)\\
+\frac{dy}{dx}&=(\cos x)\sqrt x(x+1)\ln x\left(-\tan x+\frac1{2x}+\frac1{x+1}+\frac1{x\ln x}\right)
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

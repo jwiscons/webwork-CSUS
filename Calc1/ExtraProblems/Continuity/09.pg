@@ -1,0 +1,129 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/09/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('MK-04.09')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGchoicemacros.pl",
+"PGgraders.pl",
+);
+
+Context("Numeric");
+
+# Create and use pop up lists 
+$tf = new_select_list();
+$tf->rf_print_q(~~&pop_up_list_print_q);
+
+# Choices presented to students
+$tf->ra_pop_up_list( [ 
+"No answer" => "?", 
+"True"  => "True", 
+"False" => "False",
+]);
+
+# Questions and answers
+$tf -> qa ( 
+"The function \(\sin (x)\) is continuous for all real numbers.",
+"True",
+"The function \(\dfrac{1}{x}\) is continuous on \((-\infty ,\infty)\).",
+"False",
+"The function \(\sec(x)\) is continuous on \((-\infty ,\infty)\).",
+"False",
+"The function \(f(x)=\begin{cases} \frac{(x-1)(x+2)}{(x-1)} & x\not =1 \\ 5 & x=1\end{cases}\) is continuous at \(x=1\).",
+"False",
+"The function \(g(x)=\begin{cases} \frac{(x-1)(x+2)}{(x-1)} & x\not =1 \\ 3 & x=1\end{cases}\) is continuous at \(x=1\).",
+"True",
+"The function \(h(x)=\begin{cases} \frac{x^2+x-6}{(x-2)} & x\not =2 \\ 5 & x=2\end{cases}\) is continuous at \(x=2\).",
+"True",
+# Can add more just like above here, and then it will use a subset of them.
+);
+
+# How many questions to use
+$tf->choose(6);
+
+
+Context()->texStrings;
+BEGIN_TEXT
+Are the following statements true or false? 
+$BR
+\{ $tf -> print_q() \}
+END_TEXT
+Context()->normalStrings;
+
+
+$showPartialCorrectAnswers = 0;
+
+#
+#  Incremental grader
+#
+install_problem_grader(~~&custom_problem_grader_fluid);
+$ENV{'grader_numright'} = [2,4,6];
+$ENV{'grader_scores'} = [0.5,0.9,1];
+$ENV{'grader_message'} = "You can earn " .
+"50% partial credit for 2 - 3 correct answers, and " .
+"90% partial credit for 4 - 5 correct answers.";
+
+#
+#  All or nothing grader
+#  
+# install_problem_grader(~~&std_problem_grader);
+
+ANS( str_cmp( $tf->ra_correct_ans() ) );
+
+
+Context()->texStrings;
+BEGIN_SOLUTION
+${PAR}SOLUTION:${PAR}
+(i) \(\sin (x)\): We know that \(\sin (x)\) is continuous everywhere. The answer is True.
+
+$BR$BR
+(ii) \(\dfrac{1}{x}\): The numberator and denominator are both polynomials and continuous everywhere. Since we cannot divide by \(0\), we must omit \(x=0\). Thus, the function is discontinuous at \(x=0\) and we conclude the answer is False.
+
+$BR$BR
+(iii) \(\sec(x)\): We either have this memorized, or we note that \(\sec (x)=\dfrac{1}{\cos (x)}\). The numberator and denominator are both known to be continuous everywhere. Since we cannot divide by \(0\), we must omit \(x=\dfrac{\pi}{2}+k\pi\), for any integer \(k\), since \(\cos (x)\) is zero for these values. Thus, the function is discontinuous for \(x=\dfrac{\pi}{2}+k\pi\), for any integer \(k\), and we conclude the answer is False.
+
+$BR$BR
+(iv) \(f(x)\): We first note that
+\[
+\lim_{x\to 1} \frac{(x-1)(x+2)}{x-1}=\lim_{x\to 1} (x+2)=3,
+\]
+while \(f(1)=5\) by definition of the function. Since \(\displaystyle \lim_{x\to 1} f(x)\not = f(1)\) we conclude that \(f(x)\) is discontinuous at \(x=1\). The answer is False.
+
+$BR$BR
+(v) \(g(x)\): We first note that
+\[
+\lim_{x\to 1} \frac{(x-1)(x+2)}{x-1}=\lim_{x\to 1} (x+2)=3,
+\]
+while \(g(1)=3\) by definition of the function. Since \(\displaystyle \lim_{x\to 1} g(x) = g(1)\) we conclude that \(g(x)\) is continuous at \(x=1\). The answer is True.
+
+$BR$BR
+(vi) \(h(x)\): We first note that
+\[
+\lim_{x\to 2} \frac{x^2+x-6}{x-2}=\lim_{x\to 2} \frac{(x-2)(x+3)}{x-2}=\lim_{x\to 2} (x+3)=5,
+\]
+while \(h(2)=5\) by definition of the function. Since \(\displaystyle \lim_{x\to 2} h(x) = h(2)\) we conclude that \(h(x)\) is continuous at \(x=2\). The answer is True.
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

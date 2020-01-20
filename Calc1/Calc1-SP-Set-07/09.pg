@@ -1,0 +1,94 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/16/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-07.09')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle (-1,-\frac1e) \) $BR$BR",
+"\(\quad\displaystyle (0,0) \) $BR$BR",
+"\(\quad\displaystyle (1,e) \) $BR$BR",
+"\(\quad\displaystyle (2,e^2) \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"At what point on the graph of \(g(x)=xe^x\) is the tangent line horizontal?",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We need to find when the slope of the tangent line is zero.  Thus, we need to find when the derivative is zero.  We can use product rule to compute the derivative:
+
+>> [`` g'(x)=xe^x+e^x(1)=e^x(x+1) ``] <<
+
+Now we set the derivative equal to zero: [`e^x(x+1)=0`]. The left hand side is factored, so either [`e^x=0`] or [`(x+1)=0`]. Since [`e^x`] is never zero, the only solution is when [`x=-1`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('10/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-17.13')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle \int_{-\frac{\pi}2}^{\frac{\pi}2} (2\sin\theta+\theta) \ d\theta \).
+", 
+"\(
+0
+\\
+\)"
+);
+$mc->extra(
+"\(
+2\sqrt3
+\\
+\)",
+"\(
+2\pi
+\\
+\)",
+"\(
+6\sqrt3
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+\int_{-\frac{\pi}2}^{\frac{\pi}2} (2\sin\theta+\theta) \ d\theta&=\left.\left(-2\cos\theta+\frac12\theta^2\right)\right|_{-\frac{\pi}2}^{\frac{\pi}2}
+\\&=\left(-2\cos\left(\frac{\pi}2\right)+\frac12\left(\frac{\pi}2\right)^2\right)-\left(-2\cos\left(-\frac{\pi}2\right)+\frac12\left(-\frac{\pi}2\right)^2\right)
+\\&=0.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,97 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/08/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-06.07')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+    "contextFraction.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+For what [`x`] is the tangent line to the graph of [`` f(x)=\frac{3x^2-4x}{\sqrt x}``] horizontal?
+
+The tangent line is horizontal when [`x= `] [____________]{"4/9"}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+The slope of a horizontal tangent line is 0, so we need to determine when the derivative is equal to zero.  We need to find the derivative, but in order to do that let's simplify the function first. Observe that
+
+>> [``f(x)=(3x^2-4x)x^{-\frac12}=3x^{\frac32}-4x^{\frac12}``]. <<
+
+Thus,
+
+>> [``f'(x)=\frac92x^{\frac12}-2x^{-\frac12}``]. <<
+
+
+We want to know when this equals 0.
+
+>> [``\begin{aligned}
+\frac92x^{\frac12}-2x^{-\frac12}&=0\\
+\frac92\sqrt x-\frac2{\sqrt x}&=0\\
+\sqrt x\left(\frac92\sqrt x-\frac2{\sqrt x}\right)&=\sqrt x(0)\\
+\frac92x-2&=0\\
+\frac92x&=2\\
+x&=\frac49
+\end{aligned}``] <<
+
+Therefore the tangent line is horizontal at [`x=\frac49`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

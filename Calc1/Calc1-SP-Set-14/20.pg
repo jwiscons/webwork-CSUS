@@ -1,0 +1,79 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-14.20')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Compute the following limit.  If the limit is [`\infty`], enter "inf"; if the limit is [`-\infty`], enter "-inf".
+
+>>[``\lim_{x\to\infty} (\sqrt{x^2+x}-x)``]<<
+ 
+The limit is [____________]{1/2}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+\lim_{x\to\infty}(\sqrt{x^2+x}-x)
+&=\lim_{x\to\infty}(\sqrt{x^2+x}-x)\cdot\frac{\sqrt{x^2+x}+x}{\sqrt{x^2+x}+x}
+\\&=\lim_{x\to\infty}\frac{(x^2+x)-x^2}{\sqrt{x^2+x}+x}
+\\&=\lim_{x\to\infty}\frac x{\sqrt{x^2+x}+x}
+\\&=\lim_{x\to\infty}\frac x{\sqrt{x^2+x}+x}\cdot\frac{\frac1x}{\frac1x}
+\\&=\lim_{x\to\infty}\frac1{\frac1x\sqrt{x^2+x}+\frac1x\cdot x}
+\\&=\lim_{x\to\infty}\frac1{\sqrt{\frac1{x^2}}\sqrt{x^2+x}+1}
+\\&=\lim_{x\to\infty}\frac1{\sqrt{1+\frac1x}+1}
+\\&=\frac1{\sqrt{1+0}+1}
+\\&=\frac12
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

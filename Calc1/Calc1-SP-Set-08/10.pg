@@ -1,0 +1,107 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/23/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-08.10')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle x=0,2 \) $BR$BR",
+"\(\quad\displaystyle x=-1,3 \) $BR$BR",
+"\(\quad\displaystyle x=-2,4 \) $BR$BR",
+"\(\quad\displaystyle x=-3,5 \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"At what values of \(x\) is the tangent line to the graph of  \(\displaystyle g(x)=\frac{2x+1}{x-1} \) parallel to the line \(3x+y=4\)?",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+The equation of the line [`3x+y=4`] can be rewritten as [`y=-3x+4`], so the slope of this line is [`-3`]. 
+If the tangent line is parallel to [`y=-3x+4`], then we know the slope of the tangent line is also [`-3`].  We need to find when [`g'(x) = -3`].  
+
+>> [``g'(x)=\frac{(x-1)(2)-(2x+1)(1)}{(x-1)^2}=\frac{-3}{(x-1)^2}``] <<
+
+We must now determine when this derivative is equal to [`-3`].
+
+>> [``\begin{aligned}
+\frac{-3}{(x-1)^2}&=-3\\
+-3&=-3(x-1)^2\\
+1&=(x-1)^2\\
+1&=x^2-2x+1\\
+x^2-2x&=0\\
+x(x-2)&=0\\
+x&=0,2
+\end{aligned}``] <<
+
+In conclusion, we found that the tangent line is parallel to [`3x+y=4`] when [`x`] is either 0 or 2.
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

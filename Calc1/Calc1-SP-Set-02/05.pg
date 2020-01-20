@@ -1,0 +1,124 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.05')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGchoicemacros.pl",
+"PGgraders.pl",
+"unionTables.pl",
+);
+
+TEXT(beginproblem());
+
+#
+# Picture
+#
+$fig=image("Calc1-SP-02-05.png", width=>400, height=>300, tex_size=>500);
+#
+#  Create a matching list and use popups
+#
+$ml = new_match_list();
+$ml->rf_print_q(~~&pop_up_list_print_q);
+$ml->ra_pop_up_list([
+"No answer" => "?",
+"A" => "A", "B" => "B", "C" => "C", 
+"D" => "D", "E" => "E", "F" => "F",
+"G" => "G", "H" => "H", "I" => "I",
+]);
+
+#
+#  Add correct questions and answers
+#
+$ml->qa(
+"\(\displaystyle{\lim_{x\to2^-}j(x)}\)", "\(3\)",
+"\(\displaystyle{\lim_{x\to2^+}j(x)}\)", "\(3\)",
+"\(\displaystyle{\lim_{x\to2}j(x)}\)", "\(3\)",
+"\(j(2)\)", "\(2\)",
+);
+$ml->choose(4);
+
+#
+#  Add extra incorrect answers
+#
+$ml->extra(
+"\(0\)", 
+"Does not exist", 
+);
+$ml->choose_extra(2);
+  
+$ml->makeLast("None of the above");
+
+Context()->texStrings;
+BEGIN_TEXT
+The graph of \(y=j(x)\) is shown below.  Find the following:
+$BR
+$BR
+$fig
+\{ ColumnMatchTable($ml, valign=>'TOP') \}
+END_TEXT
+Context()->normalStrings;
+
+$showPartialCorrectAnswers = 0;
+
+#
+#  Incremental grader
+#
+install_problem_grader(~~&custom_problem_grader_fluid);
+$ENV{'grader_numright'} = [1,2,3,4];
+$ENV{'grader_scores'} = [0.25,0.5,0.75,1];
+$ENV{'grader_message'} = "You can earn " .
+"1 point for each correct answer.";
+
+#
+#  All or nothing grader
+#  
+# install_problem_grader(~~&std_problem_grader);
+
+ANS( str_cmp( $ml->ra_correct_ans ) );
+
+@correct = @{$ml->ra_correct_ans()};
+$answerstring = join(", ", @correct);
+Context()->texStrings;
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+1. \(\displaystyle{\lim_{x\to2^-}j(x)}\) asks for the limit as \(x\) approaches \(2\) from the left.  From the graph, we see that for \(x\) values getting closer to \(2\), but staying to the left of \(2\), the function values (the height of the graph above the \(x\)-axis) approach \(3\), so $\(\displaystyle{\lim\to2^-j(x)=3}\).
+$BR
+$BR
+2. \(\displaystyle{\lim_{x\to2^+}j(x)}\) asks for the limit as \(x\) approaches \(2\) from the right.  From the graph, we see that for \(x\) values getting closer to \(2\), but staying to the right of \(2\), the function values (the height of the graph above the \(x\)-axis) approach \(2\), so \(\displaystyle{\lim\to2^-j(x)=3}\).
+$BR
+$BR
+3. \(\displaystyle{\lim_{x\to2}j(x)}\) asks for the two-sided limit as \(x\) approaches \(2\).  For this limit to exist, it must approach the same limit on the two sides.  Since it approaches \(3\) on the left and \(3\) on the right, we conclude that \(\displaystyle{\lim_{x\to2}j(x)=3}\).
+$BR
+$BR
+4. \(j(2)\) is simply the value of the function at \(2\).  For this, we just look at \(x=2\) and find the \(y\)-value of the point on the graph whose \(x\)-coordinate is \(2\).  The circle that isn't filled in on the graph indicates that \(j(2)\) is not \(3\).  Looking at the circle that is filled in we see that \(j(2)=2\).
+$BR
+$BR
+Thus, the correct answers are $answerstring.
+END_SOLUTION
+
+Context()->normalStrings;
+
+COMMENT('MathObject version.');
+
+ENDDOCUMENT();

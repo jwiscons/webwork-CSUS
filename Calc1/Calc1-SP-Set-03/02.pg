@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.02')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to\sqrt5^+}\ \frac{x-2}{5-x^2}}\).
+", 
+"\(
+-\infty
+\)"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+\infty
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluating at \(\sqrt5\), we get \(\frac{\text{nonzero}}0\), so we know the one sided limit will be \(\pm\infty\).
+$BR
+$BR
+Near \(\sqrt 5\) the numerator will be positive since \(\sqrt5>2\).
+$BR
+$BR
+Near \(\sqrt 5\), but on the right, the denominator will be negative because \(x^2\) will be slightly bigger than \(5\).  
+$BR
+$BR
+Therefore we have positive over negative, which is negative.  Thus \(\displaystyle{\lim_{x\to\sqrt5^+}\ \frac{x-2}{5-x^2}=-\infty}\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

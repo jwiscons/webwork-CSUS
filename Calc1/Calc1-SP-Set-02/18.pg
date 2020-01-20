@@ -1,0 +1,66 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-02.18')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to1^+}\frac{1+x^2}{1-x^2}}\).
+", 
+"\(
+-\infty
+\)"
+);
+$mc->extra(
+"\(
+\infty
+\)",
+"\(
+0
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluate at \(1\), we get \(\frac20\), which is undefined.  This is of the form nonzero/zero, so there is an asymptote at \(x=1\), and so the one-sided limit will be \(\infty\) or \(-\infty\).  For \(x\) close to \(1\), the numerator is close to \(2\), which is positive.  For \(x\) close to \(1\), and to the right of it, such as \(x=1.1\), the denominator will be negative, and so we have \(\frac{\text{positive}}{\text{negative}}\), which is negative.  Thus we can conclude that \(\displaystyle{\lim_{x\to1^+}\frac{1+x^2}{1-x^2}=-\infty}\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

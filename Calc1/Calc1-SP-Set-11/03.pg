@@ -1,0 +1,74 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.03')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Find \(\dfrac{dh}{dx}\), where \(h(x)=\sqrt{1+\arctan x}\).
+", 
+"\(
+h'(x)=\dfrac12\left(1+\arctan x\right)^{-\dfrac12}\cdot\dfrac1{1+x^2}
+\\
+\)"
+);
+$mc->extra(
+"\(
+h'(x)=\dfrac12\left(\dfrac{1+\arctan x}{1+x^2}\right)^{-\frac12}
+\\
+\)",
+"\(
+h'(x)=\arctan x\sqrt{\dfrac1{1+x^2}}
+\\
+\)",
+"\(
+h'(x)=\dfrac12(1+x^2)^{-\dfrac12}\cdot\dfrac1{\arctan x}
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+h'(x)&=\frac12(1+\arctan x)^{-\frac12}\frac d{dx}(1+\arctan x)
+\\&=\frac12(1+\arctan x)^{-\frac12}\cdot\frac1{1+x^2}.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

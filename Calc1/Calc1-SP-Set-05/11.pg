@@ -1,0 +1,93 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.11')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+    "contextFraction.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$f = Compute("1-2*sqrt(x)");
+$df = Compute("-1/sqrt(x)");
+
+$u = list_random(4, 9, 16, 25);
+
+$yval = $f->eval(x=>$u);
+$slope = $df->eval(x=>$u);
+
+$ans1 = Compute("$slope*(x-$u)+$yval");
+
+Context("Fraction");
+$slopefrac = Compute("-1/sqrt($u)");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+You computed the derivative of [`r(x) = [$f]`] in an earlier problem. Use that result to find an equation of the _tangent line_ to the graph of [`r(x)`] at [`x=[$u]`].
+
+An equation is [`y= `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+The slope of the tangent line at [`x=[$u]`] is equal to [`r'([$u])`].  Previously, we computed [`r'(x)=[$df]`], so the slope is [`r'([$u])= [$slopefrac]`].  We now need a point on the line.  This is the tangent line at [`x=[$u]`].  Since this point is on the graph, we know [`y=r([$u])=[$yval]`].  Therefore [`([$u],[$yval])`] is a point on the line, so we can find the equation now.
+
+>> [``\begin{aligned}
+y-([$yval])&=[$slopefrac](x-[$u])\\
+y+ [@ -1 * $yval @] &=[$slopefrac]x-[@ $slopefrac * $u @]\\
+y&=[$slopefrac]x+[@- $slopefrac * $u + $yval @]
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

@@ -1,0 +1,105 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.15')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-11-15-pic01.png", width=>300, height=>250, tex_size=>500);
+$fig[1]=image("Calc1-SP-Set-11-15-pic02.png", width=>300, height=>200, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A weight is being lifted using a pulley, located \(18\) feet above the ground.  A person holds one end of the rope \(3\) feet off the ground and walks away, which lifts the weight.  The person walks so that the weight rises at a steady rate of \(2\) feet per second.  How fast must the person walk when he is \(20\) feet away from the point directly under the pulley?
+$BR
+$fig[0]
+$BR
+", 
+"
+\(2.5\) ft/sec
+$BR
+$BR
+"
+);
+$mc->extra(
+"
+\(2.8\) ft/sec
+$BR
+$BR
+",
+"
+\(3\) ft/sec
+$BR
+$BR
+",
+"
+\(3.6\) ft/sec
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Let's add some labels to the picture.  We let \(p\) be the distance from the person's hand to just below the weight, and let \(s\) be the length of the string from the pulley to the person's hand.  We know the rate at which the weight is rising is \(2\) feet per second, which means the distance between the weight and the pulley is changing at \(2\) feet per second.  This in turn means that the distance between the pulley and the person's hand is changing at \(2\) feet per second.  In other words, \(\frac{ds}{dt}=2\).  We want to find \(\frac{dp}{dt}\) when \(p=20\).
+$BR
+$BR
+Looking at what we want and what we know, we can use Pythagorean Theorem. We find
+\begin{align*}
+p^2+15^2&=s^2\\
+2p\frac{dp}{dt}&=2s\frac{ds}{dt}\\
+p\frac{dp}{dt}&=s\frac{ds}{dt}.
+\end{align*}
+We now want to plug in values, so let's draw the picture at the instance we are looking at. 
+$BR
+$fig[1]
+$BR
+We find
+\begin{align*}
+p\frac{dp}{dt}&=s\frac{ds}{dt}\\
+20\frac{dp}{dt}&=25(2)\\
+\frac{dp}{dt}&=\frac{50}{20}=2.5.
+\end{align*}
+The person is walking \(2.5\) ft/sec.
+\begin{align*}
+20^2+15^2&=s^2\\
+s&=25.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

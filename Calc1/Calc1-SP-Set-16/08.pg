@@ -1,0 +1,83 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/13/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-16.08')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+$refreshCachedImages=1;
+$fig[0]=image("Calc1-SP-Set-16-08pic.png", width=>400, tex_size=>1000);
+$fig[1]=image("Calc1-SP-Set-16-08pic1.png", width=>400, tex_size=>1000);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+By _interpreting the integral as area_ and using the facts that 
+* [``\int_0^1x^2\ dx=\frac13``]
+* [``\int_0^4\sqrt x\ dx=\frac{16}3``]
+
+evaluate the following integral.
+ 
+[``\int_0^2x^2\ dx =``] [____________]{8/3}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We want to find [``\int_0^2x^2\ dx``], which means we want to find the area of the red region shown below.
+
+>>[@ $fig[0] @]*<<
+
+However, using the fact that the graph of [`y=\sqrt x`] is just the graph of [`y=x^2`] turned on its side, we can see that the red area from above can be found on the [`y=\sqrt x`] graph as shown below.
+
+>>[@ $fig[1] @]*<<
+
+Since we know [``\int_0^4\sqrt x\ dx=\frac{16}3``], the blue has area [`\frac{16}3`].  The blue and the red make a rectangle with dimensions 2 by 4, so it has area 8.  Therefore the red region has area [`8-\frac{16}3=\frac{8}3`].  Therefore [``\int_0^2x^2\ dx=\frac83``].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

@@ -1,0 +1,95 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.03')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad\displaystyle \frac{1}{2\sqrt{a}}\) $BR$BR",
+"\(\quad\displaystyle \frac{\sqrt[3]a}{2}\) $BR$BR",
+"\(\quad\displaystyle  a+\frac1{\sqrt{a}}\) $BR$BR",
+"\(\quad\displaystyle  -\sqrt{a}\) $BR$BR" 
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Find the slope of the tangent line to the graph of \(f(x) = \sqrt{x}\) at \(x=a\).",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+\lim_{h\to0}\frac{f(a+h)-f(a)}h &=\lim_{h\to0}\frac{\sqrt{a+h}-\sqrt a}h
+\\&=\lim_{h\to0}\frac{\sqrt{a+h}-\sqrt a}h\cdot\frac{\sqrt{a+h}+\sqrt a}{\sqrt{a+h}+\sqrt a}
+\\&=\lim_{h\to0}\frac{(a+h)-a}{h(\sqrt{a+h}+\sqrt a)}
+\\&=\lim_{h\to0}\frac{h}{h(\sqrt{a+h}+\sqrt a)}
+\\&=\lim_{h\to0}\frac1{\sqrt{a+h}+\sqrt a}
+\\&=\frac1{\sqrt{a+0}+\sqrt a}
+\\&=\frac1{2\sqrt a}
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

@@ -1,0 +1,96 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/20/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-16.03')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle M(x)=\tan x-2\sec x+6x^{\frac23}+C \) $BR$BR",
+"\(\quad\displaystyle M(x)=\tan^2x-2\sec x+12x^{\frac23}+C \) $BR$BR",
+"\(\quad\displaystyle M(x)=\tan^2x-2\tan x+6x^{-\frac43}+C \) $BR$BR",
+"\(\quad\displaystyle M(x)=\tan x-2\sec^2x+12x^{\frac23}+C \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Find the most general antiderivative of the given function: \[m(x)=\sec^2x-2\sec x\tan x+\frac4{\sqrt[3]x}\]",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Let's first rewrite [`m(x)`] to make it easier to find the antiderivative.
+
+>> [``m(x)=\sec^2x-2\sec x\tan x+\frac4{\sqrt[3]x}=\sec^2x-2\sec x\tan x+4x^{-\frac13}``] <<
+
+Now we find that
+
+>> [``M(x)=\tan x-2\sec x+\frac4{\frac23}x^{\frac23}+C=\tan x-2\sec x+6x^{\frac23}+C``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

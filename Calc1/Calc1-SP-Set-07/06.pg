@@ -1,0 +1,97 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/16/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-07.06')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle n'(x)=e^2\left(e^x+\frac13x^{-\frac43}\right) \) $BR$BR",
+"\(\quad\displaystyle n'(x)=e^2\left(e^x+\frac23x^{\frac23}\right) \) $BR$BR",
+"\(\quad\displaystyle n'(x)=2e^2\left(e^x+x^{\frac13}\right) \) $BR$BR",
+"\(\quad\displaystyle n'(x)=2e^2\left(e^x-\frac13x^{-\frac43}\right) \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Find the derivative of \(\displaystyle n(x)=e^2\left(e^x-\frac1{\sqrt[3] x}\right) \).",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Notice that [`e^2`] is just a constant, so we need only worry about taking the derivative of the part in the parentheses.  Let's first rewrite [`n(x)`]:
+
+>> [`` n(x)=e^2(e^x-x^{-\frac13}) ``] <<
+
+Then, 
+
+>> [`` n'(x)=e^2\left(e^x+\frac13x^{-\frac43}\right) ``] <<
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

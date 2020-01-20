@@ -1,0 +1,115 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/06/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-12.02')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+
+@answers = (
+"\(\quad\displaystyle 2.011\overline{6} \) $BR$BR",
+"\(\quad\displaystyle 2.0\overline{11} \) $BR$BR",
+"\(\quad\displaystyle 2.011\overline{5} \) $BR$BR",
+"\(\quad\displaystyle 2.0115\overline{8} \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Use linear approximation to estimate \(\sqrt[3]{1.02}+\sqrt[4]{1.02}\).",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We want to look at the function [`f(x)=\sqrt[3]{x}+\sqrt[4]{x}`].  We want a number near 1.02 for which the value of the function at that number is "nice".  Let's use 1, since 1.02 is near 1 and [`\sqrt[3]1+\sqrt[4]1=2`].
+
+We first need to find the equation of the tangent line to the graph of [`f(x)`] at [`x=1`]. 
+
+>> [``\begin{aligned}
+f'(x)&=\frac13x^{-\frac23}+\frac14x^{-\frac34}\\
+m&=f'(1)=\frac13\cdot1^{-\frac23}+\frac14\cdot1^{-\frac34}
+\\&=\frac13+\frac14
+\\&=\frac7{12}
+\end{aligned}``] <<
+
+Since [`f(1)=\sqrt[3]1+\sqrt[4]1=2`], the point [`(1,2)`] is on the tangent line, so we can now find the equation of the line.
+
+>> [``\begin{aligned}
+y-2&=\frac7{12}(x-1)\\
+y&=\frac7{12}x+\frac{17}{12}
+\end{aligned}``] <<
+
+Thus, using the tangent line to approximate [`f(x)`] when [`x=1.02`], we find that 
+
+>> [``\begin{aligned}
+\sqrt[3]{1.02}+\sqrt[4]{1.02}&=f(1.02)
+\\&\approx\text{the value of }1.02\text{ on the tangent line }
+\\&=\frac7{12}(1.02)+\frac{17}{12}
+\\&=2.011\overline{6}
+\end{aligned}``] <<
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

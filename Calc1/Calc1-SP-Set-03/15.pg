@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.15')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to2^+}\frac{\frac x{x-1}-2}{\sqrt{x-2}}}\).
+", 
+"\(
+0
+\)"
+);
+$mc->extra(
+"\(
+\infty
+\)",
+"\(
+-\infty
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Evaluate at \(2\), we get \(\frac00\).  Let's work to find a factor of \(x-2\) to cancel. We have
+\begin{align*}
+\lim_{x\to2^+}\ \frac{\frac x{x-1}-2}{\sqrt{x-2}}
+&=\lim_{x\to2^+}\ \frac{\frac x{x-1}-2}{\sqrt{x-2}}\cdot\frac{x-1}{x-1}
+\\&=\lim_{x\to2^+}\ \frac{x-2(x-1)}{\sqrt{x-2} (x-1)}
+\\&=\lim_{x\to2^+}\ \frac{2-x}{\sqrt{x-2}\ (x-1)}
+\\&=\lim_{x\to2^+}\ \frac{-(x-2)}{\sqrt{x-2}\ (x-1)}
+\\&=\lim_{x\to2^+}\ \frac{(\sqrt{x-2})\ (\sqrt{x-2})}{\sqrt{x-2}\ (x-1)}
+\\&=\lim_{x\to2^+}\ \frac{\sqrt{x-2}}{x-1}
+\\&=\frac{\sqrt{2-2}}{2-1}
+\\&=\frac01
+\\&=0.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

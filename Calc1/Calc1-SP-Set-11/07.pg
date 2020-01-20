@@ -1,0 +1,81 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.07')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Use logarithmic differentiation to find \(\dfrac{dh}{dx}\), where \(h(x)=\dfrac{xe^x\sin x}{\sqrt[3]{\cos x}}\).
+", 
+"\(
+h'(x)=\dfrac{xe^x\sin x}{\sqrt[3]{\cos x}}\left(\dfrac1x+1+\cot x+\dfrac13\tan x\right)
+\\
+\)"
+);
+$mc->extra(
+"\(
+h'(x)=\dfrac{xe^x\sin x}{\sqrt[3]{\cos x}}\left(\ln x+1+\tan x+\dfrac13\cot x\right)
+\\
+\)",
+"\(
+h'(x)=\dfrac{xe^x\sin x}{\sqrt[3]{\cos x}}\left(\dfrac1x+1+\tan x+\dfrac13\cot x\right)
+\\
+\)",
+"\(
+h'(x)=\dfrac{xe^x\sin x}{\sqrt[3]{\cos x}}\left(\ln x+x+\cot x+\dfrac13\tan x\right)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We have
+\begin{align*}
+y&=\frac{xe^x\sin x}{\sqrt[3]{\cos x}}\\
+\ln y&=\ln\left(\frac{xe^x\sin x}{\sqrt[3]{\cos x}}\right)\\
+\ln y&=\ln(xe^x\sin x)-\ln\sqrt[3]{\cos x}\\
+\ln y&=\ln x+\ln e^x+\ln \sin x-\ln(\cos x)^{\frac13}\\
+\ln y&=\ln x+x+\ln \sin x-\frac13\ln(\cos x)\\
+\frac1y\cdot\frac{dy}{dx}&=\frac1x+1+\frac1{\sin x}\cdot\cos x-\frac13\cdot\frac1{\cos x}\cdot(-\sin x)\\
+\frac1y\cdot\frac{dy}{dx}&=\frac1x+1+\cot x+\frac13\tan x\\
+\frac{dy}{dx}&=y\left(\frac1x+1+\cot x+\frac13\tan x\right)\\
+\frac{dy}{dx}&=\frac{xe^x\sin x}{\sqrt[3]{\cos x}}\left(\frac1x+1+\cot x+\frac13\tan x\right)
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

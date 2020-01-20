@@ -1,0 +1,85 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/29/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-10.13')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+Context("Point");
+$ans1 = Compute("(1/e,-1/e)");
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Where on the graph of [`m(x)=x\ln x`] is the tangent line horizontal?
+
+The tangent line is horizontal at [`(x,y)= `] [____________]{$ans1}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We want to find when the derivative is 0.
+
+>> [``m'(x)=x\cdot\frac1x+\ln x=1+\ln x``] <<
+
+Setting this equal to 0, we solve for [`x`].
+
+>> [``\begin{aligned}
+1+\ln x&=0\\
+\ln x&=-1\\
+x&=e^{-1}
+\end{aligned}``] <<
+
+We now know the [`x`]-coordinate on the graph, we now need to find the [`y`]-coordinate.
+
+>> [``y=m(e^{-1})=e^{-1}\ln e^{-1}=e^{-1}(-1)=-e^{-1}``] <<
+
+Thus there is a horizontal tangent line at the point [`(e^{-1},-e^{-1})`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

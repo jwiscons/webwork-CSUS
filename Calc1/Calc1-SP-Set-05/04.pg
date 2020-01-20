@@ -1,0 +1,96 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/03/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-05.04')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+@answers = (
+"\(\quad\displaystyle \frac{1}{\sqrt{2a-1}}\) $BR$BR",
+"\(\quad\displaystyle \frac{\sqrt{2a-1}}{2a-1}\) $BR$BR",
+"\(\quad\displaystyle  \frac{-2}{\sqrt{2a-1}}\) $BR$BR",
+"\(\quad\displaystyle  \frac{\sqrt{2a-1}}{2}\) $BR$BR" 
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Find \(f'(a)\) where \(f'(a) = \sqrt{2x-1}\).",
+$answers[0]);
+
+$mc -> extra($answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+>> [``\begin{aligned}
+f'(a)&=\lim_{h\to0}\frac{f(a+h)-f(a)}h
+\\&=\lim_{h\to0}\frac{\sqrt{2(a+h)-1}-\sqrt{2a-1}}h
+\\&=\lim_{h\to0}\frac{\sqrt{2a+2h-1}-\sqrt{2a-1}}h
+\\&=\lim_{h\to0}\frac{\sqrt{2a+2h-1}-\sqrt{2a-1}}h\cdot\frac{\sqrt{2a+2h-1}+\sqrt{2a-1}}{\sqrt{2a+2h-1}+\sqrt{2a-1}}
+\\&=\lim_{h\to0}\frac{(2a+2h-1)-(2a-1)}{h(\sqrt{2a+2h-1}+\sqrt{2a-1})}
+\\&=\lim_{h\to0}\frac{2h}{h(\sqrt{2a+2h-1}+\sqrt{2a-1})}
+\\&=\lim_{h\to0}\frac{2}{\sqrt{2a+2h-1}+\sqrt{2a-1}}
+\\&=\frac2{\sqrt{2a+2(0)-1}+\sqrt{2a-1}}=\frac1{\sqrt{2a-1}}
+\end{aligned}``] <<
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

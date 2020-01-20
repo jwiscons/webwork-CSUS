@@ -1,0 +1,100 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('10/07/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-12.11')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = non_zero_random(-11,11,1);
+
+$f = Compute("(x^2+3)/(x-1) + $a");
+
+$ans1 = $f->eval(x=>-1);
+$ans2 = "none";
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+Find the maximal and minimal values for the function [``m(x)=\frac{x^2+3}{x-1} + [$a]``] on the interval [`(-\infty,0]`].
+ 
+_If no maximum or minimum exists, enter "none"._
+
+The maximal value is [____________]{$ans1}
+
+The minimal value is [____________]{$ans2}
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+We need to find the critical numbers.  We first find the derivative.
+
+>> [``m'(x)=\frac{(x-1)(2x)-(x^2+3)}{(x-1)^2}``] <<
+
+We first find where the derivative is zero.
+
+>> [``\begin{aligned}
+0&=\frac{(x-1)(2x)-(x^2+3)}{(x-1)^2}\\
+0&=\frac{x^2-2x-3}{(x-1)^2}\\
+0&=\frac{(x-3)(x+1)}{(x-1)^2}\\
+x&=3,-1
+\end{aligned}``] <<
+
+We see that the derivative is undefined when [`(x-1)^2=0`], so the derivative is undefined at [`x=1`].
+
+Therefore the critical numbers are [`3,-1,1`], but only [`-1`] is in the interval. We need to check the values of the function at the critical numbers in the interval and the end points.  Since the interval is not closed, we need to also check the limit as [`x`] goes to [`-\infty`].
+
+>> [``\begin{aligned}
+&m(-1)=[@ $f->eval(x=>-1) @]\\
+&m(0)=[@ $f->eval(x=>0) @]\\
+&\lim_{x\to -\infty}\frac{x^2+3}{x-1} + [$a]=-\infty
+\end{aligned}``] <<
+
+The maximum value is [`[$ans1]`]. There is no minimum value. 
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

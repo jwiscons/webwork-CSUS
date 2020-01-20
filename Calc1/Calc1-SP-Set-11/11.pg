@@ -1,0 +1,99 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-11.11')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-Set-11-11-pic.png", width=>400, height=>300, tex_size=>500);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+A man who is \(6\) ft. tall is walking away from a street light that is \(16\) feet tall.  He walks at a rate of \(4\) feet per second.  As he walks away from the light, his shadow grows longer.  When he is \(20\) feet away from the base of the street light, how fast is his shadow growing?
+", 
+"
+\(\dfrac{12}5\) ft/sec
+$BR
+$BR
+"
+);
+$mc->extra(
+"
+\(\dfrac3{16}\) ft/sec
+$BR
+$BR
+",
+"
+\(\dfrac{16}3\) ft/sec
+$BR
+$BR
+",
+"
+\(3\) ft/sec
+$BR
+$BR
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+$BR
+$fig[0]
+$BR
+If we let \(m\) be the distance from the street light to the man and \(s\) be the length of his shadow, then we want to find \(\frac{ds}{dt}\) when the man is \(20\) feet from the base of the street light.  At that time he is walking \(4\) ft/sec, so at that time \(\frac{dm}{dt}=4\).
+$BR
+$BR
+This means we want an equation relating \(m\) and \(s\).  We can use similar triangles. We find
+\begin{align*}
+\frac s6&=\frac{s+m}{16}\\
+16s&=6(s+m)\\
+16s&=6s+6m\\
+10s&=6m\\
+\frac d{dt}(10s)&=\frac d{dt}(6m)\\
+10\frac{ds}{dt}&=6\frac{dm}{dt}.
+\end{align*}
+Now we can plug in what we know to solve for the unknown. This gives
+\begin{align*}
+10\frac{ds}{dt}&=6\frac{dm}{dt}\\
+10\frac{ds}{dt}&=6(4)\\
+\frac{ds}{dt}&=\frac{24}{10}=\frac{12}5.
+\end{align*}
+Therefore the shadow is growing at a rate of \(\frac{12}5\) ft/sec when he is \(20\) feet from the light.
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

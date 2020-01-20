@@ -1,0 +1,98 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('09/08/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-07.01')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "parserRadioButtons.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = list_random(2,3,4,5,6,7,9);
+
+@answers = (
+"\(\quad\displaystyle f'(x)=$a e^x-\frac1{\sqrt[3]$a}e^x \) $BR$BR",
+"\(\quad\displaystyle f'(x)=$a e^x+\frac1{\sqrt[3]{$a}} \) $BR$BR",
+"\(\quad\displaystyle f'(x)=$a e^x+\frac{\sqrt[3]$a}3e^x \) $BR$BR",
+"\(\quad\displaystyle f'(x)=$a e^x-\frac2{\sqrt[3]$a}e^x \) $BR$BR"
+);
+
+$mc = new_multiple_choice();
+
+$mc -> qa(
+"Find the derivative of \(\displaystyle f(x)=$a e^x-\frac{e^x}{\sqrt[3]$a}\).",
+$answers[0]);
+
+$mc -> extra(
+$answers[1],$answers[2],$answers[3]); 
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+BEGIN_PGML
+
+[@ $mc -> print_q() @]***
+
+[@ $mc -> print_a() @]***
+
+END_PGML
+
+#####################################################################
+#  Answer evaluation
+#####################################################################
+$showPartialCorrectAnswers = 0;
+
+ANS(checkbox_cmp($mc->correct_ans()));
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+Let's first rewrite [`f(x)`]: 
+
+>> [`` f(x)=[$a]e^x-\frac{e^x}{\sqrt[3][$a]}=[$a]e^x-\frac1{\sqrt[3][$a]}e^x``] <<
+
+Then,
+
+>> [`` f'(x)=[$a]e^x-\frac1{\sqrt[3][$a]}e^x ``] <<
+
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();

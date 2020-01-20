@@ -1,0 +1,71 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-01.06')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+The point \(P=(2,3)\) lies on the graph of \(\displaystyle {g(x)=\frac{x+1}{x-1}}\).  Find the slope of the secant line \(PQ\) if \(Q\) is the point \(\displaystyle {Q=\left(x,\frac{x+1}{x-1}\right)}\), where \(x\) is \(1.9\), then \(1.99\), then \(1.999\). Using these estimates, what do you think is the slope of the tangent line to the graph of \(g(x)\) at \(P=(2,3)\)?
+", 
+"\(
+-2
+\)"
+);
+$mc->extra(
+"\(
+-2.5
+\)",
+"\(
+-\dfrac{7}{3}
+\)",
+"\(
+-1.5
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+When \(x=1.9\), \(Q=(1.9, g(1.9))\) and \(PQ\) has slope \(\displaystyle {\frac{g(1.9)-g(2)}{1.9-2}=\frac{\frac{2.9}{0.9}-3}{-0.1}=-2.\overline{2}}\).
+
+When \(x=1.99\), \(Q=(1.99, g(1.99))\) and \(PQ\) has slope \(\displaystyle {\frac{g(1.99)-g(2)}{1.99-2}=\frac{\frac{2.99}{0.99}-3}{-0.01}=-2.\overline{02}}\).
+
+When \(x=1.999\), \(Q=(1.999, g(1.999))\) and \(PQ\) has slope \(\displaystyle {\frac{g(1.999)-g(2)}{1.999-2}=\frac{\frac{2.999}{0.999}-3}{-0.01}=-2.\overline{002}}\).
+
+These are getting closer and closer to the slope of the tangent line, so it appears the slope of the tangent line is \(-2\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

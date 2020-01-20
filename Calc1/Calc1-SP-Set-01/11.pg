@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-01.11')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+$refreshCachedImages=1;
+
+$fig[0]=image("Calc1-SP-01-11.png", width=>400, height=>300, tex_size=>500);
+$fig[1]=image("Calc1-SP-01-11-soln.png", width=>400, height=>300, tex_size=>500);
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+The graph of \(f(x)\) is shown below, along with the tangent line at \(x=1\).
+$BR
+$fig[0]
+$BR
+Which of the following is closest to the slope of the tangent line at \(x=1\)?
+", 
+"\(
+\dfrac{f(1)-f(0.5)}{1-0.5} \text{ (call this answer Green)}
+\)"
+);
+$mc->extra(
+"\(
+\dfrac{f(1)-f(0)}{1-0} \text{ (call this answer Red)}
+\)",
+"\(
+\dfrac{f(2)-f(1)}{2-1} \text{ (call this answer Blue)}
+\)",
+"\(
+\dfrac{f(3)-f(1)}{3-1} \text{ (call this answer Yellow)}
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Each choice above is the slope of a secant line.  The color is indicated above.  By looking at the graphs of each below, we can see that the green line has slope closest to the tangent line.
+$BR
+$fig[1]
+$BR
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

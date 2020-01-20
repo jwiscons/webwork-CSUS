@@ -1,0 +1,79 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.13')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+h(x)=\sin(\sec^2x)
+}\). Find \(h'(x)\).
+", 
+"\(
+h'(x)=2\cos(\sec^2x)\sec^2x\tan x
+\\
+\)"
+);
+$mc->extra(
+"\(
+h'(x)=2\cos(\sec^2x)\sec x\tan x
+\\
+\)",
+"\(
+h'(x)=\cos(\sec^2x)\sec x\tan x
+\\
+\)",
+"\(
+h'(x)=2\cos(\sec^2x)\sin(\sec^2x)\tan x
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We note that
+\(h(x)=\sin(\sec^2x)=\sin((\sec x)^2)\).
+Therefore,
+\begin{align*}
+h'(x)&=\cos((\sec x)^2)\frac d{dx}((\sec x)^2)
+\\&=\cos(\sec^2x)2\sec x(\sec x\tan x)
+\\&=2\cos(\sec^2x)\sec^2x\tan x.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

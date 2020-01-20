@@ -1,0 +1,77 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('09/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-09.10')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Consider \(\displaystyle{
+w(x)=\sec(2\sin(\pi x))
+}\). Find \(w'(x)\).
+", 
+"\(
+w'(x)=2\pi\sec(2\sin(\pi x))\tan(2\sin(\pi x))\cos(\pi x)
+\\
+\)"
+);
+$mc->extra(
+"\(
+w'(x)=\pi\sec(2\sin(\pi x))\tan(2\sin(\pi x))\sin(\pi x)
+\\
+\)",
+"\(
+w'(x)=8\pi x\sec(\sin(\pi x))\tan(\sin(\pi x))\cos(\pi x)
+\\
+\)",
+"\(
+w'(x)=2\pi x\sec(2\sin(\pi x))\tan(2\sin(\pi x))\sin(\pi x)
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+We find
+\begin{align*}
+w'(x)&=\sec(2\sin(\pi x))\tan(2\sin(\pi x))\frac d{dx}(2\sin(\pi x))
+\\&=\sec(2\sin(\pi x))\tan(2\sin(\pi x))(2\cos(\pi x)(\pi))
+\\&=2\pi\sec(2\sin(\pi x)\tan(2\sin(\pi x))\cos(\pi x).
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

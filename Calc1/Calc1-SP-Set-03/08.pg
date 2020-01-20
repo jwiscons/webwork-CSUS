@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('12/31/2017')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-03.08')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle{\lim_{x\to-1^+}\ \frac{\sqrt{x+1}}{x^2-1}}\).
+", 
+"\(
+-\infty
+\)"
+);
+$mc->extra(
+"\(
+0
+\)",
+"\(
+\infty
+\)",
+"
+Does not exist
+",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Notice that since we are looking at values near \(-1\), but to the right, then \(x+1\) is positive, so \(x+1=\sqrt{x+1}\sqrt{x+1}\).  We will use this to factor the denominator. We have
+\begin{align*}\lim_{x\to-1^+}\ \frac{\sqrt{x+1}}{x^2-1}
+&=\lim_{x\to-1^+}\frac{\sqrt{x+1}}{(x+1)(x-1)}
+\\&=\lim_{x\to-1^+}\frac{\sqrt{x+1}}{\sqrt{x+1}\sqrt{x+1}(x-1)}
+\\&=\lim_{x\to-1^+}\frac{1}{\sqrt{x+1}\ (x-1)}.
+\end{align*}
+Now we are looking at a function that is of the form \(\frac10\), so we know the one-sided limit is \(\pm\infty\).
+$BR
+$BR
+Near \(-1\), but on the right, \(\sqrt{x+1}\) is positive and \(x-1\) is negative, so the denominator is negative.  The numerator is positive, so we have positive over negative, which is negative.  Therefore we can conclude that \(\displaystyle{\lim_{x\to-1^+}\ \frac{\sqrt{x+1}}{x^2-1}=-\infty}\).
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();

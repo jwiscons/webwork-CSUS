@@ -1,0 +1,77 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('Week One')
+## DBsection('')
+## Date('10/17/2018')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-17.08')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+);
+
+
+$mc = new_multiple_choice();
+$mc->qa(
+"
+Compute \(\displaystyle \int_e^{e^2} \frac1x \ dx \).
+", 
+"\(
+1
+\\
+\)"
+);
+$mc->extra(
+"\(
+0
+\\
+\)",
+"\(
+e
+\\
+\)",
+"\(
+e^2
+\\
+\)",
+);
+
+BEGIN_TEXT
+\{ $mc->print_q() \}
+$BR
+\{ $mc->print_a() \}
+END_TEXT
+
+$showPartialCorrectAnswers = 0;
+
+ANS( radio_cmp( $mc->correct_ans() ) );
+
+BEGIN_SOLUTION
+${PAR}SOLUTION:$PAR
+Recall that \(\frac d{dx}(\ln x)=\frac1x\), but \(\ln x\) is only defined for positive values of \(x\).  We then discussed that in fact \(\frac d{dx}\ln|x|=\frac1x\), and now we can include negative \(x\) values.  Therefore \(\ln \lvert x \rvert\) is an antiderivative of \(\frac1x\).
+We have
+\begin{align*}
+\int_e^{e^2} \frac1x \ dx&=\ln|x|\ \big|_e^{e^2}
+\\&=\ln|e^2|-\ln|e|
+\\&=2-1
+\\&=1.
+\end{align*}
+Thus, the correct answer is \{ $mc->correct_ans() \}.
+END_SOLUTION
+
+ENDDOCUMENT();
