@@ -5,9 +5,9 @@
 ##KEYWORDS('single-variable', 'calculus')
 
 ## DBsubject('Calculus I')
-## DBchapter('Week One')
+## DBchapter('')
 ## DBsection('')
-## Date('12/31/2017')
+## Date('01/20/2020')
 ## Author('Sacramento State Faculty')
 ## Institution('Sacramento State')
 ## TitleText1('Math 30')
@@ -16,51 +16,77 @@
 ## Section1('')
 ## Problem1('SP-01.01')
 
-########################################################################
 
-DOCUMENT();  
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
 
 loadMacros(
-"PGstandard.pl",
-"PGchoicemacros.pl",
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
 );
 
+#####################################################################
+# SET UP 
+#####################################################################
+$a = random(-9,9,1);
+$f = Compute("$a+sqrt(x)");
 
-$mc = new_multiple_choice();
-$mc->qa(
-"
-The point \(P=(4,3)\) lies on the graph of \(f(x)=1+\sqrt x\).  Find the slope of the secant line \(PQ\) if \(Q\) is the point \(Q=(x,1+\sqrt x)\), where \(x=3.9\).
-", 
-"\(
-0.251582\dots
-\)"
-);
-$mc->extra(
-"\(
-0.217108\dots
-\)",
-"\(
-0.249843\dots
-\)",
-"\(
-0.271437\dots
-\)",
-);
+$u = 4;
+$v = $u - 0.1;
 
-BEGIN_TEXT
-\{ $mc->print_q() \}
-$BR
-\{ $mc->print_a() \}
-END_TEXT
+Context("Point");
+$p = Point($u,$f->eval(x=>$u));
+$q = Point($v,$f->eval(x=>$v));
 
-$showPartialCorrectAnswers = 0;
+$ans1 = ($f->eval(x=>$v) - $f->eval(x=>$u))/($v - $u);
 
-ANS( radio_cmp( $mc->correct_ans() ) );
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
 
-BEGIN_SOLUTION
-${PAR}SOLUTION:$PAR
-When \(x=3.9\), the point \(Q\) is \(Q=(3.9,1+\sqrt{3.9})\), and so the line \(PQ\) has slope \({\dfrac{1+\sqrt{3.9}-3}{3.9-4}=0.25158234\dots}\).
-Thus, the correct answer is \{ $mc->correct_ans() \}.
-END_SOLUTION
+BEGIN_PGML
 
+The point [`P=[$p]`] lies on the graph of [`f(x) = [$f]`].  Find the slope of the secant line [`PQ`] if [`Q`] is the point [`Q=(x,[$f])`], where [`x=[$v]`].
+
+The slope is: [____________]{$ans1}
+
+(If you round, please include at least 5 decimal places.)
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+When [`x=3.9`], the point [`Q`] is [`Q=([$v],1+\sqrt{[$v]}) = [$p]`], and so the line [`PQ`] has slope:
+
+>> [``\text{slope} =\frac{[$f->eval(x=>$v)] - [$f->eval(x=>$u)]}{[$v] - [$u]} \approx [$ans1]``] <<
+
+Therefore the slope of the secant line [`PQ`] is [$ans1].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
 ENDDOCUMENT();
