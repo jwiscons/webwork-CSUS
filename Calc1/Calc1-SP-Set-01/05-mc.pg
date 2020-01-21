@@ -29,7 +29,7 @@ $mc = new_multiple_choice();
 $mc->qa(
 "
 The point \(P=(4,3)\) lies on the graph of \(f(x)=1+\sqrt x\).
-Using your results from problems 1 through 4, guess the value of the slope of the tangent line to the graph of \(f(x)=1+\sqrt x\) at \((4,3)\).
+Using your results from the previous problems, guess the value of the slope of the tangent line to the graph of \(f(x)=1+\sqrt x\) at \((4,3)\).
 ", 
 "\(
 0.25

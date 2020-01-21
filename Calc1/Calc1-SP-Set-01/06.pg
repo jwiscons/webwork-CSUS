@@ -14,7 +14,7 @@
 ## EditionText1('')
 ## AuthorText1('')
 ## Section1('')
-## Problem1('SP-01.01')
+## Problem1('SP-01.06')
 
 
 #####################################################################
@@ -44,17 +44,23 @@ loadMacros(
 #####################################################################
 # SET UP 
 #####################################################################
-$a = 1;
-$f = Compute("$a+sqrt(x)");
+$a = random(1,9,1);;
+$g = Compute("$a+(x+1)/(x-1)");
+$dg = $g->D('x');
 
-$u = 4;
-$v = $u - 0.1;
+$u = 2;
+$v1 = $u - 0.1;
+$v2 = $u - 0.01;
+$v3 = $u - 0.001;
 
 Context("Point");
-$p = Point($u,$f->eval(x=>$u));
-$q = Point($v,$f->eval(x=>$v));
+$p = Point($u,$g->eval(x=>$u));
 
-$ans1 = ($f->eval(x=>$v) - $f->eval(x=>$u))/($v - $u);
+$slope1 = ($g->eval(x=>$v1) - $g->eval(x=>$u))/($v1 -$u);
+$slope2 = ($g->eval(x=>$v2) - $g->eval(x=>$u))/($v2 -$u);
+$slope3 = ($g->eval(x=>$v3) - $g->eval(x=>$u))/($v3 -$u);
+ 
+$ans1 = $dg->eval(x=>$u);
 
 #####################################################################
 # TEXT (QUESTION) 
@@ -64,11 +70,14 @@ $showPartialCorrectAnswers = 1;
 
 BEGIN_PGML
 
-The point [`P=[$p]`] lies on the graph of [`f(x) = [$f]`].  Find the slope of the secant line [`PQ`] if [`Q`] is the point [`Q=(x,[$f])`], where [`x=[$v]`].
+The point [`P=[$p]`] lies on the graph of [`g(x) = [$g]`].  
 
-The slope is: [____________]{$ans1}
+Find the slope of the secant line through [`P=[$p]`] and [`Q=(x,[$g])`] for each of  [`x=[$v1],[$v2],[$v3]`]. 
 
-(If you round, please include at least 5 decimal places.)
+Using these estimates, what do you think is the slope of the tangent line to the graph of [`g(x)`] at [`P=[$p]`]?
+
+The slope of the tangent line is: [____________]{$ans1}
+
 
 END_PGML
 
@@ -78,11 +87,16 @@ END_PGML
 BEGIN_PGML_SOLUTION
 *SOLUTION*
 
-When [`x=[$v]`], the point [`Q`] is [`Q=([$v],[$a]+\sqrt{[$v]}) = [$q]`], and so the line [`PQ`] has slope:
+When [`x=[$v1]`], [`Q=([$v1],[$a]+\frac{([$v1]+1)}{([$v1]-1)}) = ([$v1],[$g->eval(x=>$v1)])`],  so [`PQ`] has slope:
+[`\text{slope} =\frac{[$g->eval(x=>$v1)] - [$g->eval(x=>$u)]}{[$v1] - [$u]} \approx [$slope1]`]
 
->> [``\text{slope} =\frac{[$f->eval(x=>$v)] - [$f->eval(x=>$u)]}{[$v] - [$u]} \approx [$ans1]``] <<
+When [`x=[$v2]`], [`Q=([$v2],[$a]+\frac{([$v2]+1)}{([$v2]-1)}) = ([$v2],[$g->eval(x=>$v2)])`],  so [`PQ`] has slope:
+[`\text{slope} =\frac{[$g->eval(x=>$v2)] - [$g->eval(x=>$u)]}{[$v2] - [$u]} \approx [$slope2]`]
 
-Therefore the slope of the secant line [`PQ`] is [$ans1].
+When [`x=[$v3]`], [`Q=([$v3],[$a]+\frac{([$v3]+1)}{([$v3]-1)}) = ([$v3],[$g->eval(x=>$v3)])`],  so [`PQ`] has slope:
+[`\text{slope} =\frac{[$g->eval(x=>$v3)] - [$g->eval(x=>$u)]}{[$v3] - [$u]} \approx [$slope3]`]
+
+These slopes are getting closer and closer to the slope of the tangent line, so it appears the slope of the tangent line is [$ans1].
 
 END_PGML_SOLUTION
 

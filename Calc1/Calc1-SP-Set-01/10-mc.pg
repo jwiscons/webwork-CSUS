@@ -29,7 +29,7 @@ loadMacros(
 $mc4 = new_multiple_choice();
 $mc4->qa(
 "
-A ball thrown upward with a velocity of \(96\) feet per second in a vacuum will have a height of \(h(t)=96t-16t^2\) feet after \(t\) seconds. Use your answers to Problems 7, 8, and 9 to offer a guess for the instantaneous velocity of the ball at \(t=2\).
+A ball thrown upward with a velocity of \(96\) feet per second in a vacuum will have a height of \(h(t)=96t-16t^2\) feet after \(t\) seconds. Use your answers to the previous problems to offer a guess for the instantaneous velocity of the ball at \(t=2\).
 ", 
 "\(
 32 \text{ ft/sec}

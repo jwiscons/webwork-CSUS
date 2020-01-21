@@ -14,7 +14,7 @@
 ## EditionText1('')
 ## AuthorText1('')
 ## Section1('')
-## Problem1('SP-01.01')
+## Problem1('SP-01.04')
 
 
 #####################################################################
@@ -48,7 +48,7 @@ $a = 1;
 $f = Compute("$a+sqrt(x)");
 
 $u = 4;
-$v = $u - 0.1;
+$v = $u + 0.001;
 
 Context("Point");
 $p = Point($u,$f->eval(x=>$u));
@@ -78,7 +78,7 @@ END_PGML
 BEGIN_PGML_SOLUTION
 *SOLUTION*
 
-When [`x=[$v]`], the point [`Q`] is [`Q=([$v],[$a]+\sqrt{[$v]}) = [$q]`], and so the line [`PQ`] has slope:
+When  [`x=[$v]`], the point [`Q`] is [`Q=([$v],[$a]+\sqrt{[$v]}) = [$q]`], and so the line [`PQ`] has slope:
 
 >> [``\text{slope} =\frac{[$f->eval(x=>$v)] - [$f->eval(x=>$u)]}{[$v] - [$u]} \approx [$ans1]``] <<
 
