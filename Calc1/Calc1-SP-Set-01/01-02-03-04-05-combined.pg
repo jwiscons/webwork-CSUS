@@ -1,0 +1,117 @@
+##DESCRIPTION
+##  Single variable Calculus: Multiple Choice
+##ENDDESCRIPTION
+
+##KEYWORDS('single-variable', 'calculus')
+
+## DBsubject('Calculus I')
+## DBchapter('')
+## DBsection('')
+## Date('01/20/2020')
+## Author('Sacramento State Faculty')
+## Institution('Sacramento State')
+## TitleText1('Math 30')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('SP-01.01-0.5')
+
+
+#####################################################################
+# INITIALIZATION 
+#####################################################################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGunion.pl",
+	"PGchoicemacros.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"unionTables.pl",
+	"PGcourse.pl",
+    "parserNumberWithUnits.pl",
+    "contextArbitraryString.pl",
+    "parserMultiAnswer.pl",
+    "parserPopUp.pl",
+    "contextInequalities.pl",
+    "PGgraphmacros.pl",
+    "answerHints.pl",
+);
+
+#####################################################################
+# SET UP 
+#####################################################################
+$a = random(1,9,1);
+$f = Compute("$a+sqrt(x)");
+$df = $f->D('x');
+
+$u = list_random(1,4);
+
+$v1 = $u - 0.1;
+$v2 = $u - 0.01;
+$v3 = $u + 0.1;
+$v4 = $u + 0.01;
+
+
+Context("Point");
+$p = Point($u,$f->eval(x=>$u));
+
+$slope1 = ($f->eval(x=>$v1) - $f->eval(x=>$u))/($v1 -$u);
+$slope2 = ($f->eval(x=>$v2) - $f->eval(x=>$u))/($v2 -$u);
+$slope3 = ($f->eval(x=>$v3) - $f->eval(x=>$u))/($v3 -$u);
+$slope4 = ($f->eval(x=>$v4) - $f->eval(x=>$u))/($v4 -$u);
+
+$slopetan = $df->eval(x=>$u);
+
+#####################################################################
+# TEXT (QUESTION) 
+#####################################################################
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+BEGIN_PGML
+
+The point [`P=[$p]`] lies on the graph of [`f(x) = [$f]`].  
+
+1. Find the slope of the secant line [`PQ`] if [`Q`] is the point [`Q=(x,[$f])`], where [`x=[$v1]`].  
+The slope is: [____________]{$slope1} 
+2. Find the slope of the secant line [`PQ`] if [`Q`] is the point [`Q=(x,[$f])`], where [`x=[$v2]`].  
+The slope is: [____________]{$slope2}
+3. Find the slope of the secant line [`PQ`] if [`Q`] is the point [`Q=(x,[$f])`], where [`x=[$v3]`].  
+The slope is: [____________]{$slope3}
+4. Find the slope of the secant line [`PQ`] if [`Q`] is the point [`Q=(x,[$f])`], where [`x=[$v4]`].  
+The slope is: [____________]{$slope4}  
+5. Use your previous results to guess the value of the slope of the tangent line to the graph of [`f(x) = [$f]`] at [`P=[$p]`].  
+The slope of the tangent line is: [____________]{$slopetan}
+
+(Please include at least 5 decimal places when rounding your answers above.)
+
+END_PGML
+
+#####################################################################
+# TEXT (SOLUTION) 
+#####################################################################
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+1. When [`x=[$v1]`], [`Q=([$v1],[$a]+\sqrt{x}) = ([$v1],[$f->eval(x=>$v1)])`],  so [`PQ`] has slope:
+[`\text{slope} =\frac{[$f->eval(x=>$v1)] - [$f->eval(x=>$u)]}{[$v1] - [$u]} \approx [$slope1]`]  
+2. When [`x=[$v2]`], [`Q=([$v2],[$a]+\sqrt{x}) = ([$v2],[$f->eval(x=>$v2)])`],  so [`PQ`] has slope:
+[`\text{slope} =\frac{[$f->eval(x=>$v2)] - [$f->eval(x=>$u)]}{[$v2] - [$u]} \approx [$slope2]`]  
+3. When [`x=[$v3]`], [`Q=([$v3],[$a]+\sqrt{x}) = ([$v3],[$f->eval(x=>$v3)])`],  so [`PQ`] has slope:
+[`\text{slope} =\frac{[$f->eval(x=>$v3)] - [$f->eval(x=>$u)]}{[$v3] - [$u]} \approx [$slope3]`]  
+4. When [`x=[$v4]`], [`Q=([$v4],[$a]+\sqrt{x}) = ([$v4],[$f->eval(x=>$v4)])`],  so [`PQ`] has slope:
+[`\text{slope} =\frac{[$f->eval(x=>$v4)] - [$f->eval(x=>$u)]}{[$v4] - [$u]} \approx [$slope4]`]  
+5. When [`x`]  gets closer to [`[$u]`], through values like [`[$v1]`] and [`[$v2]`], the corresponding slopes of the secant lines are [`[$slope1]\ldots`] and [`[$slope2]\ldots`], which seem to be getting closer to [`[$slopetan]`].  
+When [`x`]  gets closer to [`[$u]`], through values like [`[$v3]`] and [`[$v4]`], the corresponding slopes of the secant lines are [`[$slope3]\ldots`] and [`[$slope4]\ldots`], which also seem to be getting  closer to [`[$slopetan]`].  
+Thus, we guess that the slope of the tangent line is [`[$slopetan]`].
+
+END_PGML_SOLUTION
+
+#####################################################################
+# THE END 
+#####################################################################
+ENDDOCUMENT();
