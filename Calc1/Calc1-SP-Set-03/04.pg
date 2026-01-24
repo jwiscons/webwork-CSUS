@@ -42,9 +42,9 @@ $mc->extra(
 "\(
 -\infty
 \)",
-"
+"\(
 \infty
-",
+\)",
 );
 
 BEGIN_TEXT
