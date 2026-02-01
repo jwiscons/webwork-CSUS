@@ -35,7 +35,7 @@ Context("Numeric");
 $showPartialCorrectAnswers = 1;
 Context()->flags->set(tolType => 'digits', tolerance => 2, tolTruncation => 0);
 
-### setup candidates and names for the ranking on the schedule
+### setup candidates and names for the rankings on ballots
 $num_cand = 4; #if you change this, update number of answers in the problem
 Context()->strings->add(A=>{},B=>{},C=>{},D=>{});
 @cand_map = ("A","B","C","D");
@@ -75,7 +75,6 @@ for (my $i = 0; $i < $num_cand; $i++) {
     push(@schedule,$cand_by_rank);
 }
 $schedule_table = DataTable(~~@schedule,
-align => 'c|c|c|c|c|c|c',
 horizontalrules => 1
 );
 
@@ -116,7 +115,7 @@ There is a vote with [$num_cand] candidates: [$cand_string]. The results are rec
 [. 4th place: [_]{$cand_map[$scores_sorted[3][0]]} .]*
 #]{align => 'cccc', horizontalrules => 0}
 
-1. What percent of the total vote did the plurality winner receive? Answer: [_]{$scores_sorted[0][1]/$num_votes*100}%  
+1. What percent of the total 1st place votes did the plurality winner receive? Answer: [_]{$scores_sorted[0][1]/$num_votes*100}%  
 _Round to the nearest percent, so your answer should be a number from 0 to 100._
 
 END_PGML
