@@ -1,8 +1,8 @@
-##DESCRIPTION
-##  Mathematics of Elections
-##ENDDESCRIPTION
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
 
-##KEYWORDS('election', 'voting theory')
+## KEYWORDS('election', 'voting theory')
 
 ## DBsubject('')
 ## DBchapter('')
@@ -12,9 +12,9 @@
 ## Institution('Sacramento State')
 
 
-#####################################################################
+####################
 # INITIALIZATION 
-#####################################################################
+####################
 DOCUMENT();
 
 loadMacros(
@@ -27,22 +27,21 @@ loadMacros(
     "PGbasicmacros.pl"
 );
 
-#####################################################################
+####################
 # SET UP 
-#####################################################################
+####################
 
 Context("Numeric");
 $showPartialCorrectAnswers = 1;
 Context()->flags->set(tolType => 'digits', tolerance => 2, tolTruncation => 0);
 
-
-# setup candidates and rank names: need exactly 4
-$num_cand = 4;
+### setup candidates and names for the ranking on the schedule
+$num_cand = 4; #if you change this, update number of answers in the problem
 Context()->strings->add(A=>{},B=>{},C=>{},D=>{});
 @cand_map = ("A","B","C","D");
 @rank_map = ("1st","2nd","3rd","4th");
     
-# setup ballots: need exactly 6 types, candidate names are 0,1,... corresponding to @cand_map. Variable @ballots holds the ballots given as rows; @num_ballots is the multiplicity of each ballot.
+### setup ballots: candidate names are 0,1,... corresponding to @cand_map. @ballots holds the ballots given as rows; @num_ballots is the multiplicity of each ballot.
 $num_ballot_types = 6;
 @ballots = (
     [1,2,0,3],
@@ -61,12 +60,12 @@ $num_ballot_types = 6;
     3
 );
 
-# build related items
+### build related items
 $cand_string = join(", ", @cand_map);
 $num_votes   = 0;
 foreach my $num (@num_ballots) { $num_votes += $num; }
 
-# build schedule table
+### build schedule table
 @schedule = (["Number of Votes",@num_ballots]);
 for (my $i = 0; $i < $num_cand; $i++) {
     $cand_by_rank = [$rank_map[$i]];
@@ -80,7 +79,7 @@ align => 'c|c|c|c|c|c|c',
 horizontalrules => 1
 );
 
-# scoring computations: scoring via plurality method
+### scoring computations: scoring via plurality method. Result held in @score formated as: @scores[i]=[candidate number][candidate score]
 @scores = ();
 for (my $i = 0; $i < $num_cand; $i++) {
     push(@scores,[$i,0]);
@@ -89,18 +88,19 @@ for (my $i = 0; $i < $num_ballot_types; $i++) {
     $scores[$ballots[$i][0]][1] += $num_ballots[$i];
 }
 
-# sort scores for ranking
+### sort scores for ranking. @scores_sorted is sorted version of @scores in decreasing order according to candidates scores. 
 sub sortDecreasingBySecond {
     my ($P1, $P2) = @_;
     @$P1[1] > @$P2[1];
 }
 @scores_sorted = PGsort(~~&sortDecreasingBySecond, @scores );
 
+### build extra variables to help writing problem
 $winner_percent = int($scores_sorted[0][1]/$num_votes*100 +0.5);
 
-#####################################################################
+####################
 # TEXT (QUESTION + OPTIONAL SOLUTION) 
-#####################################################################
+####################
 BEGIN_PGML
 There is a vote with [$num_cand] candidates: [$cand_string]. The results are recorded in the following preference schedule.
 
