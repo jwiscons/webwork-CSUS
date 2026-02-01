@@ -1,0 +1,65 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('election', 'voting theory')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('02/01/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "parserRadioButtons.pl"
+);
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+$radio_majority = RadioButtons(
+    [ 'receive 50% or more of the 1st place votes', 'receive more than 50% of the 1st place votes', 'receive more 1st place votes that any other candidate', 'receive at least two thirds of the 1st place votes', 'win a one-on-one comparison against every other candidate', 'None of these' ],
+    'receive more than 50% of the 1st place votes',    # correct answer
+);
+
+$radio_plurality = RadioButtons(
+    [ 'receive 50% or more of the 1st place votes', 'receive more than 50% of the 1st place votes', 'receive more 1st place votes that any other candidate', 'receive at least two thirds of the 1st place votes', 'win a one-on-one comparison against every other candidate', 'None of these' ],
+    'receive more 1st place votes that any other candidate',    # correct answer
+);
+
+$radio_condorcet = RadioButtons(
+    [ 'receive 50% or more of the 1st place votes', 'receive more than 50% of the 1st place votes', 'receive more 1st place votes that any other candidate', 'receive at least two thirds of the 1st place votes', 'win a one-on-one comparison against every other candidate', 'None of these' ],
+    'win a one-on-one comparison against every other candidate',    # correct answer
+);
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Complete the following definitions regarding an election.
+
+1. A candidate is called a *majority candidate* if they:  [_]{$radio_majority}
+1. A candidate is called a *plurality candidate* if they:  [_]{$radio_plurality}
+1. A candidate is called a *Condorcet candidate* if they:  [_]{$radio_condorcet}
+
+END_PGML
+
+ENDDOCUMENT();
