@@ -1,0 +1,124 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('election', 'voting theory')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('02/03/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl"
+);
+
+####################
+# SET UP 
+####################
+
+Context("Numeric");
+$showPartialCorrectAnswers = 1;
+
+### setup candidate names and ranking names on the ballots. Important: number of candidates should match number of answer blanks in writing of the problem later
+Context()->strings->add(A=>{},B=>{},C=>{});
+@cand_map = ("A","B","C");
+@rank_map = ("1st","2nd","3rd");
+    
+### setup ballots: candidate are labeled 0,1,... and mapped to names by @cand_map above. @ballots holds the ballots given as rows 
+@ballots = (
+    [1,2,0],
+    [0,1,2],
+    [1,2,0],
+    [2,1,0],
+    [2,1,0],
+    [0,1,2],
+    [2,1,0],
+    [0,1,2],
+    [2,1,0]
+);
+
+### build related items
+$num_cand = scalar(@cand_map);
+$num_votes = scalar(@ballots);
+
+### build ballot table
+@schedule = ([" ", ("Ballot") x $num_votes]);
+for (my $i = 0; $i < $num_cand; $i++) {
+    $cand_by_rank = [$rank_map[$i]];
+    for (my $j = 0; $j < $num_votes; $j++) {
+        $cand_by_rank->[$j+1] =  $cand_map[$ballots[$j][$i]];
+    }
+    push(@schedule,$cand_by_rank);
+}
+$schedule_table = DataTable(~~@schedule,
+horizontalrules => 1
+);
+
+### scoring computations: scoring via Borda count. Result held in @score formated as: @scores[i]=[candidate number][candidate score]
+@scores = ();
+for (my $i = 0; $i < $num_cand; $i++) {
+    push(@scores,[$i,0]);
+}
+for (my $i = 0; $i < $num_votes; $i++) {
+    for (my $rank = 0; $rank < $num_cand; $rank++) {
+        $scores[$ballots[$i][$rank]][1] += $num_cand - $rank;
+    }
+}
+
+### sort scores for ranking. @scores_sorted is sorted version of @scores in decreasing order according to candidates scores. 
+sub sortDecreasingBySecond {
+    my ($P1, $P2) = @_;
+    @$P1[1] > @$P2[1];
+}
+@scores_sorted = PGsort(~~&sortDecreasingBySecond, @scores );
+
+### build extra variables to help writing problem
+$cand_string = join(", ", @cand_map);
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+There is a vote with [$num_cand] candidates: [$cand_string]. The preference ballots are given below.
+
+[$schedule_table]*
+
+1. Determine how many points each candidate receives using the Borda count method:
+[#
+[. [$cand_map[0]]: [_]{$scores[0][1]} .]
+[. [$cand_map[1]]: [_]{$scores[1][1]} .]
+[. [$cand_map[2]]: [_]{$scores[2][1]} .]
+#]{horizontalrules => 0}
+
+1. Use the Borda count method to rank the candidates:
+[#
+[. 1st place: [_]{$cand_map[$scores_sorted[0][0]]} .]
+[. 2nd place: [_]{$cand_map[$scores_sorted[1][0]]} .]
+[. 3rd place: [_]{$cand_map[$scores_sorted[2][0]]} .]*
+#]{align => 'cccc', horizontalrules => 0}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+There are [$num_cand] candidates, so using a Borda count, [$rank_map[0]] on the ballot is worth [$num_cand] points, [$rank_map[1]] on the ballot is worth [$num_cand-1] points, and so on. The points for each each candidate are then tallied from all ballots, and candidates are  ranked according to the number of total points they received.
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
