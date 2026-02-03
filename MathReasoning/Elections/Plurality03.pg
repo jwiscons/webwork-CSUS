@@ -1,0 +1,56 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('election', 'voting theory')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('02/03/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+Context("Numeric");
+$showPartialCorrectAnswers = 1;
+
+$num_cand = random(3,5,1);
+$multiplier = random(1,5,1);
+$num_votes = $num_cand*$multiplier*10;
+
+$majority = int($num_votes/2) + 1;
+$plurality = int($num_votes/$num_cand) + 1;
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+There is a vote with [$num_cand] candidates and  [$num_votes] voters. 
+
+1. Determine least number of votes it would take for a candidate to win the majority of the votes:  [_]{$majority}
+
+1. Determine least number of votes a candidate might get and still be the winner using the plurality method:  [_]{$plurality}
+
+END_PGML
+
+ENDDOCUMENT();
