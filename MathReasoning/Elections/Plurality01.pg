@@ -35,14 +35,12 @@ Context("Numeric");
 $showPartialCorrectAnswers = 1;
 Context()->flags->set(tolType => 'digits', tolerance => 2, tolTruncation => 0);
 
-### setup candidates and names for the rankings on ballots
-$num_cand = 3; #if you change this, update number of answers in the problem
-Context()->strings->add(A=>{},B=>{},C=>{},D=>{});
+### setup candidate names and ranking names on the ballots. Important: number of candidates should match number of answer blanks in writing of the problem later
+Context()->strings->add(A=>{},B=>{},C=>{});
 @cand_map = ("A","B","C");
 @rank_map = ("1st","2nd","3rd");
     
-### setup ballots: candidate names are 0,1,... corresponding to @cand_map. @ballots holds the ballots given as rows; 
-$num_votes = 9;
+### setup ballots: candidate are labeled 0,1,... and mapped to names by @cand_map above. @ballots holds the ballots given as rows 
 @ballots = (
     [1,2,0],
     [0,2,1],
@@ -56,7 +54,8 @@ $num_votes = 9;
 );
 
 ### build related items
-$cand_string = join(", ", @cand_map);
+$num_cand = scalar(@cand_map);
+$num_votes = scalar(@ballots);
 
 ### build ballot table
 @schedule = ([" ", ("Ballot") x $num_votes]);
@@ -88,6 +87,7 @@ sub sortDecreasingBySecond {
 @scores_sorted = PGsort(~~&sortDecreasingBySecond, @scores );
 
 ### build extra variables to help writing problem
+$cand_string = join(", ", @cand_map);
 $winner_percent = int($scores_sorted[0][1]/$num_votes*100 +0.5);
 
 ####################
