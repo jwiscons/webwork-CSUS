@@ -43,14 +43,14 @@ Context()->strings->add(A=>{},B=>{},C=>{});
 ### setup ballots: candidate are labeled 0,1,... and mapped to names by @cand_map above. @ballots holds the ballots given as rows 
 @ballots = (
     [1,2,0],
-    [0,2,1],
+    [0,1,2],
     [1,2,0],
-    [2,0,1],
     [2,1,0],
-    [0,2,1],
     [2,1,0],
     [0,1,2],
-    [2,0,1]
+    [2,1,0],
+    [0,1,2],
+    [2,1,0]
 );
 
 ### build related items
