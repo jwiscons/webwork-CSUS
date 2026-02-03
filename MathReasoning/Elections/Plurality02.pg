@@ -7,7 +7,7 @@
 ## DBsubject('')
 ## DBchapter('')
 ## DBsection('')
-## Date('01/30/2026')
+## Date('02/03/2026')
 ## Author('Joshua Wiscons')
 ## Institution('Sacramento State')
 
@@ -116,7 +116,7 @@ There is a vote with [$num_cand] candidates: [$cand_string]. The results are rec
 #]{align => 'cccc', horizontalrules => 0}
 
 1. What percent of the total 1st place votes did the plurality winner receive? Answer: [_]{$scores_sorted[0][1]/$num_votes*100}%  
-_Round to the nearest percent, so your answer should be a number from 0 to 100._
+_You may round to the nearest percent, and give an answer from 0 and 100._
 
 END_PGML
 
@@ -126,7 +126,7 @@ The total number of voters is found by adding the number of voters along the fir
 
 To determine the plurality ranking, we add up the number of 1st place votes each candidate received, and the candidate with the most is in first place, the one with the second most is in second place, and so on.
 
-The winner was [$cand_map[$scores_sorted[0][0]]] with [$scores_sorted[0][1]] votes. There were [$num_votes] total votes, so the fraction of the vote received by [$cand_map[$scores_sorted[0][0]]] was [`[$scores_sorted[0][1]]/[$num_votes] \approx [$scores_sorted[0][1]/$num_votes]`]. Multiplying by 100 and then rounding, the percent is [$winner_percent]%.
+The winner was [$cand_map[$scores_sorted[0][0]]] with [$scores_sorted[0][1]] 1st place votes. There were [$num_votes] total votes, so the fraction of the vote received by [$cand_map[$scores_sorted[0][0]]] was [`[$scores_sorted[0][1]]/[$num_votes] \approx [$scores_sorted[0][1]/$num_votes]`]. Multiplying by 100 and then rounding, the percent is [$winner_percent]%.
 
 END_PGML_SOLUTION
 
