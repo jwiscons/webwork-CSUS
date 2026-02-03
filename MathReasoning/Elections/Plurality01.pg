@@ -94,7 +94,7 @@ $winner_percent = int($scores_sorted[0][1]/$num_votes*100 +0.5);
 # TEXT (QUESTION + OPTIONAL SOLUTION) 
 ####################
 BEGIN_PGML
-[$table_header[2]]
+
 There is a vote with [$num_cand] candidates: [$cand_string]. The preference ballots are given below.
 
 [$schedule_table]*

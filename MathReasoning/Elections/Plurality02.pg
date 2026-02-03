@@ -101,6 +101,7 @@ $winner_percent = int($scores_sorted[0][1]/$num_votes*100 +0.5);
 # TEXT (QUESTION + OPTIONAL SOLUTION) 
 ####################
 BEGIN_PGML
+
 There is a vote with [$num_cand] candidates: [$cand_string]. The results are recorded in the following preference schedule.
 
 [$schedule_table]*
