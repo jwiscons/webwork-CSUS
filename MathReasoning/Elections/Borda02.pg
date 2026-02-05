@@ -119,7 +119,7 @@ There is a vote with [$num_cand] candidates: [$cand_string]. The results are rec
 [. 2nd place: [_]{$cand_map[$scores_sorted[1][0]]} .]
 [. 3rd place: [_]{$cand_map[$scores_sorted[2][0]]} .]
 [. 4th place: [_]{$cand_map[$scores_sorted[3][0]]} .]*
-#]{align => 'cccc', horizontalrules => 0}
+#]{horizontalrules => 0}
 
 END_PGML
 

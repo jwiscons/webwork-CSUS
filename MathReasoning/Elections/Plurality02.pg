@@ -114,7 +114,7 @@ There is a vote with [$num_cand] candidates: [$cand_string]. The results are rec
 [. 2nd place: [_]{$cand_map[$scores_sorted[1][0]]} .]
 [. 3rd place: [_]{$cand_map[$scores_sorted[2][0]]} .]
 [. 4th place: [_]{$cand_map[$scores_sorted[3][0]]} .]*
-#]{align => 'cccc', horizontalrules => 0}
+#]{horizontalrules => 0}
 
 1. What percent of the total 1st place votes did the plurality winner receive? Answer: [_]{$scores_sorted[0][1]/$num_votes*100}%  
 _You may round to the nearest percent, and give an answer from 0 and 100._
