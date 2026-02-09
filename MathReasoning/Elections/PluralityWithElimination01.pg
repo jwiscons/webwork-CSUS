@@ -73,8 +73,7 @@ $schedule_table = DataTable(~~@schedule,
 horizontalrules => 1
 );
 
-### scoring computations: scoring via plurality method. 
-### Result held in @score formated as a list with entries [candidate number, candidate score]
+### scoring computations: scoring via plurality method. Result held in @score formated as: @scores[i]=[i][candidate i score]
 @scores = ();
 for (my $i = 0; $i < $num_cand; $i++) {
     push(@scores,[$i,0]);

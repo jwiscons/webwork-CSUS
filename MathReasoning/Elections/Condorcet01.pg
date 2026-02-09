@@ -34,12 +34,15 @@ loadMacros(
 Context("Numeric");
 $showPartialCorrectAnswers = 1;
 
-### setup candidate names and ranking names on the ballots. Important: number of candidates should match number of answer blanks in writing of the problem later
+### Setup: candidate names, ranking names on the ballots, and the ballots
+### Candidates are labeled 0,1,... and mapped to names by @cand_map
+### @rank_map holds ranking names for display on the ballots
+### @ballots holds the ballots given as rows
+### IMPORTANT: ties are NOT explicitly handled so best to avoid
+### IMPORTANT: number of candidates should match number of answer blanks in writing of the problem later
 Context()->strings->add(A=>{},B=>{},C=>{});
 @cand_map = ("A","B","C");
-@rank_map = ("1st","2nd","3rd");
-    
-### setup ballots: candidate are labeled 0,1,... and mapped to names by @cand_map above. @ballots holds the ballots given as rows 
+@rank_map = ("1st","2nd","3rd"); 
 @ballots = (
     [1,2,0],
     [0,1,2],
@@ -69,8 +72,9 @@ $schedule_table = DataTable(~~@schedule,
 horizontalrules => 1
 );
 
-### scoring computations: scoring pairwise with results held in @scoring_matrix as: @scoring_matrix[i][j]= votes cadidate i would win against candidate j. Totals wins (with tie given 1/2 point) held in @score formated as: @scores[i]=[candidate number][candidate score]
-
+### scoring computations: scoring pairwise 
+### Results held in @scoring_matrix as: @scoring_matrix[i][j]= votes cadidate i would win against candidate j. 
+### Totals wins (with tie given 1/2 point) held in @score formated as a list with entries [candidate number, candidate score]
 @scoring_matrix;
 for (1..$num_cand) {
     push(@scoring_matrix, [(0) x $num_cand]);

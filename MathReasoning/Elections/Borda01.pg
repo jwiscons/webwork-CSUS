@@ -34,12 +34,15 @@ loadMacros(
 Context("Numeric");
 $showPartialCorrectAnswers = 1;
 
-### setup candidate names and ranking names on the ballots. Important: number of candidates should match number of answer blanks in writing of the problem later
+### Setup: candidate names, ranking names on the ballots, and the ballots
+### Candidates are labeled 0,1,... and mapped to names by @cand_map
+### @rank_map holds ranking names for display on the ballots
+### @ballots holds the ballots given as rows
+### IMPORTANT: ties are NOT explicitly handled so best to avoid
+### IMPORTANT: number of candidates should match number of answer blanks in writing of the problem later
 Context()->strings->add(A=>{},B=>{},C=>{});
 @cand_map = ("A","B","C");
 @rank_map = ("1st","2nd","3rd");
-    
-### setup ballots: candidate are labeled 0,1,... and mapped to names by @cand_map above. @ballots holds the ballots given as rows 
 @ballots = (
     [1,2,0],
     [0,1,2],
@@ -69,7 +72,8 @@ $schedule_table = DataTable(~~@schedule,
 horizontalrules => 1
 );
 
-### scoring computations: scoring via Borda count. Result held in @score formated as: @scores[i]=[candidate number][candidate score]
+### scoring computations: scoring via Borda count. 
+### Result held in @score formated as a list with entries [candidate number, candidate score]
 @scores = ();
 for (my $i = 0; $i < $num_cand; $i++) {
     push(@scores,[$i,0]);
