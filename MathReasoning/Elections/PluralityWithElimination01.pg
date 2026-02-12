@@ -2,12 +2,12 @@
 ## Mathematics of Elections
 ## ENDDESCRIPTION
 
-## KEYWORDS('election', 'voting theory', 'plurality')
+## KEYWORDS('election', 'voting theory', 'plurality with eliminiation')
 
 ## DBsubject('')
 ## DBchapter('')
 ## DBsection('')
-## Date('02/03/2026')
+## Date('02/12/2026')
 ## Author('Joshua Wiscons')
 ## Institution('Sacramento State')
 
@@ -39,7 +39,7 @@ Context()->flags->set(tolType => 'digits', tolerance => 2, tolTruncation => 0);
 ### Candidates are labeled 0,1,... and mapped to names by @cand_map
 ### @rank_map holds ranking names for display on the ballots
 ### @ballots holds the ballots given as rows
-### hard code the scores for each round of plurality with elimination: result of round [i] held in @score[i] formated as a *sorted* list with entries [candidate number, candidate score]
+### hard code the scores for each round of plurality with elimination: result of round i held in @score[i] formated as a *sorted* list with entries [candidate number, candidate score]
 ### IMPORTANT: number of candidates in each round should match number of answer blanks in writing of the problem later
 Context()->strings->add(A=>{},B=>{},C=>{});
 @cand_map = ("A","B","C");
@@ -59,7 +59,7 @@ Context()->strings->add(A=>{},B=>{},C=>{});
     [ [2,4],[0,3],[1,2] ],
     [ [0,5],[2,4] ]
 );
-
+$num_rounds = 2;
 
 ### build related items
 $num_cand = scalar(@cand_map);
@@ -77,7 +77,6 @@ for (my $i = 0; $i < $num_cand; $i++) {
 $schedule_table = DataTable(~~@schedule,
 horizontalrules => 1
 );
-
 
 ### build extra variables to help writing problem
 $cand_string = join(", ", @cand_map);
@@ -113,7 +112,9 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 
-To determine the plurality ranking, we add up the number of 1st place votes each candidate received, and the candidate with the most is in first place, the one with the second most is in second place, and so on.
+To determine ranking in each round, we add up the number of 1st place votes each candidate received, and the candidate with the most is in first place, the one with the second most is in second place, and so on. 
+
+If no candidate has a majority of the first place votes, we  find the lowest ranked candidate(s), and then remove them  from all ballots (moving the remaining candidates up to fill the gaps). We then go to the next round and repeat.
 
 END_PGML_SOLUTION
 
