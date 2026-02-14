@@ -107,7 +107,7 @@ There is a vote with [$num_cand] candidates: [$cand_string]. The preference ball
 [#
 [. [$cand_map[0]]: [_]{$scores[0][1]} .]
 [. [$cand_map[1]]: [_]{$scores[1][1]} .]
-[. [$cand_map[2]]: [_]{$scores[2][1]} .]
+[. [$cand_map[2]]: [_]{$scores[2][1]} .]*
 #]{horizontalrules => 0}
 
 1. Use the Borda count method to rank the candidates:
