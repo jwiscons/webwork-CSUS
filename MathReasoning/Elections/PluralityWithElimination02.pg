@@ -1,0 +1,152 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('election', 'voting theory', 'plurality with eliminiation')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('02/14/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl"
+);
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+### Setup: candidate names, ranking names on the ballots, and the ballots
+### Candidates are labeled 0,1,... and mapped to names by @cand_map
+### @rank_map holds ranking names for display on the ballots
+### @ballots holds the ballots given as rows
+### IMPORTANT: hard code the scores for each round of plurality with elimination: result of round i held in @score[i] formated as a list with entries [candidate number, candidate score]
+### IMPORTANT: ties are NOT explicitly handled so best to avoid
+### IMPORTANT: number of candidates should match number of answer blanks in writing of the problem later
+Context()->strings->add(A=>{},B=>{},C=>{},D=>{});
+@cand_map = ("A","B","C","D");
+@rank_map = ("1st","2nd","3rd","4th");
+@ballots = (
+    [1,3,0,2],
+    [0,2,3,1],
+    [1,0,3,2],
+    [3,0,2,1],
+    [0,2,3,1],
+    [2,3,1,0],
+    [3,0,1,2],
+    [2,0,3,1],
+);
+@num_ballots = (
+    6,
+    6,
+    4,
+    5,
+    3,
+    3,
+    3,
+    3
+);
+@scores = (
+    [ [0,9],[1,10],[2,6],[3,8] ],
+    [ [0,12],[1,10],[2,0],[3,11] ],
+    [ [0,16],[1,0],[2,0],[3,17] ]
+);
+
+
+### build related items
+$num_cand = scalar(@cand_map);
+$num_ballot_types = scalar(@ballots);
+$num_votes   = 0;
+foreach my $num (@num_ballots) { $num_votes += $num; }
+$num_rounds = scalar(@scores);
+
+### build schedule table
+@schedule = (["Number of Votes",@num_ballots]);
+for (my $i = 0; $i < $num_cand; $i++) {
+    $cand_by_rank = [$rank_map[$i]];
+    for (my $j = 0; $j < $num_ballot_types; $j++) {
+        $cand_by_rank->[$j+1] =  $cand_map[$ballots[$j][$i]];
+    }
+    push(@schedule,$cand_by_rank);
+}
+$schedule_table = DataTable(~~@schedule,
+horizontalrules => 1
+);
+
+### sort scores for ranking. @scores_sorted[i] is sorted version of @scores[i] in decreasing order according to candidates scores. 
+sub sortDecreasingBySecond {
+    my ($P1, $P2) = @_;
+    @$P1[1] > @$P2[1];
+}
+@scores_sorted = ();
+foreach my $round (@scores) {
+     push(@scores_sorted, [ PGsort(~~&sortDecreasingBySecond, @{$round}) ]);
+}
+
+### build extra variables to help writing problem
+$cand_string = join(", ", @cand_map);
+$winner = $cand_map[$scores_sorted[$num_rounds - 1][0][0]];
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+There is a vote with [$num_cand] candidates: [$cand_string]. The results are recorded in the following preference schedule.
+
+[$schedule_table]*
+
+We use _plurality with elimination_ (instant run-off voting) to determine the winner.
+
+1. *Round 1.* Determine the ranking of the candidates in the first round.
+[#
+[. 1st place: [_]{$cand_map[$scores_sorted[0][0][0]]} .]
+[. 2nd place: [_]{$cand_map[$scores_sorted[0][1][0]]} .]
+[. 3rd place: [_]{$cand_map[$scores_sorted[0][2][0]]} .]
+[. 4th place: [_]{$cand_map[$scores_sorted[0][3][0]]} .]*
+#]{horizontalrules => 0}
+
+1. *Round 2.* After removing the lowest candidate from Round 1, determine the new ranking of the remaining candidates:
+[#
+[. 1st place: [_]{$cand_map[$scores_sorted[1][0][0]]} .]
+[. 2nd place: [_]{$cand_map[$scores_sorted[1][1][0]]} .]
+[. 3rd place: [_]{$cand_map[$scores_sorted[1][2][0]]} .]*
+#]{horizontalrules => 0}
+
+1. *Round 3.* After removing the lowest candidate from Round 2, determine the new ranking of the remaining candidates:
+[#
+[. 1st place: [_]{$cand_map[$scores_sorted[2][0][0]]} .]
+[. 2nd place: [_]{$cand_map[$scores_sorted[2][1][0]]} .]*
+#]{horizontalrules => 0}
+
+1. Who is the winner of the election: [_]{$winner}
+
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+To determine the ranking in each round, we add up the number of 1st place votes each candidate received, and the candidate with the most is in first place, the one with the second most is in second place, and so on. 
+
+If no candidate has a majority of the first place votes, we  find the lowest ranked candidate(s), and  remove them  from all ballots (moving the remaining candidates up to fill the gaps). We then go to the next round and repeat.
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
