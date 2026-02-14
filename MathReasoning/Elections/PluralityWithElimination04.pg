@@ -1,0 +1,61 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('election', 'voting theory', 'pairwise comparison')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('02/03/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+Context("Numeric");
+$showPartialCorrectAnswers = 1;
+
+$num_cand1 = random(4,5,1);
+$num_rounds1 = $num_cand1-1;
+
+$num_cand2 = random(30,80,1);
+$num_rounds2 = $num_cand2-1;
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+1. If the plurality with elimination method was used for an election with [$num_cand1] candidates, what is the most number of rounds possibly needed to determine a winner? Answer: [_]{$num_rounds1}
+
+1. If the plurality with elimination method was used for an election with [$num_cand2] candidates, what is the most number of rounds possibly needed to determine a winner? Answer: [_]{$num_rounds2}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+If there are [`N`] candidates in an election, then the plurality with elimination method eliminates at least one candidate per round, and once there are only two candidates left, it must be the final round. So the most number of rounds possibly needed is [`N-1`]. 
+
+So if there are [$num_cand1] candidates, then at most [`[$num_cand1]-1 = [$num_rounds1]`] rounds are needed, and if there are [$num_cand2] candidates, then at most [`[$num_cand2]-1 = [$num_rounds2]`] rounds are needed.
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
