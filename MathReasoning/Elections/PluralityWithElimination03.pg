@@ -120,7 +120,7 @@ There is a vote with [$num_cand] candidates: [$cand_string]. The results are rec
 
 1. The total number of voters is: [_]{$num_votes}
 
-1. Using the (simple) _plurality method_, the winner of the election would be [_]{$cand_map[$scores_sorted[0][0][0]]}. 
+1. Using the _plurality method_, the winner of the election would be [_]{$cand_map[$scores_sorted[0][0][0]]}. 
 
 1. What percent of the total 1st place votes did the plurality winner receive? Answer: [_]{$scores_sorted[0][0][1]/$num_votes*100}%  
 _You may round to the nearest percent, and give an answer from 0 and 100._
