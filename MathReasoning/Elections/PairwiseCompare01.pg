@@ -127,11 +127,6 @@ sub sortDecreasingBySecond {
 
 ### build extra variables to help writing problem
 $cand_string = join(", ", @cand_map);
-Context()->strings->add(none=>{});
-$codorcet = "none";
-if($scores_sorted[0][1] == $num_cand - 1) {
-    $codorcet = $cand_map[$scores_sorted[0][0]];
-}
 
 ####################
 # TEXT (QUESTION + OPTIONAL SOLUTION) 
@@ -163,6 +158,7 @@ There is a vote with [$num_cand] candidates: [$cand_string]. The preference ball
 [. 2nd place: [_]{$cand_map[$scores_sorted[1][0]]} .]
 [. 3rd place: [_]{$cand_map[$scores_sorted[2][0]]} .]*
 #]{horizontalrules => 0}
+
 END_PGML
 
 ENDDOCUMENT();
