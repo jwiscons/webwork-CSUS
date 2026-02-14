@@ -1,0 +1,168 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('election', 'voting theory', 'pairwise comparison')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('02/14/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl"
+);
+
+####################
+# SET UP 
+####################
+
+Context("Numeric");
+$showPartialCorrectAnswers = 1;
+
+### Setup: candidate names, ranking names on the ballots, and the ballots
+### Candidates are labeled 0,1,... and mapped to names by @cand_map
+### @rank_map holds ranking names for display on the ballots
+### @ballots holds the ballots given as rows
+### IMPORTANT: ties are NOT explicitly handled so best to avoid
+### IMPORTANT: number of candidates should match number of answer blanks in writing of the problem later
+Context()->strings->add(A=>{},B=>{},C=>{});
+@cand_map = ("A","B","C");
+@rank_map = ("1st","2nd","3rd"); 
+@ballots = (
+    [2,1,0],
+    [0,2,1],
+    [1,2,0],
+    [0,1,2],
+    [2,1,0],
+    [2,1,0],
+    [0,1,2],
+    [0,2,1]
+);
+
+### build related items
+$num_cand = scalar(@cand_map);
+$num_votes = scalar(@ballots);
+
+### build ballot table
+@schedule = ([" ", ("Ballot") x $num_votes]);
+for (my $i = 0; $i < $num_cand; $i++) {
+    $cand_by_rank = [$rank_map[$i]];
+    for (my $j = 0; $j < $num_votes; $j++) {
+        $cand_by_rank->[$j+1] =  $cand_map[$ballots[$j][$i]];
+    }
+    push(@schedule,$cand_by_rank);
+}
+$schedule_table = DataTable(~~@schedule,
+horizontalrules => 1
+);
+
+### scoring computations: scoring pairwise 
+### Results held in @scoring_matrix as: @scoring_matrix[i][j]= votes cadidate i would win against candidate j. 
+### Totals wins (with tie given 1/2 point) held in @scores formated as a list with entries [candidate number, candidate score]
+@scoring_matrix;
+for (1..$num_cand) {
+    push(@scoring_matrix, [(0) x $num_cand]);
+}
+@scores = ();
+for (my $i = 0; $i < $num_cand; $i++) {
+    push(@scores,[$i,0]);
+}
+
+##### build scoring matrix
+for (my $cand1 = 0; $cand1 < $num_cand; $cand1++) {
+    for (my $cand2 = $cand1 + 1; $cand2 < $num_cand; $cand2++) {
+        $indices = $indices . $cand1 . " " . $cand2 . " ";
+        for (my $i = 0; $i < $num_votes; $i++) {
+            for (my $rank = 0; $rank < $num_cand; $rank++) {
+                if ($ballots[$i][$rank] == $cand1) {
+                    $scoring_matrix[$cand1][$cand2] += 1;
+                    last;
+                }
+                if($ballots[$i][$rank] == $cand2) {
+                    $scoring_matrix[$cand2][$cand1] += 1;
+                    last;
+                }
+            }
+        }
+    }   
+}
+
+##### compute scores
+for (my $cand1 = 0; $cand1 < $num_cand; $cand1++) {
+    for (my $cand2 = $cand1 + 1; $cand2 < $num_cand; $cand2++) {
+        if ($scoring_matrix[$cand1][$cand2] > $scoring_matrix[$cand2][$cand1]) {
+            $scores[$cand1][1]++;
+        }
+        elsif ($scoring_matrix[$cand1][$cand2] < $scoring_matrix[$cand2][$cand1]) {
+            $scores[$cand2][1]++;
+        }
+        else {
+            $scores[$cand1][1] += 0.5;
+            $scores[$cand2][1] += 0.5;
+        }
+    }
+}
+
+### sort scores for ranking. @scores_sorted is sorted version of @scores in decreasing order according to candidates scores. 
+sub sortDecreasingBySecond {
+    my ($P1, $P2) = @_;
+    @$P1[1] > @$P2[1];
+}
+@scores_sorted = PGsort(~~&sortDecreasingBySecond, @scores );
+
+### build extra variables to help writing problem
+$cand_string = join(", ", @cand_map);
+Context()->strings->add(none=>{});
+$codorcet = "none";
+if($scores_sorted[0][1] == $num_cand - 1) {
+    $codorcet = $cand_map[$scores_sorted[0][0]];
+}
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+There is a vote with [$num_cand] candidates: [$cand_string]. The preference ballots are given below.
+
+[$schedule_table]*
+
+1. If [$cand_map[0]] and [$cand_map[1]] had a one-on-one competition, 
+    * [$cand_map[0]] would get [_]{$scoring_matrix[0][1]} of the [$num_votes] votes, and 
+    * [$cand_map[1]] would get [_]{$scoring_matrix[1][0]} of the [$num_votes] votes.
+1. If [$cand_map[0]] and [$cand_map[2]] had a one-on-one competition, 
+    * [$cand_map[0]] would get [_]{$scoring_matrix[0][2]} of the [$num_votes] votes, and 
+    * [$cand_map[2]] would get [_]{$scoring_matrix[2][0]}  of the [$num_votes] votes.
+1. If [$cand_map[1]] and [$cand_map[2]] had a one-on-one competition, 
+    * [$cand_map[1]] would get [_]{$scoring_matrix[1][2]} of the [$num_votes] votes, and 
+    * [$cand_map[2]] would get [_]{$scoring_matrix[2][1]} of the [$num_votes] votes.
+1. Determine how many points each candidate receives using the pairwise comparison method:
+[#
+[. [$cand_map[0]]: [_]{$scores[0][1]} .]
+[. [$cand_map[1]]: [_]{$scores[1][1]} .]
+[. [$cand_map[2]]: [_]{$scores[2][1]} .]*
+#]{horizontalrules => 0}
+1. Use the pairwise comparison method to rank the candidates:
+[#
+[. 1st place: [_]{$cand_map[$scores_sorted[0][0]]} .]
+[. 2nd place: [_]{$cand_map[$scores_sorted[1][0]]} .]
+[. 3rd place: [_]{$cand_map[$scores_sorted[2][0]]} .]*
+#]{horizontalrules => 0}
+END_PGML
+
+ENDDOCUMENT();
