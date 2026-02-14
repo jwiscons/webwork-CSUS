@@ -1,0 +1,66 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('election', 'voting theory', 'pairwise comparison')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('02/03/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+Context("Numeric");
+$showPartialCorrectAnswers = 1;
+
+$num_cand1 = random(4,5,1);
+$multiplier = random(3,5,1);
+$num_votes1 = $num_cand1*$multiplier+1;
+$num_compare1 = C($num_cand1,2);
+
+$num_cand2 = random(12,18,1);
+$multiplier = random(3,5,1);
+$num_votes2 = $num_cand2*$multiplier+1;
+$num_compare2 = C($num_cand2,2);
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+1. If the pariwise comparison method was used for an election with [$num_cand1] candidates and  [$num_votes1] voters, how many pairwise comparisons would be needed? Answer: [_]{$num_compare1}
+
+1. If the pariwise comparison method was used for an election with [$num_cand2] candidates and  [$num_votes2] voters, how many pairwise comparisons would be needed? Answer: [_]{$num_compare2}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+If there are [`N`] candidates in an election, then the pairwise comparison method requires [`\frac{N\cdot (N-1)}{2}`] comparisons. 
+
+So if there are [$num_cand1] candidates, then [`\frac{[$num_cand1]\cdot [$num_cand1 - 1]}{2} = [$num_compare1]`] comparisons are needed. And if there are [$num_cand2] candidates, then [`\frac{[$num_cand2]\cdot [$num_cand2 - 1]}{2} = [$num_compare2]`] comparisons are needed.
+
+END_PGML_SOLUTION
+
+
+ENDDOCUMENT();
