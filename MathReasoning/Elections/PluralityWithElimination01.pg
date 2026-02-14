@@ -7,7 +7,7 @@
 ## DBsubject('')
 ## DBchapter('')
 ## DBsection('')
-## Date('02/12/2026')
+## Date('02/14/2026')
 ## Author('Joshua Wiscons')
 ## Institution('Sacramento State')
 
@@ -57,11 +57,11 @@ Context()->strings->add(A=>{},B=>{},C=>{});
     [ [0,4],[1,2],[2,3] ],
     [ [0,4],[1,0],[2,5] ]
 );
-$num_rounds = 2;
 
 ### build related items
 $num_cand = scalar(@cand_map);
 $num_votes = scalar(@ballots);
+$num_rounds = scalar(@scores);
 
 ### build ballot table
 @schedule = ([" ", ("Ballot") x $num_votes]);
@@ -88,6 +88,7 @@ foreach my $round (@scores) {
 
 ### build extra variables to help writing problem
 $cand_string = join(", ", @cand_map);
+$winner = $cand_map[$scores_sorted[$num_rounds - 1][0][0]];
 
 ####################
 # TEXT (QUESTION + OPTIONAL SOLUTION) 
@@ -113,7 +114,7 @@ We use _plurality with elimination_ (instant run-off voting) to determine the wi
 [. 2nd place: [_]{$cand_map[$scores_sorted[1][1][0]]} .]*
 #]{horizontalrules => 0}
 
-1. Who is the winner of the election: [_]{$cand_map[$scores_sorted[1][0][0]]}
+1. Who is the winner of the election: [_]{$winner}
 
 END_PGML
 
