@@ -1,0 +1,118 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/12/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+### Setup: build random graph on 5 vertices
+$letters = join '', 'A'..'Z';
+$size = 6;
+$labels = substr $letters, 0, $size;
+@label_map = split(//, $labels);
+
+$graph = GRgraph_size_random($size,0.5);
+@incidence_matrix = GRmatrix_graph($graph);
+
+### build neighbor lists as strings
+@neighbors = ();
+for (my $i = 0; $i < $size; $i++) {
+    $neighbor_string = "";
+    $neighbor_count = 0;
+    for (my $j = 0; $j < $size; $j++) {
+        if($incidence_matrix[$i][$j] == 1) {
+            if($neighbor_count > 0){
+                $neighbor_string = $neighbor_string . ', ';
+            }
+            $neighbor_string = $neighbor_string . $label_map[$j];
+            $neighbor_count++;
+        }
+    }
+    push(@neighbors,$neighbor_string);
+}
+
+### build connection table
+@connection_list = (["Vertices", "Connections"]);
+for (my $i = 0; $i < $size; $i++) {
+    push(@connection_list,[$label_map[$i], $neighbors[$i]]);
+}
+$connection_table = DataTable(~~@connection_list,
+horizontalrules => 1
+);
+
+### build alternative graphs, picture array, and radio table
+@graph_pics = ();
+push(@graph_pics, GRpic_graph_labels($graph,$labels));
+
+for (my $i = 0; $i < 5; $i++) {
+	$change_index1 = random(0,$size-1,1);
+	$change_index2 = ($change_index1 + random(1,$size-1,1)) % $size;
+    
+    do {
+        $change_index3 = ($change_index1 + random(1,$size-1,1)) % $size;
+    } while ($change_index3 == $change_index2);
+    
+	$incidence_matrix[$change_index1][$change_index2] = ($incidence_matrix[$change_index1][$change_index2] + 1) % 2;
+    $incidence_matrix[$change_index1][$change_index3] = ($incidence_matrix[$change_index1][$change_index3] + 1) % 2;
+    
+    $incidence_matrix[$change_index2][$change_index1] = $incidence_matrix[$change_index1][$change_index2];
+    $incidence_matrix[$change_index3][$change_index1] = $incidence_matrix[$change_index1][$change_index3];
+    
+push(@graph_pics,GRpic_graph_labels(GRgraph_matrix(@incidence_matrix), $labels));
+    
+	$incidence_matrix[$change_index1][$change_index2] = ($incidence_matrix[$change_index1][$change_index2] + 1) % 2;
+    $incidence_matrix[$change_index1][$change_index3] = ($incidence_matrix[$change_index1][$change_index3] + 1) % 2;
+    
+    $incidence_matrix[$change_index2][$change_index1] = $incidence_matrix[$change_index1][$change_index2];
+    $incidence_matrix[$change_index3][$change_index1] = $incidence_matrix[$change_index1][$change_index3];
+}
+
+($table, $ans_checker) = radio_table([@graph_pics],[1,0,0,0,0,0], geometry=>[3,2]);
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Which of the following graphs below corresponds to the table of vertices and  connections?
+
+[$connection_table]*
+
+[$table]*
+
+END_PGML
+
+$ans_checker;
+
+
+ENDDOCUMENT();
