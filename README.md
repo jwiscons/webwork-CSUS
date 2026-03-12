@@ -6,6 +6,7 @@ The following problem sets are currently being developed/maintained here:
 * Calculus 1 (the "Scott Problems")
 * Mathematical Reasoning topics including:
    - voting theory
+   - graph theory
 
 ## Contact
 Questions and or suggestions regarding the problems in this repository can be directed to any of
