@@ -1,0 +1,82 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/12/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+### Setup: build random graph on 5 vertices
+$letters = join '', 'A'..'Z';
+$size = 6;
+@incidence_matrix = (
+[0,0,0,0,1,1],
+[0,0,1,1,1,0],
+[0,1,0,1,0,0],
+[0,1,1,0,0,1],
+[1,1,0,0,0,0],
+[1,0,0,1,0,0]
+);
+$labels = substr $letters, 0, $size;
+@label_map = split(//, $labels);
+
+$graph = GRgraph_matrix(@incidence_matrix);
+$graph_pic = GRpic_graph_labels($graph,$labels);
+
+### Permute the edges
+my ($i, $j);
+@shuffled_matrix = ();
+@perm = shuffle($size);
+for ($i = 0; $i < $size; $i++) {
+	for ($j = 0; $j < $size; $j++) {
+		$shuffled_matrix[ $perm[$i] ][ $perm[$j] ] = $incidence_matrix[$i][$j];
+	}
+}
+$shuffled_graph = GRgraph_matrix(@shuffled_matrix);
+$numbers = join '', 1..$size;
+$shuffled_graph_pic = GRpic_graph_labels($shuffled_graph,$numbers);
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+[@ Plot($graph_pic, tex_size => 400) @]*
+[@ Plot($shuffled_graph_pic, tex_size => 400) @]*
+
+END_PGML
+
+
+
+
+ENDDOCUMENT();
