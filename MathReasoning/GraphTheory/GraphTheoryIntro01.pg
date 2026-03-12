@@ -1,0 +1,95 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/12/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+### Setup: build random graph on 5 or 6 vertices
+$letters = join '', 'A'..'Z';
+$size = random(5,6,1);
+$labels = substr $letters, 0, $size;
+@label_map = split(//, $labels);
+
+$graph = GRgraph_size_random($size,0.5);
+$graph_pic = GRpic_graph_labels($graph,$labels);
+@incidence_matrix = GRmatrix_graph($graph);
+
+### build neighbor lists as strings
+@neighbors = ();
+for (my $i = 0; $i < $size; $i++) {
+    $neighbor_string = "";
+    $neighbor_count = 0;
+    for (my $j = 0; $j < $size; $j++) {
+        if($incidence_matrix[$i][$j] == 1) {
+            if($neighbor_count > 0){
+                $neighbor_string = $neighbor_string . ',';
+            }
+            $neighbor_string = $neighbor_string . $label_map[$j];
+            $neighbor_count++;
+        }
+    }
+    push(@neighbors,$neighbor_string);
+}
+
+### build connection table
+@connection_list = (["Vertices", "Connections"]);
+for (my $i = 0; $i < $size; $i++) {
+    push(@connection_list,[$label_map[$i], ans_rule(10)]);
+}
+$connection_table = DataTable(~~@connection_list,
+horizontalrules => 1
+);
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Consider the graph given below.
+
+[@ Plot($graph_pic, tex_size => 400) @]*
+
+Complete the table by listing the vertices connected to the given vertex.
+
+[$connection_table]*
+
+END_PGML
+
+for (my $i = 0; $i < $size; $i++) {
+  ANS(str_cmp($neighbors[$i],filters =>['ignore_order','remove_whitespace','ignore_case']));
+}
+
+
+ENDDOCUMENT();
