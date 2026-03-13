@@ -35,9 +35,8 @@ loadMacros(
 
 $showPartialCorrectAnswers = 1;
 
-### Setup: build on graph on 6 vertices with no automorphisms (so there is a unique answer)
+### Setup: build on graph on with no automorphisms (so there is a unique answer)
 $letters = join '', 'A'..'Z';
-$size = 6;
 @incidence_matrix = (
 [0,0,0,0,1,0],
 [0,0,1,1,1,0],
@@ -46,6 +45,7 @@ $size = 6;
 [1,1,0,0,0,0],
 [0,0,0,1,0,0]
 );
+$size = scalar @incidence_matrix;
 $labels = substr $letters, 0, $size;
 @label_map = split(//, $labels);
 
@@ -71,9 +71,9 @@ $shuffled_graph_pic = GRpic_graph_labels($shuffled_graph,$numbers);
 for (my $i = 0; $i < $size; $i++) {
     push(@ans_list,ans_rule(10));
 }
-push(@iso_list,["Vertices of Graph 2", split(//, $numbers)],["Vertices of Graph 1",@ans_list]);
+push(@iso_list,["Graph 2 vertices:", split(//, $numbers)],["Graph 1 vertices:",@ans_list]);
 
-$iso_table = DataTable(~~@iso_list, horizontalrules => 1, padding => [ 0.75,0.75 ] );
+$iso_table = DataTable(~~@iso_list, horizontalrules => 1, padding => [ 0.5,0.5 ] );
 
 ####################
 # TEXT (QUESTION + OPTIONAL SOLUTION) 
