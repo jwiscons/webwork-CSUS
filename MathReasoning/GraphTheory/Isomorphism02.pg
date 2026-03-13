@@ -1,0 +1,101 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/12/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+### Setup: build on graph on 6 vertices with no automorphisms (so there is a unique answer)
+$letters = join '', 'A'..'Z';
+@incidence_matrix = (
+[0,1,1,0,1,0,0,1],
+[1,0,1,0,0,0,0,0],
+[1,1,0,1,0,0,0,0],
+[0,0,1,0,1,0,0,0],
+[1,0,0,1,0,1,0,0],
+[0,0,0,0,1,0,1,0],
+[0,0,0,0,0,1,0,1],
+[1,0,0,0,0,0,1,0]
+);
+$size = scalar @incidence_matrix;
+$labels = substr $letters, 0, $size;
+@label_map = split(//, $labels);
+
+$graph = GRgraph_matrix(@incidence_matrix);
+$graph_pic = GRpic_graph_labels($graph,$labels);
+
+### Permute the edges
+my ($i, $j);
+@shuffled_matrix = ();
+@perm = shuffle($size);
+for ($i = 0; $i < $size; $i++) {
+	for ($j = 0; $j < $size; $j++) {
+		$shuffled_matrix[ $perm[$i] ][ $perm[$j] ] = $incidence_matrix[$i][$j];
+	}
+}
+$shuffled_graph = GRgraph_matrix(@shuffled_matrix);
+$numbers = join '', 1..$size;
+$shuffled_graph_pic = GRpic_graph_labels($shuffled_graph,$numbers);
+
+### build isomorphism table
+@iso_list = ();
+@ans_list = ();
+for (my $i = 0; $i < $size; $i++) {
+    push(@ans_list,ans_rule(10));
+}
+push(@iso_list,["Graph 2 vertices:", split(//, $numbers)],["Graph 1 vertices:",@ans_list]);
+
+$iso_table = DataTable(~~@iso_list, horizontalrules => 1, padding => [ 0.5,0.5 ] );
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+Decribe an isomorphism between the two graphs by assigning to each vertex in the second graph the corresponding vertex letter from the first graph.
+
+>> [@ Plot($graph_pic, tex_size => 400) @]*
+[@ Plot($shuffled_graph_pic, tex_size => 400) @]* <<
+
+[$iso_table]*
+
+END_PGML
+
+@invperm = ();
+for (my $i = 0; $i < $size; $i++) {	
+	$invperm[$perm[$i]] = $i;
+}
+for (my $i = 0; $i < $size; $i++) {
+  ANS(str_cmp($label_map[$invperm[$i]],filters =>['remove_whitespace','ignore_case']));
+}
+
+ENDDOCUMENT();
