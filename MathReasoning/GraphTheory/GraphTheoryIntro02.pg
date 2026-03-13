@@ -35,9 +35,9 @@ loadMacros(
 
 $showPartialCorrectAnswers = 1;
 
-### Setup: build random graph on 5 vertices
-$letters = join '', 'A'..'Z';
+### Setup: build random graph on 6 vertices
 $size = 6;
+$letters = join '', 'A'..'Z';
 $labels = substr $letters, 0, $size;
 @label_map = split(//, $labels);
 
