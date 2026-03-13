@@ -35,16 +35,16 @@ loadMacros(
 
 $showPartialCorrectAnswers = 1;
 
-### Setup: build random graph on 5 vertices
+### Setup: build on graph on 6 vertices with no automorphisms (so there is a unique answer)
 $letters = join '', 'A'..'Z';
 $size = 6;
 @incidence_matrix = (
-[0,0,0,0,1,1],
+[0,0,0,0,1,0],
 [0,0,1,1,1,0],
 [0,1,0,1,0,0],
 [0,1,1,0,0,1],
 [1,1,0,0,0,0],
-[1,0,0,1,0,0]
+[0,0,0,1,0,0]
 );
 $labels = substr $letters, 0, $size;
 @label_map = split(//, $labels);
@@ -65,18 +65,35 @@ $shuffled_graph = GRgraph_matrix(@shuffled_matrix);
 $numbers = join '', 1..$size;
 $shuffled_graph_pic = GRpic_graph_labels($shuffled_graph,$numbers);
 
+### build isomorphism table
+@iso_list = ();
+@ans_list = ();
+for (my $i = 0; $i < $size; $i++) {
+    push(@ans_list,ans_rule(10));
+}
+push(@iso_list,["Vertices of Graph 2", split(//, $numbers)],["Vertices of Graph 1",@ans_list]);
+
+$iso_table = DataTable(~~@iso_list, horizontalrules => 1, padding => [ 0.75,0.75 ] );
 
 ####################
 # TEXT (QUESTION + OPTIONAL SOLUTION) 
 ####################
 BEGIN_PGML
+Decribe an isomorphism between the two graphs by assigning to each vertex in the second graph the corresponding vertex letter from the first graph.
 
-[@ Plot($graph_pic, tex_size => 400) @]*
-[@ Plot($shuffled_graph_pic, tex_size => 400) @]*
+>> [@ Plot($graph_pic, tex_size => 400) @]*
+[@ Plot($shuffled_graph_pic, tex_size => 400) @]* <<
+
+[$iso_table]*
 
 END_PGML
 
-
-
+@invperm = ();
+for (my $i = 0; $i < $size; $i++) {	
+	$invperm[$perm[$i]] = $i;
+}
+for (my $i = 0; $i < $size; $i++) {
+  ANS(str_cmp($label_map[$invperm[$i]],filters =>['remove_whitespace','ignore_case']));
+}
 
 ENDDOCUMENT();
