@@ -1,0 +1,135 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory','walk','path','circuit')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/14/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl",
+    "parserRadioButtons.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+### Setup: build on graph on with no automorphisms (so there is a unique answer)
+$letters = join '', 'A'..'Z';
+@incidence_matrix = (
+[0,1,1,0,1,0,0,1],
+[1,0,1,0,0,0,0,0],
+[1,1,0,1,0,0,0,0],
+[0,0,1,0,1,0,0,0],
+[1,0,0,1,0,1,0,0],
+[0,0,0,0,1,0,1,0],
+[0,0,0,0,0,1,0,1],
+[1,0,0,0,0,0,1,0]
+);
+$size = scalar @incidence_matrix;
+$labels = substr $letters, 0, $size;
+@label_map_initial = split(//, $labels);
+@label_map = ();
+
+$graph = GRgraph_matrix(@incidence_matrix);
+
+### Permute the edges
+my ($i, $j);
+@shuffled_matrix = ();
+@perm = shuffle($size);
+for ($i = 0; $i < $size; $i++) {
+	for ($j = 0; $j < $size; $j++) {
+		$shuffled_matrix[ $perm[$i] ][ $perm[$j] ] = $incidence_matrix[$i][$j];
+	}
+    $label_map[$i] = $label_map_initial[$perm[$i]];
+}
+$shuffled_graph = GRgraph_matrix(@shuffled_matrix);
+$shuffled_graph_pic = GRpic_graph_labels($shuffled_graph,$labels);
+
+### Build questions
+@sequences=();
+@radios=();
+$sequences[0] = "$label_map[7] \rightarrow $label_map[0] \rightarrow $label_map[2] \rightarrow $label_map[1]\rightarrow $label_map[0]\rightarrow $label_map[7]";
+$radios[0] = RadioButtons(
+    [ 'a walk', 'a path', 'a circuit', 'none of these' ],
+    'a walk'
+);
+$sequences[1] = "$label_map[1] \rightarrow $label_map[0] \rightarrow $label_map[4] \rightarrow $label_map[5]";
+$radios[1] = RadioButtons(
+    [ 'a walk', 'a path', 'a circuit', 'none of these' ],
+    'a path'
+);
+$sequences[2] = "$label_map[7] \rightarrow $label_map[0] \rightarrow $label_map[2] \rightarrow $label_map[1]\rightarrow $label_map[0] \rightarrow $label_map[4]";
+$radios[2] = RadioButtons(
+    [ 'a walk', 'a path', 'a circuit', 'none of these' ],
+    'a path'
+);
+$sequences[3] = "$label_map[3] \rightarrow $label_map[4] \rightarrow $label_map[0] \rightarrow $label_map[2] \rightarrow $label_map[3]";
+$radios[3] = RadioButtons(
+    [ 'a walk', 'a path', 'a circuit', 'none of these' ],
+    'a circuit'
+);
+$sequences[4] = "$label_map[6] \rightarrow $label_map[5] \rightarrow $label_map[4] \rightarrow $label_map[0] \rightarrow $label_map[6]";
+$radios[4] = RadioButtons(
+    [ 'a walk', 'a path', 'a circuit', 'none of these' ],
+    'none of these'
+);
+
+$num_questions = 5;
+@perm = shuffle($num_questions);
+@questions_radio = ();
+for ($i = 0; $i < $num_questions; $i++) {
+    push(@questions_radio,[$sequences[$perm[$i]],$radios[$perm[$i]] ]);
+}
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+Consider the following graph. 
+
+>> [@ Plot($shuffled_graph_pic, tex_size => 400) @]* <<
+
+Classify each sequence of vertices as a _walk_, _path_, _circuit_, or none of these. Select the *most specific* answer.
+
+1. The sequence [` [$questions_radio[0][0]] `] is
+[_]{$questions_radio[0][1]}
+
+1. The sequence [` [$questions_radio[1][0]] `] is
+[_]{$questions_radio[1][1]}
+
+1. The sequence [` [$questions_radio[2][0]] `] is
+[_]{$questions_radio[2][1]}
+
+1. The sequence [` [$questions_radio[3][0]] `] is
+[_]{$questions_radio[3][1]}
+
+1. The sequence [` [$questions_radio[4][0]] `] is
+[_]{$questions_radio[4][1]}
+
+END_PGML
+
+
+ENDDOCUMENT();
