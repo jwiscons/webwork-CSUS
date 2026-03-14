@@ -62,7 +62,7 @@ for (my $i = 0; $i < $size; $i++) {
 }
 
 ### build connection table
-@connection_list = (["Vertices", "Connections"]);
+@connection_list = (["Vertex", "Connections"]);
 for (my $i = 0; $i < $size; $i++) {
     push(@connection_list,[$label_map[$i], $neighbors[$i]]);
 }
