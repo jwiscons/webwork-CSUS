@@ -2,12 +2,12 @@
 ## Graph Theory
 ## ENDDESCRIPTION
 
-## KEYWORDS('graph theory')
+## KEYWORDS('graph theory','isomorphism')
 
 ## DBsubject('')
 ## DBchapter('')
 ## DBsection('')
-## Date('03/12/2026')
+## Date('03/13/2026')
 ## Author('Joshua Wiscons')
 ## Institution('Sacramento State')
 
@@ -33,9 +33,9 @@ loadMacros(
 # SET UP 
 ####################
 
-$showPartialCorrectAnswers = 1;
+$showPartialCorrectAnswers = 0;
 
-### Setup: build random graph on 6 vertices
+### Setup: build graph on 6 vertices
 @incidence_matrix = (
 [0,0,1,1,1,1],
 [0,0,1,1,0,1],
@@ -44,9 +44,9 @@ $showPartialCorrectAnswers = 1;
 [1,0,0,0,0,1],
 [1,1,0,0,1,0]
 );
-$size = scalar @incidence_matrix;
+$size = scalar(@incidence_matrix);
 $letters = join '', 'A'..'Z';
-$labels = substr($letters, 0, $size);
+$labels = ' ' x $size;
 $orig_graph = GRgraph_matrix(@incidence_matrix);
 $orig_graph_pic = GRpic_graph_labels($orig_graph,$labels);
 
@@ -55,7 +55,7 @@ $iso_graph1 =  GRshuffledgraph_graph($orig_graph);
 $iso_graph2 =  GRshuffledgraph_graph($orig_graph);
     
 ### build nonisomorphic graphs
-@alt_incidence = (
+@alt_incidence_matrix = (
 [0,0,1,1,1,1],
 [0,0,1,1,0,0],
 [1,1,0,1,0,1],
@@ -64,7 +64,7 @@ $iso_graph2 =  GRshuffledgraph_graph($orig_graph);
 [1,0,1,0,1,0]
 );
 $noniso_graph1 = GRshuffledgraph_graph(GRgraph_matrix(@alt_incidence_matrix));
-@alt_incidence = (
+@alt_incidence_matrix = (
 [0,0,1,1,1,1],
 [0,0,1,0,0,1],
 [1,1,0,1,0,0],
