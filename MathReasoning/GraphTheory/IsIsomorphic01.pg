@@ -35,14 +35,13 @@ loadMacros(
 
 $showPartialCorrectAnswers = 0;
 
-### Setup: build graph on 6 vertices
+### Setup: build graph on 5 vertices
 @incidence_matrix = (
-[0,0,1,1,1,1],
-[0,0,1,1,0,1],
-[1,1,0,1,0,0],
-[1,1,1,0,0,0],
-[1,0,0,0,0,1],
-[1,1,0,0,1,0]
+[0,1,1,0,1],
+[1,0,1,0,0],
+[1,1,0,0,0],
+[0,0,0,0,1],
+[1,0,0,1,0]
 );
 $size = scalar(@incidence_matrix);
 $letters = join '', 'A'..'Z';
@@ -56,21 +55,19 @@ $iso_graph2 =  GRshuffledgraph_graph($orig_graph);
     
 ### build nonisomorphic graphs
 @alt_incidence_matrix = (
-[0,0,1,1,1,1],
-[0,0,1,1,0,0],
-[1,1,0,1,0,1],
-[1,1,1,0,0,0],
-[1,0,0,0,0,1],
-[1,0,1,0,1,0]
+[0,1,1,0,1],
+[1,0,1,0,0],
+[1,1,0,1,0],
+[0,0,1,0,0],
+[1,0,0,0,0]
 );
 $noniso_graph1 = GRshuffledgraph_graph(GRgraph_matrix(@alt_incidence_matrix));
 @alt_incidence_matrix = (
-[0,0,1,1,1,1],
-[0,0,1,0,0,1],
-[1,1,0,1,0,0],
-[1,0,1,0,1,0],
-[1,0,0,1,0,1],
-[1,1,0,0,1,0]
+[0,1,0,0,1],
+[1,0,1,0,0],
+[0,1,0,1,0],
+[0,0,1,0,1],
+[1,0,0,1,0]
 );
 $noniso_graph2 = GRshuffledgraph_graph(GRgraph_matrix(@alt_incidence_matrix));
 
@@ -90,15 +87,16 @@ push(@graph_pics,
 ####################
 BEGIN_PGML
 
-Which of the following graphs below corresponds to the table of vertices and  connections?
+Consider the following graph.
 
 >> [@ Plot($orig_graph_pic, tex_size => 400) @]* <<
 
-[$table]*
+Which of the graphs below are isomophic to the graph above? _Check all that are._
+
+>> [$table]* <<
 
 END_PGML
 
 $ans_checker;
-
 
 ENDDOCUMENT();
