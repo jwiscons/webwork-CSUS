@@ -35,7 +35,7 @@ loadMacros(
 
 $showPartialCorrectAnswers = 1;
 
-### Setup: build on graph on with no automorphisms (so there is a unique answer)
+### Setup: build graph on with no automorphisms (so there is a unique answer). Graph is then randomly shuffled.
 $letters = join '', 'A'..'Z';
 @incidence_matrix = (
 [0,0,0,0,1,0],
