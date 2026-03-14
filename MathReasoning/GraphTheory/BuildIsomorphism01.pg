@@ -48,6 +48,9 @@ $letters = join '', 'A'..'Z';
 $size = scalar @incidence_matrix;
 $labels = substr $letters, 0, $size;
 @label_map = split(//, $labels);
+for (my $i = 0; $i < $size; $i++) {
+    Context()->strings->add($label_map[$i]=>{});
+}
 
 $graph = GRgraph_matrix(@incidence_matrix);
 $graph_pic = GRpic_graph_labels($graph,$labels);
@@ -93,7 +96,8 @@ for (my $i = 0; $i < $size; $i++) {
 	$invperm[$perm[$i]] = $i;
 }
 for (my $i = 0; $i < $size; $i++) {
-  ANS(str_cmp($label_map[$invperm[$i]],filters =>['remove_whitespace','ignore_case']));
+    ANS(String($label_map[$invperm[$i]])->cmp());
 }
+
 
 ENDDOCUMENT();
