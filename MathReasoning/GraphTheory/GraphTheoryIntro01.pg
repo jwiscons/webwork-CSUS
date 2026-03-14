@@ -68,7 +68,7 @@ for (my $i = 0; $i < $size; $i++) {
     push(@connection_list,[$label_map[$i], ans_rule(10)]);
 }
 $connection_table = DataTable(~~@connection_list,
-horizontalrules => 1
+horizontalrules => 1, padding => [ 0.5,0.5 ]
 );
 
 
@@ -77,9 +77,9 @@ horizontalrules => 1
 ####################
 BEGIN_PGML
 
-Consider the graph given below.
+Consider the following graph.
 
-[@ Plot($graph_pic, tex_size => 400) @]*
+>> [@ Plot($graph_pic, tex_size => 400) @]* <<
 
 Complete the table by listing the vertices connected to each vertex. _Each answer should be a comma-separated list of letters._
 
