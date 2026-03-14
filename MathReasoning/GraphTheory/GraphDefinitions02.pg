@@ -1,0 +1,94 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory','degree','order')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/14/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl",
+    "parserRadioButtons.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+Context("Numeric");
+$showPartialCorrectAnswers = 1;
+
+### Setup: build graph with interesting degree set. Graph is then randomly shuffled.
+$letters = join '', 'A'..'Z';
+@incidence_matrix = (
+[0,1,1,1,1,0],
+[1,0,1,0,0,1],
+[1,1,0,0,0,1],
+[1,0,0,0,0,0],
+[1,0,0,0,0,0],
+[0,1,1,0,0,0]
+);
+$size = scalar @incidence_matrix;
+$labels = substr $letters, 0, $size;
+@label_map = split(//, $labels);
+
+$graph = GRgraph_matrix(@incidence_matrix);
+$shuffled_graph = GRshuffledgraph_graph($graph);
+$shuffled_graph_pic = GRpic_graph_labels($shuffled_graph,$labels);
+
+### build degree table
+@degree_table_list = (["Vertex", "Order"]);
+for (my $i = 0; $i < $size; $i++) {
+    push(@degree_table_list,[$label_map[$i], ans_rule(10)]);
+}
+$degree_table = DataTable(~~@degree_table_list,
+horizontalrules => 1, padding => [ 0.5,0.5 ]
+);
+
+### build answers
+@degrees = ();
+@shuffled_matrix = GRmatrix_graph($shuffled_graph);
+for (my $i = 0; $i < $size; $i++) {
+    $degrees[$i] = VertDegree($i, @shuffled_matrix)
+}
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML 
+
+Consider the following graph.
+
+>> [@ Plot($shuffled_graph_pic, tex_size => 400) @]* <<
+
+Complete the table by listing the order (i.e. degree) of each vertex. 
+
+[$degree_table]*
+
+END_PGML
+
+for (my $i = 0; $i < $size; $i++) {
+  ANS(Real($degrees[$i])->cmp());
+}
+
+
+ENDDOCUMENT();
