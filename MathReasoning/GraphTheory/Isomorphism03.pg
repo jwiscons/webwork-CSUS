@@ -1,0 +1,104 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/12/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"niceTables.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+### Setup: build random graph on 6 vertices
+@incidence_matrix = (
+[0,0,1,1,1,1],
+[0,0,1,1,0,1],
+[1,1,0,1,0,0],
+[1,1,1,0,0,0],
+[1,0,0,0,0,1],
+[1,1,0,0,1,0]
+);
+$size = scalar @incidence_matrix;
+$letters = join '', 'A'..'Z';
+$labels = substr($letters, 0, $size);
+$orig_graph = GRgraph_matrix(@incidence_matrix);
+$orig_graph_pic = GRpic_graph_labels($orig_graph,$labels);
+
+### build isomorphic graphs
+$iso_graph1 =  GRshuffledgraph_graph($orig_graph);
+$iso_graph2 =  GRshuffledgraph_graph($orig_graph);
+    
+### build nonisomorphic graphs
+@alt_incidence = (
+[0,0,1,1,1,1],
+[0,0,1,1,0,0],
+[1,1,0,1,0,1],
+[1,1,1,0,0,0],
+[1,0,0,0,0,1],
+[1,0,1,0,1,0]
+);
+$noniso_graph1 = GRshuffledgraph_graph(GRgraph_matrix(@alt_incidence_matrix));
+@alt_incidence = (
+[0,0,1,1,1,1],
+[0,0,1,0,0,1],
+[1,1,0,1,0,0],
+[1,0,1,0,1,0],
+[1,0,0,1,0,1],
+[1,1,0,0,1,0]
+);
+$noniso_graph2 = GRshuffledgraph_graph(GRgraph_matrix(@alt_incidence_matrix));
+
+### build alternative graphs, picture array, and checkbox table
+@graph_pics = ();
+push(@graph_pics, 
+    GRpic_graph_labels($iso_graph1,$labels),
+    GRpic_graph_labels($iso_graph2,$labels),
+    GRpic_graph_labels($noniso_graph1,$labels),
+    GRpic_graph_labels($noniso_graph2,$labels)
+    );
+
+($table, $ans_checker) = checkbox_table([@graph_pics],[1,1,0,0], geometry=>[2,2]);
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Which of the following graphs below corresponds to the table of vertices and  connections?
+
+>> [@ Plot($orig_graph_pic, tex_size => 400) @]* <<
+
+[$table]*
+
+END_PGML
+
+$ans_checker;
+
+
+ENDDOCUMENT();
