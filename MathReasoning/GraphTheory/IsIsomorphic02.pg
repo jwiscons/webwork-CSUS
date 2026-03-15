@@ -94,7 +94,7 @@ Consider the following graph.
 
 >> [@ Plot($orig_graph_pic, tex_size => 400) @]* <<
 
-Which of the graphs below are isomophic to the graph above? _Check all that are._
+Which of the graphs below are isomophic to the graph above? _Check all that apply._
 
 >> [$table]* <<
 
