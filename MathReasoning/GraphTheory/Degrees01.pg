@@ -1,0 +1,66 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory','degree','order')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/14/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+Context("Numeric");
+$showPartialCorrectAnswers = 1;
+
+$num_degree_4 = 1;
+$num_degree_2 = random(2,5,1);
+$num_degree_3 = random(1,2,1);
+$num_degree_1 = 4 - $num_degree_3;
+$size = $num_degree_4 + $num_degree_3 + $num_degree_2 + $num_degree_1;
+$num_edges = (4*$num_degree_4 + 3*$num_degree_3 + 2*$num_degree_2 + $num_degree_1)/2;
+
+$common_degree2 = 3;
+$size2 = random(6,14,2);
+$num_edges2 = $common_degree2*$size2/2;
+    
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML 
+
+1. Suppose a graph consistent of [$size2] vertices and every vertex has order (degree) [$common_degree2]. Determine the number of total edges in this graph: [_]{$num_edges2}
+
+1. Suppose a graph consistent of [$size] vertices. Further suppose:
+    - the number of vertices of order 4 is: [$num_degree_4] 
+    - the number of vertices of order 3 is: [$num_degree_3] 
+    - the number of vertices of order 2 is: [$num_degree_2] 
+    - the number of vertices of order 1 is: [$num_degree_1] 
+    
+    Determine the number of total edges in this graph: [_]{$num_edges}
+
+END_PGML
+
+
+ENDDOCUMENT();
