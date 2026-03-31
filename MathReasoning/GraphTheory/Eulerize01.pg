@@ -1,0 +1,78 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory','Eulerization')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/31/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+
+### Build graph
+@incidence_matrix = (
+[0,1,0,0,0,0,0,0,0,1],
+[1,0,1,0,1,0,0,0,0,0],
+[0,1,0,1,0,0,0,0,0,0],
+[0,0,1,0,1,0,0,0,0,0],
+[0,1,0,1,0,0,0,0,1,1],
+[0,0,0,0,0,0,1,1,0,0],
+[0,0,0,0,0,1,0,1,0,0],
+[0,0,0,0,0,1,1,0,1,0],
+[0,0,0,0,1,0,0,1,0,1],
+[1,0,0,0,1,0,0,0,1,0]
+);
+$min_edges_for_EC = 3;
+$min_edges_for_EP = 1;
+
+$size = scalar(@incidence_matrix);
+$graph = GRgraph_matrix(@incidence_matrix);
+$letters = join '', 'A'..'Z';
+$labels = substr $letters, 0, $size;
+$graph_pic = GRpic_graph_labels($graph,$labels);
+
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+The graph below illustrates the roads that a mail carrier needs to travel.
+
+>> [@ Plot($graph_pic, tex_size => 400) @]* <<
+
+1. The mail carrier wants to start and end their route at vertex E, and they want to avoid, if possible, backtracking down a street they already covered. What is the fewest number of backtracks needed for the mail carrier to complete their route?
+[_]{$min_edges_for_EC}
+
+1. Now suppose that the mail carrier is willing to start at any vertex and also willing to end at a different vertex then they started at. In this case, what is the fewest number of backtracks needed for the mail carrier to complete their route?
+[_]{$min_edges_for_EP}
+
+END_PGML
+
+ENDDOCUMENT();
