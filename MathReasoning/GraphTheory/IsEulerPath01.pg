@@ -35,7 +35,7 @@ loadMacros(
 $showPartialCorrectAnswers = 0;
 
 ### setup 
-@graph_pics = (); #indices 0 and 1 hold correct answers
+@graph_pics = (); #indices 0,1,2 hold correct answers
 
 ### build graphs with Euler paths
 ### one is hardcoded, other is random
@@ -48,6 +48,7 @@ $showPartialCorrectAnswers = 0;
 [1,0,1,0,0,0]
 );
 push(@graph_pics,GRpic_graph_labels(GRgraph_matrix(@incidence_matrix),' ' x 6));
+push(@graph_pics,GRpic_graph_labels(GReulercircuit_size(6),' ' x 6));
 push(@graph_pics,GRpic_graph_labels(GReulertrail_size(8),' ' x 8));
 
 
@@ -64,11 +65,10 @@ push(@graph_pics,GRpic_graph_labels(GReulertrail_size(8),' ' x 8));
 push(@graph_pics,GRpic_graph_labels(GRgraph_matrix(@incidence_matrix),' ' x 6));
 push(@graph_pics,GRpic_graph_labels(GRnoneuler_size(6),' ' x 6));
 push(@graph_pics,GRpic_graph_labels(GRnoneuler_size(8),' ' x 8));
-push(@graph_pics,GRpic_graph_labels(GRnoneuler_size(8),' ' x 8));
 
 
 ### build checkbox table
-($table, $ans_checker) = checkbox_table([@graph_pics],[1,1,0,0,0,0], geometry=>[3,2]);
+($table, $ans_checker) = checkbox_table([@graph_pics],[1,1,1,0,0,0], geometry=>[3,2]);
 
 ####################
 # TEXT (QUESTION + OPTIONAL SOLUTION) 
