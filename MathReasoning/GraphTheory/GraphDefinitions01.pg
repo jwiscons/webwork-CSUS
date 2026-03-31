@@ -29,6 +29,7 @@ loadMacros(
     "parserRadioButtons.pl"
 );
 
+COMMENT('This question allows paths to have repeated vertices.');
 
 ####################
 # SET UP 
