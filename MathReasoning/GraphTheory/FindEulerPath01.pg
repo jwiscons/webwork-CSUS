@@ -1,0 +1,104 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory','Euler path')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/31/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+COMMENT('Adapted from OpenProblemLibrary/NAU/setGraphTheory/FindEulerTrail.pg');
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+
+### Build graph
+@incidence_matrix = (
+[0,1,1,0,0,1],
+[1,0,1,0,0,0],
+[1,1,0,1,0,1],
+[0,0,1,0,1,0],
+[0,0,0,1,0,1],
+[1,0,1,0,1,0]
+);
+$size = scalar(@incidence_matrix);
+$graph = GRgraph_matrix(@incidence_matrix);
+$letters = join '', 'A'..'Z';
+$labels = substr $letters, 0, $size;
+$graph_pic = GRpic_graph_labels($graph,$labels);
+
+
+### Build answer checker 
+### Copied from: OpenProblemLibrary/NAU/setGraphTheory/FindEulerTrail.pg
+
+$evalfunc = sub {
+  my $orig_in = shift;
+  
+  my($val, @vert, $intex, $score, $message, @vertlabels);
+  @vertlabels = GRvertexlist_edgesstr_labels($orig_in,$labels);
+
+  foreach $val (@vertlabels){
+    push @vert, GRvertex_label_labels($val, $labels);
+  }
+
+  if ($orig_in eq '' || scalar @vertlabels < 2){
+    $score = 0;
+  } else {
+    ($score, $message) = GRiseulertrail_graph_vertices($graph, @vert);
+  }
+
+  $intex = join ',', @vertlabels;
+  
+  my $ans_hash = new AnswerHash;
+  $ans_hash->setKeys(
+  score => $score,
+  correct_ans => '',
+  student_ans => "$orig_in",
+  preview_latex_string => $intex, 
+  # original_student_ans => $orig_in,
+  ans_message => ($score) ? '' : $message
+  );
+  return $ans_hash;
+};
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Consider the following graph.
+
+>> [@ Plot($graph_pic, tex_size => 400) @]* <<
+
+Describe an Euler path through the graph by listing the vertices in the order visited. _Your answer should be a comma-separated list of letters._
+[_]
+
+END_PGML
+
+ANS($evalfunc);
+
+ENDDOCUMENT();
