@@ -1,0 +1,86 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory','Euler path')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/31/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 0;
+
+### setup 
+@graph_pics = (); #indices 0 and 1 hold correct answers
+
+### build graphs with Euler paths
+### one is hardcoded, other is random
+@incidence_matrix = (
+[0,1,1,0,0,1],
+[1,0,1,0,0,0],
+[1,1,0,1,1,1],
+[0,0,1,0,1,0],
+[0,0,1,1,0,0],
+[1,0,1,0,0,0]
+);
+push(@graph_pics,GRpic_graph_labels(GRgraph_matrix(@incidence_matrix),' ' x 6));
+push(@graph_pics,GRpic_graph_labels(GReulertrail_size(8),' ' x 8));
+
+
+### build graphs without Euler paths
+### one is hardcoded, other three are random
+@incidence_matrix = (
+[0,1,1,0,0,1],
+[1,0,1,0,0,0],
+[1,1,0,1,1,1],
+[0,0,1,0,1,0],
+[0,0,1,1,0,1],
+[1,0,1,0,1,0]
+);
+push(@graph_pics,GRpic_graph_labels(GRgraph_matrix(@incidence_matrix),' ' x 6));
+push(@graph_pics,GRpic_graph_labels(GRnoneuler_size(6),' ' x 6));
+push(@graph_pics,GRpic_graph_labels(GRnoneuler_size(8),' ' x 8));
+push(@graph_pics,GRpic_graph_labels(GRnoneuler_size(8),' ' x 8));
+
+
+### build checkbox table
+($table, $ans_checker) = checkbox_table([@graph_pics],[1,1,0,0,0,0], geometry=>[3,2]);
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Which of the graphs below have an Euler path? _Check all that apply._
+
+>> [$table]* <<
+
+END_PGML
+
+$ans_checker;
+
+ENDDOCUMENT();
