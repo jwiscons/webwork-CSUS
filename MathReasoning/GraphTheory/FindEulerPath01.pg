@@ -94,7 +94,7 @@ Consider the following graph.
 
 >> [@ Plot($graph_pic, tex_size => 400) @]* <<
 
-Describe an Euler path through the graph by listing the vertices in the order visited. _Your answer should be a comma-separated list of letters._
+Describe an *Euler path* through the graph by listing the vertices in the order visited. _Your answer should be a list of letters._
 [_]
 
 END_PGML
