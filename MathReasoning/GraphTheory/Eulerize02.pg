@@ -1,0 +1,86 @@
+## DESCRIPTION
+## Graph Theory
+## ENDDESCRIPTION
+
+## KEYWORDS('graph theory','Eulerization')
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('03/31/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+
+####################
+# SET UP 
+####################
+
+$showPartialCorrectAnswers = 1;
+
+### graph parmeters and answers
+$rows = 3;
+$cols = 6;
+
+$min_edges_for_EC = 7;
+$min_edges_for_EP = 4;
+
+### Build graph
+my ($i, $j);
+$gap  = 1;
+$pic  = init_graph(-$gap, -$gap, $cols*$gap, $rows*$gap, 'pixels' => [ $cols*$gap*50, $rows*$gap*50 ]);
+
+
+for ($j = 0; $j < $rows; $j++) {
+	for ($i = 0; $i < $cols; $i++) {
+		$pic->stamps(closed_circle($i * $gap,$j * $gap, "blue"));
+	}
+}
+for ($j = 0; $j < $rows; $j++) {
+	for ($i = 0; $i < $cols; $i++) {
+		$pic->moveTo($i * $gap,$j * $gap);
+		if($j != $rows-1) {
+			$pic->lineTo($i * $gap,($j+1) * $gap, 1);
+		}
+        $pic->moveTo($i * $gap,$j * $gap);
+		if($i != $cols-1) {
+			$pic->lineTo(($i + 1)* $gap,$j * $gap, 1);
+		}
+	}
+}
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+The graph below illustrates roads in a city.
+
+>> [@ Plot($pic, tex_size => 400) @]* <<
+
+1. Assuming you want to start and end at the same spot, what is the fewest number of backtracks needed in order to go down every street at least once?
+[_]{$min_edges_for_EC}
+
+1. If you are allowed to start and end wherever you want, what is the fewest number of backtracks needed in order to go down every street at least once?
+[_]{$min_edges_for_EP}
+
+
+END_PGML
+
+ENDDOCUMENT();
