@@ -1,0 +1,72 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('sequence')
+
+## DBsubject(Algebra)
+## DBchapter(Finite sequences and series)
+## DBsection(Arithmetic)
+## Date('04/24/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+$showPartialCorrectAnswers = 1;
+
+@a1 = (random(2,15,1));
+$d1 = random(7,13,2);
+
+@a2 = (random(30,60,1));
+$d2 = random(-15,-5,1);
+
+@a3 = (random(-5,-2,1));
+$d3 = random(2.5,6.5,1);
+
+$seq_length = 5;
+
+for (my $n = 1; $n < $seq_length; $n++) { 
+	push(@a1, $a1[0] + $n*$d1);
+	push(@a2, $a2[0] + $n*$d2);
+	push(@a3, $a3[0] + $n*$d3);
+}
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Each sequence below is an *arithmetic sequence*. Fill in the missing terms, and give the common difference.
+
+[# 
+[. [`[$a1[0]], [$a1[1]]`], [_]{$a1[2]}[`,`] [_]{$a1[3]}[`,`]  [_]{$a1[4]}[`,\ldots\phantom{xxx}`] .] 
+[. Common difference: [_]{$d1} .]*
+
+[. [_]{$a2[0]}[`, [$a2[1]], [$a2[2]],`] [_]{$a2[3]}[`,`] [_]{$a2[4]}[`,\ldots\phantom{xxx}`] .]
+[. Common difference: [_]{$d2} .]*
+
+[. [`[$a3[0]],`] [_]{$a3[1]}[`,`] [_]{$a3[2]}[`,`] [_]{$a3[3]}[`, [$a3[4]],\ldots\phantom{xxx}`] .]
+[. Common difference: [_]{$d3} .]*
+#]{align => 'll', padding => [ 1,0.5 ]}
+
+END_PGML
+
+ENDDOCUMENT();
