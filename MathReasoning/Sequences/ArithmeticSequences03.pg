@@ -1,0 +1,62 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('sequence')
+
+## DBsubject(Algebra)
+## DBchapter(Finite sequences and series)
+## DBsection(Arithmetic)
+## Date('04/26/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+$showPartialCorrectAnswers = 1;
+
+Context()->flags->set(
+    tolType        => 'absolute',
+    tolerance      => 0.01
+);
+Context()->variables->add(n=>"Real");
+
+$d = 0.07 + random(0,0.1,0.02);
+$seq1 = 75.05 + random(0,1,0.05);
+$seq = Formula("$seq1 + $d (n-1)");
+
+$year_of_ninety = 2000 + ceil((90 - $seq1)/$d + 1);
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Suppose you are modeling the life expectancy in the United States in the 21st century by a sequence [`a_1, a_2, a_3, \ldots `] where [`a_1`] is the life expectancy in 2001, [`a_2`] is the life expectancy in 2002, [`a_3`] is the life expectancy in 2003, and so on. 
+
+Data tells you that the life expectancy in 2001 was [$seq1] and also suggests that the life expectancy is increasing each year by [$d].
+
+
+1. Determine a formula for the life expectancy in the [`n`]th year after 2000: [`a_n = `] [_]{$seq}
+1. What does your model predict the life expectancy to be in 2030: [_]{$seq->eval(n=>30)}
+1. According to your model, in what year will the life expectancy reach 90?: [_]{$year_of_ninety}
+
+END_PGML
+
+ENDDOCUMENT();
