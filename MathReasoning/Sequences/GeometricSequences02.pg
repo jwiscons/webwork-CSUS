@@ -1,0 +1,59 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('sequence')
+
+## DBsubject(Algebra)
+## DBchapter(Finite sequences and series)
+## DBsection(Geometric)
+## Date('04/26/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+$showPartialCorrectAnswers = 1;
+
+Context()->flags->set(
+    tolType        => 'absolute',
+    tolerance      => 0.01
+);
+Context()->variables->add(n=>"Real");
+
+$r = random(3,7,1);
+$seq1 = random(2,9,1);
+$seq = Formula("$seq1 * $r^(n-1)");
+
+$term_num = random(3,4,1);
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Suppose that [`a_1, a_2, a_3, \ldots `] is a *geometric sequence* with [`a_1 = [$seq->eval(n=>1)]`] and [`a_{[$term_num]} = [$seq->eval(n=>$term_num)]`]. 
+
+1. Determine the common ratio: [_]{$r}
+1. Determine a formula for the [`n`]th term: [`a_n = `] [_]{$seq}
+1. Compute the [`10`]th term: [`a_{10} = `] [_]{$seq->eval(n=>10)}
+
+END_PGML
+
+ENDDOCUMENT();
