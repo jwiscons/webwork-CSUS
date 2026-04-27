@@ -51,7 +51,7 @@ BEGIN_PGML
 Suppose that [`a_1, a_2, a_3, \ldots `] is a *geometric sequence* with [`a_1 = [$seq->eval(n=>1)]`] and [`a_{[$term_num]} = [$seq->eval(n=>$term_num)]`]. 
 
 1. Determine the common ratio: [_]{$r}
-1. Determine a formula for the [`n`]th term: [`a_n = `] [_]{$seq}
+1. Determine an explicit formula for the [`n`]th term: [`a_n = `] [_]{$seq}
 1. Compute the [`10`]th term: [`a_{10} = `] [_]{$seq->eval(n=>10)}
 
 END_PGML

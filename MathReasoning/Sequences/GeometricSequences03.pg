@@ -54,7 +54,7 @@ Suppose you are modeling the number of new cases of a particular disease by a se
 
 In 2001, there were [$seq1] cases of the disease reported. Due to the development of a vaccine, data suggests you that the number of new cases each year is  [$r_as_percent]% of the number of new cases in the previous year. 
 
-1. Determine a formula for the number of new cases of the desease in the [`n`]th year after 2000: [`a_n = `] [_]{$seq}
+1. Determine an explicit formula for the number of new cases of the desease in the [`n`]th year after 2000: [`a_n = `] [_]{$seq}
 1. What does your model predict the number of new cases to be in 2015: [_]{$seq->eval(n=>15)}
 
 

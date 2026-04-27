@@ -53,7 +53,7 @@ Suppose you are modeling the life expectancy in the United States in the 21st ce
 Data tells you that the life expectancy in 2001 was [$seq1] and also suggests that the life expectancy is increasing each year by [$d].
 
 
-1. Determine a formula for the life expectancy in the [`n`]th year after 2000: [`a_n = `] [_]{$seq}
+1. Determine an explicit formula for the life expectancy in the [`n`]th year after 2000: [`a_n = `] [_]{$seq}
 1. What does your model predict the life expectancy to be in 2030: [_]{$seq->eval(n=>30)}
 1. According to your model, in what year will the life expectancy reach 90?: [_]{$year_of_ninety}
 
