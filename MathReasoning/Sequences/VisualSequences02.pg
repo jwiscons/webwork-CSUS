@@ -1,0 +1,78 @@
+## DESCRIPTION
+## Visual Sequences
+## ENDDESCRIPTION
+
+## KEYWORDS('sequence')
+
+## DBsubject(Algebra)
+## DBchapter(Finite sequences and series)
+## DBsection(Visual)
+## Date('04/27/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "PGnauGraphtheory.pl"
+);
+
+####################
+# SET UP 
+####################
+$showPartialCorrectAnswers = 1;
+
+@seq = ();
+$gap  = 1;
+
+### Build graphs
+for($pic_num = 0; $pic_num < 3; $pic_num++) {
+    @seq[$pic_num]  = init_graph(-3*$gap+$pic_num*$gap, -3*$gap, 5*$gap+$pic_num*$gap, 5*$gap, 'pixels' => [ 100, 100 ]);
+    for($j = 0; $j < 3; $j++) {
+        $seq[$pic_num]->stamps(closed_circle(0,$j * $gap, "blue"));
+    }
+    for ($i = 0; $i < $pic_num + 1; $i++) {
+    	$seq[$pic_num]->stamps(closed_circle(1 + $i * 2,0 * $gap, "blue"));
+        $seq[$pic_num]->stamps(closed_circle(1 + $i * 2,2 * $gap, "blue"));
+        for($j = 0; $j < 3; $j++) {
+            $seq[$pic_num]->stamps(closed_circle(2 + $i * 2,$j * $gap, "blue"));
+        }
+    }
+}
+
+$final_term = random(20,40,1);
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+Consider the sequence of figures below, and assume the pattern continues.
+
+[# 
+[. [@ Plot($seq[0], tex_size => 400) @]* .] 
+[. [@ Plot($seq[1], tex_size => 400) @]* .]
+[. [@ Plot($seq[2], tex_size => 400) @]* .]*
+[. Figure 1 .] 
+[. Figure 2 .]
+[. Figure 3 .]*
+#]{align => 'lll', padding => [ 0.1,0.5 ]}
+
+1. Think about what Figure 4 would look like. How many dots are in Figure 4: [_]{8+5*(4-1)}
+
+1. Look for a pattern in how you compute the number of dots in each figure, and use that to determine the number of dots  in Figure [$final_term]: [_]{8+5*($final_term-1)}
+
+
+END_PGML
+
+ENDDOCUMENT();
