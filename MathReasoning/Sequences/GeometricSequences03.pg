@@ -1,0 +1,63 @@
+## DESCRIPTION
+## Mathematics of Elections
+## ENDDESCRIPTION
+
+## KEYWORDS('sequence')
+
+## DBsubject(Algebra)
+## DBchapter(Finite sequences and series)
+## DBsection(Geometric)
+## Date('04/26/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+$showPartialCorrectAnswers = 1;
+
+Context()->flags->set(
+    tolType        => 'absolute',
+    tolerance      => 1.0
+);
+Context()->variables->add(n=>"Real");
+
+$r = 0.6 + random(0,0.2,0.05);
+$seq1 = 100000 + random(0,300000,50000);
+$seq = Formula("$seq1 * $r^(n-1)");
+
+$r_as_percent = int($r * 100);
+$cases_in_2015 = $seq->eval(n=>15);
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Suppose you are modeling the number of new cases of a particular disease by a sequence [`a_1, a_2, a_3, \ldots `] where [`a_1`] is the number of new cases in 2001, [`a_2`] is the number of new cases in 2002, [`a_3`] is the number of new cases in 2003, and so on. 
+
+In 2001, there were [$seq1] cases of the disease reported. Due to the development of a vaccine, data suggests you that the number of new cases each year is  [$r_as_percent]% of the number of new cases in the previous year. 
+
+1. Determine a formula for the number of new cases of the desease in the [`n`]th year after 2000: [`a_n = `] [_]{$seq}
+1. What does your model predict the number of new cases to be in 2015: [_]{$seq->eval(n=>15)}
+
+
+END_PGML
+
+ENDDOCUMENT();
