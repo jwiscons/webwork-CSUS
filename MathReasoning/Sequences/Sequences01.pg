@@ -1,0 +1,77 @@
+## DESCRIPTION
+## General Sequences
+## ENDDESCRIPTION
+
+## KEYWORDS('sequence')
+
+## DBsubject(Algebra)
+## DBchapter(Finite sequences and series)
+## Date('04/28/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+$showPartialCorrectAnswers = 1;
+
+Context()->flags->set(
+    tolType        => 'absolute',
+    tolerance      => 0.01
+);
+Context()->variables->add(n=>"Real");
+
+@d_choices = (3, 7, 11, 13, 17, 19);
+$d = $d_choices[random(0, scalar(@d_choices)-1)];
+$first_term = random(30,60,5);
+$seq0 = Formula("$first_term + $d (n-1)");
+
+$r = random(2,3,1);
+$first_term = random(2,5,1);
+$sign = random(-1,1,2);
+$seq1 = Formula("$sign * $first_term * $r**(n-1)");
+
+$first_term = random(3,20,1);
+$seq2 = Formula("$first_term + n^2");
+
+$d = random(-6.5,-1.5,1);
+$first_term = random(100,200,10);
+$seq3 = Formula("$first_term + $d (n-1)");
+
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Fill in the next three terms of each sequence below.
+
+[# 
+[. [`[$seq0->eval(n=>1)], [$seq0->eval(n=>2)], [$seq0->eval(n=>3)], [$seq0->eval(n=>4)],`] [_]{$seq0->eval(n=>5)}[`,`] [_]{$seq0->eval(n=>6)}[`,`] [_]{$seq0->eval(n=>7)}[`,\ldots\phantom{xxx}`] .]*
+    
+[. [`[$seq1->eval(n=>1)], [$seq1->eval(n=>2)], [$seq1->eval(n=>3)], [$seq1->eval(n=>4)],`] [_]{$seq1->eval(n=>5)}[`,`] [_]{$seq1->eval(n=>6)}[`,`] [_]{$seq1->eval(n=>7)}[`,\ldots\phantom{xxx}`] .]*
+
+[. [`[$seq2->eval(n=>1)], [$seq2->eval(n=>2)], [$seq2->eval(n=>3)], [$seq2->eval(n=>4)],`] [_]{$seq2->eval(n=>5)}[`,`] [_]{$seq2->eval(n=>6)}[`,`] [_]{$seq2->eval(n=>7)}[`,\ldots\phantom{xxx}`] .]*
+
+[. [`[$seq3->eval(n=>1)], [$seq3->eval(n=>2)], [$seq3->eval(n=>3)], [$seq3->eval(n=>4)],`] [_]{$seq3->eval(n=>5)}[`,`] [_]{$seq3->eval(n=>6)}[`,`] [_]{$seq3->eval(n=>7)}[`,\ldots\phantom{xxx}`] .]*
+#]{align => 'l', padding => [ 1,0.5 ]}
+
+END_PGML
+
+ENDDOCUMENT();
