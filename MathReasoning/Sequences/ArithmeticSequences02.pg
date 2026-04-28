@@ -37,7 +37,7 @@ Context()->flags->set(
 );
 Context()->variables->add(n=>"Real");
 
-@d_choices = (3, 5, 7, 11, 13, 17, 19);
+@d_choices = (3, 7, 11, 13, 17, 19);
 $d = $d_choices[random(0, scalar(@d_choices)-1)];
 $seq1 = random(2,20,1);
 $seq = Formula("$seq1 + $d (n-1)");
