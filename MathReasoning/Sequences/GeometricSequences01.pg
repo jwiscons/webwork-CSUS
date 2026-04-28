@@ -64,7 +64,7 @@ Each sequence below is a *geometric sequence*. Fill in the missing terms, and gi
 [. [_]{$a2[0]}[`, [$a2[1]], [$a2[2]],`] [_]{$a2[3]}[`,`] [_]{$a2[4]}[`,\ldots\phantom{xxx}`] .]
 [. Common ratio: [_]{$r2} .]*
 
-[. [`[$a3[0]],`] [_]{$a3[1]}[`,`] [_]{$a3[2]}[`,`] [_]{$a3[3]}[`, [$a3[4]],\ldots\phantom{xxx}`] .]
+[. [`[$a3[0]],`] [_]{$a3[1]}[`,[$a3[2]],`] [_]{$a3[3]}[`,`] [_]{$a3[4]}[`,\ldots\phantom{xxx}`] .]
 [. Common ratio: [_]{$r3} .]*
 #]{align => 'll', padding => [ 1,0.5 ]}
 
