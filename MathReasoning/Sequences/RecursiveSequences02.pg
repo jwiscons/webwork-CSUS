@@ -1,0 +1,58 @@
+## DESCRIPTION
+## Arithmetic Sequences
+## ENDDESCRIPTION
+
+## KEYWORDS('sequence')
+
+## DBsubject(Algebra)
+## DBchapter(Finite sequences and series)
+## DBsection(Recursive)
+## Date('05/05/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+);
+
+####################
+# SET UP 
+####################
+$showPartialCorrectAnswers = 1;
+
+$seq_init = random(1,5,1);
+@seq = ($seq_init, 2*$seq_init + 1);
+
+
+$seq_length = 7;
+
+for (my $n = 0; $n < $seq_length-2; $n++) { 
+	push(@seq, $seq[$n] + $seq[$n+1]);
+}
+
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Suppose the sequence [`a_1, a_2, a_3,\ldots`] is recursively defined by [`a_n= a_{n-1} + a_{n-2}`] with [`a_1=[$seq[0]]`] and [`a_2=[$seq[1]]`]. Fill in the first seven terms below.
+
+[# 
+[. [_]{$seq[0]}[`,`] [_]{$seq[1]}[`,`] [_]{$seq[2]}[`,`] [_]{$seq[3]}[`,`] [_]{$seq[4]}[`,`] [_]{$seq[5]}[`,`] [_]{$seq[6]}[`,\ldots\phantom{xxx}`] .]*
+#]{padding => [ 1,0.5 ]}
+
+END_PGML
+
+ENDDOCUMENT();
