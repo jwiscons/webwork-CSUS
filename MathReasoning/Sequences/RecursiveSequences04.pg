@@ -1,0 +1,67 @@
+## DESCRIPTION
+## Geometric Sequences
+## ENDDESCRIPTION
+
+## KEYWORDS('sequence')
+
+## DBsubject(Algebra)
+## DBchapter(Finite sequences and series)
+## DBsection(Recursive)
+## Date('05/07/2026')
+## Author('Joshua Wiscons')
+## Institution('Sacramento State')
+
+
+####################
+# INITIALIZATION 
+####################
+DOCUMENT();
+
+loadMacros(
+	"PGstandard.pl",
+	"PGML.pl",
+	"MathObjects.pl",
+	"PGgraders.pl",
+	"PGcourse.pl",
+    "PGbasicmacros.pl",
+    "niceTables.pl",
+);
+
+####################
+# SET UP 
+####################
+$showPartialCorrectAnswers = 1;
+
+Context()->variables->add(n=>"Real");
+
+## build the sequence: $seq[n] = $seq[n-1] + $func
+## ignore the 0th index
+@seq = (0,random(2,9,1));
+$func = Formula("n+1");
+for (my $n = 2; $n < 7; $n++) { 
+	$seq[$n] = $seq[$n-1] + $func->eval(n=>$n);
+}
+
+####################
+# TEXT (QUESTION + OPTIONAL SOLUTION) 
+####################
+BEGIN_PGML
+
+Consider the sequence [`[$seq[1]], [$seq[2]], [$seq[3]], [$seq[4]], [$seq[5]],\ldots`]. Let [`a_n`] denote the [`n`]th term. 
+
+1. Complete the table below showing how to compute each term from the previous one.
+[# 
+[. Term .] [. Value .] [. Term computed from the previous term .]*{ headerrow => 1 }
+[. [`a_1`] .] [. [$seq[1]] .] [. N/A .]*
+[. [`a_2`] .] [. [$seq[2]] .] [. [`a_2 = a_1 + `] [_]{$func->eval(n=>2)}.]*
+[. [`a_3`] .] [. [$seq[3]] .] [. [`a_3 = a_2 + `] [_]{$func->eval(n=>3)}.]*
+[. [`a_4`] .] [. [$seq[4]] .] [. [`a_4 = a_3 + `] [_]{$func->eval(n=>4)}.]*
+[. [`a_5`] .] [. [$seq[5]] .] [. [`a_5 = a_4 + `] [_]{$func->eval(n=>5)}.]*
+[. [`a_6`] .] [. [_]{$seq[6]} .] [. [`a_6 = a_5 + `] [_]{$func->eval(n=>6)}.]*
+#]{align => '|c|c|c|', padding => [ 0.5,0.5 ], horizontalrules => 1}
+
+1. Use what you found above to write recursive formula for the [`n`]th term: [`a_n = a_{n-1} + `] [_]{$func}
+
+END_PGML
+
+ENDDOCUMENT();
